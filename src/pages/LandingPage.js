@@ -14,7 +14,7 @@ export default function LandingPage() {
 
 
     const onClick = () => {
-        button.current.style.display = 'none';
+        button.current.style.opacity = '0';
 
         circle_left.current.style.transition = 'all ease 2s';
         circle_middle.current.style.transition = 'all ease 2s';
