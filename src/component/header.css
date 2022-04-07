@@ -1,0 +1,103 @@
+body{
+    background-color: #232332;
+}
+
+
+.hamburgerbtn{
+    background-color: #232332;
+    height: 40px;
+    width:40px;
+    position:absolute;
+    top:20px;
+    left:30px;
+}
+.hamburgerimg{
+    height: 50px;
+    width:50px;
+    position:relative;
+    top:-3px;
+    left:-10px
+}
+
+.circleparent{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border-bottom:1px solid white;
+}
+
+
+.circle1{
+    background-color: #ff0043;
+    float:left;
+    width:50px;
+    height: 50px;
+    border-radius: 75px;
+   
+}
+.circle2{
+    background-color: #d422ff;
+    float:left;
+    width:50px;
+    height: 50px;
+    border-radius: 75px;
+}
+.circle3{
+    background-color: #2737ff;
+    float:left;
+    width:50px;
+    height: 50px;
+    border-radius: 75px;
+}
+
+.searchparent{
+    position:absolute;
+    left:20px;
+    top:0px;
+}
+.searchbox{
+   position: absolute;
+    left:1200px;
+    top:30px;
+    background-color: #232332;
+    border:1px solid white;
+    border-radius: 10px;
+    height:30px;
+    width:200px;
+}
+
+.searchbtn{
+    background-color: white;
+  position: absolute;
+    left:1360px;
+    top:33px;
+    height:25px;
+    width: 30px;
+}
+
+.searchimg{
+    position: relative;
+    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+    top:-4px;
+    height: 30px;
+    width: 30px;
+}
+
+.personbtn{
+    height: 43px;
+    width:40px;
+   position: absolute;
+    left:1440px;
+    top:25px;
+}
+
+.personimg{
+    position: relative;
+    top:-9px;
+    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+    height:50px;
+    width: 40px;
+}
+
+ 
+
