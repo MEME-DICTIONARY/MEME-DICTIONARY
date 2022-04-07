@@ -1,0 +1,101 @@
+.hashtagparent{
+    margin-left: 290px;
+    margin-top: 50px;
+}
+.hashtag{
+    background-color:#232332 ;
+    color:white;
+    border: 1px solid white;
+    width:100px;
+    height: 30px;
+    border-radius: 75px;
+    text-align: center;
+    float:left;
+    margin-right: 10px;
+}
+
+.buttonparent{
+    float:left;
+    margin-left:400px;
+    padding: 50px;
+}
+
+
+.bottombtn{
+    text-align: center;
+    width:70px;
+    height: 40px;
+    border-radius: 75px;
+
+}
+
+.buttonimg{
+    margin-bottom:-10px;
+    width:30px;
+    height:30px;
+}
+
+.bookmarkimg{
+    margin-bottom:-5px;
+    width:30px;
+    height:30px;
+}
+
+.commentWord
+{
+    color: white;
+   margin-left:100px;
+   margin-top:30px;
+}
+.comment{
+    position:absolute;
+    left:200px;
+    top:880px;
+    height: 30px;
+    width:800px;
+    border-radius: 30px;
+}
+
+.commentbtn{
+    position:absolute;
+    left:950px;
+    top:885px;
+}
+
+.title{
+    color: white;
+    text-align: center;
+
+}
+.bodyimg{
+    display:block;
+    margin: 0px auto;
+    width: 600px;
+    height: 400px;
+}
+.content{
+    
+    border:0px solid white;
+    width:900PX;
+    color: white;
+    margin-left: 300px;
+    margin-top: 50px;
+    
+}
+
+.word{
+    margin-top:100px;
+}
+.meaning{
+   position: absolute;
+   top: 250px;
+   left:230px;
+   color: white;
+}
+
+.example{
+   position:absolute;
+   top:375px;
+   left:230px;
+   color:white;
+}
