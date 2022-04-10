@@ -1,0 +1,77 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.signupPage__wrapper {
+    font-family: "Noto Sans KR", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #232332;
+    padding: 90px 0;
+}
+
+.signupPage__wrapper > .account__wrapper {
+    padding-left: 60px;
+}
+
+.signupPage__wrapper > .account__wrapper,
+.account__wrapper > .data__input {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+}
+
+.account__wrapper > .data__input:last-child {
+    padding-bottom: 70px;
+}
+
+.account__wrapper > .data__input>strong {
+    color: #fff;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    padding-bottom: 5px;
+}
+
+.account__wrapper > .data__input>strong>span {
+    color: #ff0000;
+    vertical-align: middle;
+    padding-right: 3px;
+}
+
+.account__wrapper > .data__input>.data__id {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.account__wrapper > .data__input input {
+    border: none;
+    border-radius: 25px;
+    width: 609px;
+    height: 62px;
+    text-indent: 20px;
+    font-size: 24px;
+}
+
+.account__wrapper >.data__input input:focus {
+    outline: none;
+}
+
+.account__wrapper >.data__input input::placeholder {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #BDBDBD;
+}
+
+.account__wrapper >.data__input>.data__id>button {
+    color: #fff;
+    width: 93px;
+    height: 39px;
+    border: none;
+    border-radius: 20px;
+    background-color: #828282;
+}
