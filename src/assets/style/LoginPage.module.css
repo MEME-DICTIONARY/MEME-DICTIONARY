@@ -1,7 +1,7 @@
-* {
-  font-family: "Noto Sans KR", sans-serif;
+*{
+  font-family: "Noto Sans KR",
+  sans-serif;
 }
-
 .loginPage__wrapper {
   font-family: "Noto Sans KR", sans-serif;
   display: flex;
@@ -9,10 +9,13 @@
   justify-content: center;
   align-items: center;
   background-color: #232332;
-  padding:90px 0;
+  min-width: fit-content;
+  min-height: 100vh;
+  margin:0 auto;
+  padding:0 60px;
 }
-.account__wrapper{
-    padding-left: 60px;
+.loginPage__wrapper > .account__wrapper{
+  padding-left: 60px;
 }
 .account__wrapper,
 .data__input {
@@ -26,7 +29,7 @@
 .data__input > strong {
   color: #fff;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 28px;
   padding-bottom: 5px;
 }
@@ -44,16 +47,16 @@
     border: none;
     border-radius: 25px;
     width:609px;
-    height:62px;
+    height:52px;
     text-indent: 20px;
-    font-size: 24px;
+    font-size: 20px;
 }
 .data__input input:focus{
     outline: none;
 }
 .data__input input::placeholder{
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 28px;
     color: #BDBDBD;
 }
@@ -64,8 +67,12 @@
     border:none;
     border-radius: 20px;
     background-color: #828282;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 2px;
 }
 .signup__link{
   color:#bdbdbd;
-  padding-bottom: 24px;
+  margin-bottom: 24px;
 }

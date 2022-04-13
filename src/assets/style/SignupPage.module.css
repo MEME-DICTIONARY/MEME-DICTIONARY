@@ -1,11 +1,18 @@
+* {
+    font-family: "Noto Sans KR",
+        sans-serif;
+}
 .signupPage__wrapper {
-    font-family: "Noto Sans KR", sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #232332;
-    padding: 90px 0;
+     font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #232332;
+  min-width: fit-content;
+  min-height: 100vh;
+  margin:0 auto;
+  padding:0 60px;
 }
 
 .signupPage__wrapper > .account__wrapper {
@@ -26,7 +33,7 @@
 .account__wrapper > .data__input>strong {
     color: #fff;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 28px;
     padding-bottom: 5px;
 }
@@ -47,9 +54,9 @@
     border: none;
     border-radius: 25px;
     width: 609px;
-    height: 62px;
+    height: 52px;
     text-indent: 20px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .account__wrapper >.data__input input:focus {
@@ -58,7 +65,7 @@
 
 .account__wrapper >.data__input input::placeholder {
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 28px;
     color: #BDBDBD;
 }
@@ -70,4 +77,8 @@
     border: none;
     border-radius: 20px;
     background-color: #828282;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 2px;
 }

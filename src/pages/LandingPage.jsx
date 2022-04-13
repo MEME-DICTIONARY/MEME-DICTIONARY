@@ -4,6 +4,7 @@ import styles from "../assets/style/LandingPage.module.css"
 import logo_image from '../assets/img/logo.png';
 
 
+
 export default function LandingPage() {
     const navigate = useNavigate();
     const circle_left = useRef(null);

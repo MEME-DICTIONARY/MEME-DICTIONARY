@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const StyledButton = styled.button`
   border-radius: 15px;
+  background-color:transparent;
   background-image: linear-gradient(
     to right,
     #ff0000 0%,
@@ -10,18 +11,18 @@ const StyledButton = styled.button`
     #2737ff 100%
   );
   border: none;
-  background-origin: content-box;
   background-clip: content-box;
   color: #fff;
-  width: 200px;
-  height: 70px;
-  font-size:30px;
+  width: 170px;
+  height: 60px;
+  font-size:24px;
   font-weight:700;
   text-align: center;
+  cursor:pointer;
 `;
 
 function BaseButton(props) {
-    return <StyledButton>{props.text}</StyledButton>;
+  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
 }
 
 export default BaseButton;
