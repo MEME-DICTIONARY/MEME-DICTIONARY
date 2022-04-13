@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../assets/img/logo_circles.svg';
 
 
-function AccountHeader() {
+function AccountSection() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <img src={logo} alt="로고" style={{ width: '100px' }} />
@@ -13,4 +13,4 @@ function AccountHeader() {
     )
 }
 
-export default AccountHeader;
+export default AccountSection;

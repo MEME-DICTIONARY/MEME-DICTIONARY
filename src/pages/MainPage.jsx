@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../assets/style/MainPage.module.css"
 import footer_logo from "../assets/img/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export default function MainPage() {
     return (
@@ -9,7 +10,7 @@ export default function MainPage() {
             <div className={styles.first_cont}>
                 <div className={styles.searchBar}>
                     <input type="text" id="search" placeholder="키워드를 입력하여 밈을 검색해보세요!" />
-                    <AiOutlineSearch className={styles.searchIcon} size="50" color="#828282" />
+                    <Link to="/search"><AiOutlineSearch className={styles.searchIcon} size="50" color="#828282"/></Link>
                 </div>
                 <ul className={styles.searchBar_hashTags}>
                     <li className={styles.searchBar_hashTag}>#어쩔티비</li>

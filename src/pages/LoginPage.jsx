@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from "../assets/style/SignupPage.module.css";
-import AccountHeader from '../component/AccountHeader.js';
+import styles from "../assets/style/LoginPage.module.css";
+import AccountSection from '../component/AccountSection.js';
 import BaseButton from '../component/BaseButton';
 
-function SignupPage() {
+function LoginPage() {
     return (
-        <div className={styles.signupPage__wrapper}>
-            <AccountHeader />
+        <div className={styles.loginPage__wrapper}>
+            <AccountSection />
             <div className={styles.account__wrapper}>
                 <div className={styles.data__input}>
                     <strong><span>*</span>아이디</strong>
@@ -22,17 +22,11 @@ function SignupPage() {
                         <input type="text" placeholder="비밀번호를 입력해주세요." />
                     </div>
                 </div>
-
-                <div className={styles.data__input}>
-                    <strong><span>*</span>비밀번호 확인</strong>
-                    <div className={styles.data__password}>
-                        <input type="text" placeholder="비밀번호를 한 번 더 입력해주세요." />
-                    </div>
-                </div>
             </div>
-            <BaseButton text="확인"></BaseButton>
+            <a className={styles.signup__link} href="/signup">회원가입 하러가기</a>
+            <BaseButton text="로그인"></BaseButton>
         </div>
     )
 }
 
-export default SignupPage;
+export default LoginPage;
