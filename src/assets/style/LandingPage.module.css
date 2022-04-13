@@ -58,7 +58,9 @@
 }
 .lading_main_btn{
   color:#fff;
+  border:none;
   background-color: #828282;
   border-radius: 10px;
   padding:10px 20px;
+  cursor: pointer;
 }

@@ -54,7 +54,7 @@ export default function MainPage() {
                 </article>
             </div>
             <footer className={styles.footer}>
-                <a href="/" className={styles.footer_logo}><img src={footer_logo} alt="푸터로고" /></a>
+                <a href="/main" className={styles.footer_logo}><img src={footer_logo} alt="푸터로고" /></a>
                 <p className={styles.footer_email}>meme.dictionary2022@gmail.com</p>
                 <p className={styles.footer_copyright}>&copy; 2022. 밈과사전 All right reserved</p>
             </footer>
