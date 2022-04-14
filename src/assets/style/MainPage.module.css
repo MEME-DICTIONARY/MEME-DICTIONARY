@@ -1,10 +1,13 @@
 .mainpage_main_wrap {
   font-family: "Noto Sans KR", sans-serif;
+  min-width: fit-content;
 }
 
 /* 맨위 첫번째 컨테이너 */
-.firstContainer {
+.first_cont {
   background-color: #232332;
+  /* min-width: fit-content;
+  width:100%; */
   height: 820px;
   padding: 0 175px;
   display: flex;
@@ -44,22 +47,22 @@
   padding-right: 32px;
   cursor: pointer;
 }
-.firstContainer ul {
+.first_cont > .searchBar_hashTags {
   display: flex;
   text-align: end;
   justify-content: end;
   width: 100%;
   margin-top: 24px;
 }
-.firstContainer li {
+.first_cont > .searchBar_hashTags > .searchBar_hashTag {
   color: #fff;
   margin-right: 25px;
   cursor: pointer;
 }
 
 /* 두번째 word ranking 컨테이너 */
-.secondContainer,
-.thirdContainer {
+.second_cont,
+.third_cont {
   display: flex;
   height: 512px;
   background: #2e335f;
@@ -67,14 +70,12 @@
   justify-content: space-around;
   padding-top: 41px;
 }
-.secondContainer .leftSide,
-.thirdContainer .leftSide {
+.leftSide {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.secondContainer .leftSide .ranking,
-.thirdContainer .leftSide .ranking {
+.leftSide > .ranking {
   width: 100px;
   height: 100px;
   border-radius: 100%;
@@ -90,20 +91,20 @@
   display: flex;
   justify-content: center;
 }
-.secondContainer .leftSide .ranking h3,
-.thirdContainer .leftSide .ranking h3 {
+.leftSide > .ranking h3 {
   color: white;
   text-align: center;
   font-weight: 700;
 }
-.secondContainer > .leftSide > .ranking h3 {
+.second_cont > .leftSide > .ranking h3 {
   font-size: 30px;
   transform: translateY(15px);
   text-shadow: 2px 2px 3px #000;
 }
-.leftSide p {
+.second_cont_left_desc,
+.third_cont_left_desc {
   margin-top: 42px;
-  width: 370px;
+  width: 380px;
   color: #bdbdbd;
   font-size: 20px;
   font-weight: 400;
@@ -111,14 +112,14 @@
   line-height: 30px;
   text-align: center;
 }
-.rightSide ul {
+.second_cont > .rightSide > .word_ranking_lists {
   width: 510px;
   height: 341px;
   font-weight: 700;
   letter-spacing: 1px;
   margin-top: 65px;
 }
-.rightSide li {
+.second_cont > .rightSide > .word_ranking_lists .word_ranking_list {
   width: 100%;
   text-align: center;
   color: #fff;
@@ -132,56 +133,66 @@
 
   cursor: pointer;
 }
-.rightSide button {
+.second_cont > .rightSide > button {
   display: flex;
   float: right;
   font-size: 20px;
   font-weight: 400;
   justify-content: center;
   align-items: center;
+  background:none;
+  border:none;
   color: #828282;
 }
-.rightSide button::before {
+.second_cont > .rightSide button::before {
   display: inline-block;
   content: url("../img/icon_update.svg");
 }
 
 /* 세번째 hot meme top 10 이미지 슬라이더 컨테이너 */
-.thirdContainer {
+.third_cont {
   background-color: #232332;
 }
-.thirdContainer > .leftSide > .ranking h3 {
+
+.third_cont > .leftSide > .ranking h3 {
   font-size: 28px;
   position: absolute;
   transform: translateY(25px);
   text-shadow: 2px 2px 3px #000;
 }
-.thirdContainer .rightSide img {
-  width: 540px;
+.third_cont > .rightSide > img {
+  width: 514px;
 }
 
 /* 푸터 */
-footer {
+.footer {
   display: flex;
   flex-direction: column;
+  min-width:fit-content;
   background-color: #2e335f;
   justify-content: center;
   align-items: center;
 }
-footer > a {
-  display: inline-block;
-  width: 153px;
-  height: 73px;
-  font-size: 1px;
-  text-indent: -9999px;
-  overflow: hidden;
-  margin-top:40px;
-  background: url("../img/logo.svg");
+.footer > .footer_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:fit-content;
+  margin-top: 33px;
 }
-footer > p {
+.footer > .footer_logo > img {
+  width: 50%;
+}
+.footer > .footer_email,
+.footer_copyright {
   color: #fff;
   padding: 10px;
 }
-footer > p:last-child {
+.footer > .footer_copyright {
   margin-bottom: 20px;
+}
+@media (max-width:900px){
+  .second_cont{
+    gap:100px;
+  }
 }
