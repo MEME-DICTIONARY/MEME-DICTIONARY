@@ -1,5 +1,7 @@
 import {React,useState} from 'react'
 import styles from "../assets/style/SignupPage.module.css";
+import '../assets/style/reset.css';
+
 import AccountSection from '../component/AccountSection.js';
 import BaseButton from '../component/BaseButton';
 
