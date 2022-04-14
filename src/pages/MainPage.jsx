@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../assets/style/MainPage.module.css"
+import '../assets/style/reset.css';
+
 import footer_logo from "../assets/img/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
