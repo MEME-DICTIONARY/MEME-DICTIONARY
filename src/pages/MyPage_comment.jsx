@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/style/MyPage.module.css'
-import '../assets/style/header.module.css';
+import '../assets/style/Header.module.css';
 import Header from '../component/Header.js';
 
 function MyPage_comment() {

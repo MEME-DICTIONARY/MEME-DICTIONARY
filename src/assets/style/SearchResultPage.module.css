@@ -37,12 +37,35 @@
 .searchResult__wrapper > .result__container {
   display: flex;
   flex-direction: column;
-  margin-left: 51px;
+  padding:0 51px;
 }
-.result__container > .result__lists > .result__list {
-  width: 95%;
+
+.result__container > .result__lists__img {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 105px;
+}
+
+.result__container > .result__lists__img > .result__list__img,
+.result__container > .result__lists__word > .result__list__word {
   margin-bottom: 24px;
   padding-bottom: 11px;
   border-bottom: 1px solid #696868;
   cursor: pointer;
+}
+.result__container>.result__lists__img>.result__list__img{
+  display: flex;
+  flex-direction: column;
+  width: 375px;
+  height: 329px;
+}
+.result__list__img > img {
+  width: 100%;
+}
+
+.result__container > .result__lists__img >.result__list__img > .result__title{
+  margin:auto 0;
+  text-indent: 15px;
+  font-size: 24px;
+  font-weight: 700;
 }

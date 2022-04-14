@@ -1,154 +1,145 @@
-body{
-    background-color: #232332;
-  }
-  
-  
-  
-  .header_HamburgerBtn{
-    background-color: #232332;
-    height: 40px;
-    width:40px;
-    position:relative;
-    top:20px;
-    left:30px;
-  }
-  .header_HamburgerImg{
-    height: 50px;
-    width:50px;
-    position:relative;
-    top:-3px;
-    left:-10px
-  }
-  
-  .header_CircleParent{
-   
-   position : absolute;
-   top:30px;
-   left:45%;
-   
-  }
-  
-  
-  .header_Circle1{
-    background-color: #ff0043;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-   
-  }
-  .header_Circle2{
-    background-color: #d422ff;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-  }
-  .header_Circle3{
-    background-color: #2737ff;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-  }
-  
-  .header_SearchParent{
-    position:absolute;
-    left:20px;
-    top:0px;
-  }
-  .header_SearchBox{
-   position: absolute;
-    left:1200px;
-    top:30px;
-    background-color: #232332;
-    border:1px solid white;
-    border-radius: 10px;
-    height:30px;
-    width:200px;
-  }
-  
-  .header_SearchBtn{
-    background-color: white;
+body {
+  background-color: #232332;
+}
+
+.header_HamburgerBtn {
+  background-color: #232332;
+  height: 40px;
+  width: 40px;
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+.header_HamburgerImg {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: -3px;
+  left: -10px;
+}
+
+.header_CircleParent {
   position: absolute;
-    left:1360px;
-    top:33px;
-    height:25px;
-    width: 30px;
-  }
-  
-  .header_SearchImg{
-    position: relative;
-    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
-    top:-4px;
-    height: 30px;
-    width: 30px;
-  }
-  
-  .header_PersonBtn{
-    height: 43px;
-    width:40px;
-   position: absolute;
-    left:1440px;
-    top:25px;
-  }
-  
-  .header_PersonImg{
-    position: relative;
-    top:-9px;
-    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
-    height:50px;
-    width: 40px;
-  }
-  
-  .categoryModal{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left: 0;
-    
-  }
-  .categoryModalHidden{
-    display: none;
-  }
-  
-  .categoryModal_overlay{
-    background-color: rgba(0,0, 0,0.4);
-    width: 100%;
-    height: 100%;
-  }
-  
-  .categoryModal_content{
-    position: fixed;
-    background-color: white;
-    top:120px;
-    left:30px;
-    border-radius: 10px;
-    width:197px;
-    height: 570px;
-  }
-  .category_title{
-   position: relative;
-   left:20px;
-  }
-  
-  .categoryButton_container{
-    position: relative;
-    left:5px;
-    margin: auto;
-    
-  }
-  .categoryButton_word{
-    background-color: white;
-    border:none;
-    padding: 10px;
-    
-  }
-  
-  .categoryButton_img{
-    background-color: white;
-    border:none;
-    padding: 10px;
-    display: block;
-  }
+  top: 30px;
+  left: 45%;
+}
+
+.header_Circle1 {
+  background-color: #ff0043;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
+.header_Circle2 {
+  background-color: #d422ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
+.header_Circle3 {
+  background-color: #2737ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
+
+.header_SearchParent {
+  position: absolute;
+  left: 20px;
+  top: 0px;
+}
+.header_SearchBox {
+  position: absolute;
+  left: 1200px;
+  top: 30px;
+  background-color: #232332;
+  border: 1px solid white;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+}
+
+.header_SearchBtn {
+  background-color: white;
+  position: absolute;
+  left: 1360px;
+  top: 33px;
+  height: 25px;
+  width: 30px;
+}
+
+.header_SearchImg {
+  position: relative;
+  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  top: -4px;
+  height: 30px;
+  width: 30px;
+}
+
+.header_PersonBtn {
+  height: 43px;
+  width: 40px;
+  position: absolute;
+  left: 1440px;
+  top: 25px;
+}
+
+.header_PersonImg {
+  position: relative;
+  top: -9px;
+  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  height: 50px;
+  width: 40px;
+}
+
+.categoryModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.categoryModalHidden {
+  display: none;
+}
+
+.categoryModal_overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+}
+
+.categoryModal_content {
+  position: fixed;
+  background-color: white;
+  top: 120px;
+  left: 30px;
+  border-radius: 10px;
+  width: 197px;
+  height: 570px;
+}
+.category_title {
+  position: relative;
+  left: 20px;
+}
+
+.categoryButton_container {
+  position: relative;
+  left: 5px;
+  margin: auto;
+}
+.categoryButton_word {
+  background-color: white;
+  border: none;
+  padding: 10px;
+}
+
+.categoryButton_img {
+  background-color: white;
+  border: none;
+  padding: 10px;
+  display: block;
+}
