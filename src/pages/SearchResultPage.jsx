@@ -3,6 +3,7 @@ import styles from "../assets/style/SearchResultPage.module.css";
 import '../assets/style/reset.css';
 
 
+
 function SearchResultPage() {
   const [wordResults, setwordResults] = useState([
     "어쩔티비",

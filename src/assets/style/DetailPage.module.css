@@ -1,75 +1,82 @@
 
 
 .detailPage_WordBody_Container{
-    
+ 
     width:70%;
     height:550px;
     position: relative;
     left:222px;
-    top:60px;
+    top:150px;
    
    
   }
+
+    
+  .detailPage_imgBody_Container{
   
-  .detailPage_WordBody_Hidden{
-    display: none
+    width:70%;
+    height:550px;
+    position: relative;
+    left:222px;
+    top:150px;
   }
   
-  /*.detailPage_imgBody_Hidden{
+  /*.detailPage_WordBody_Hidden{
     display: none
   }*/
+  
+  .detailPage_imgBody_Hidden{
+    display: none
+  }
   
   
   .detailPage_title{
     color: white;
     text-align: center;
-  
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 10px;
   }
   
   .detailPage_WordMeaning{
    position: relative;
+   font-weight: bold;
     left:5%;
-    top:5%;
+    top:7%;
     color: white;
   }
   
   .detailPage_WordExample{
     position:relative;
+    font-weight: bold;
     left:5%;
-    top:30%;
+    top:43%;
     color:white;
     margin:0;
   }
   
   .detailPage_wordContent{
+    line-height: 20px;
      color:white;
-     
-     height: 150px;
+     height: 188px;
      width: 900px;
      margin-bottom:0;
      margin-top:0;
      position: relative;
      left:12%;
-     top:-10%;
+   
   }
   
-  .detailPage_imgBody_Container{
-    
-    width:70%;
-    height:550px;
-    position: relative;
-    left:222px;
-    top:60px;
-  }
+ 
    
   .detailPage_bodyImg{
     display:block;
-    margin: 0px auto;
+    margin: 30px auto;
     width: 600px;
     height: 350px;
   }
   .detailPage_imgContent{
-   
+   margin-bottom: 30px;
     color: white;
    
     
@@ -83,8 +90,10 @@
     height: 30px;
     border-radius: 75px;
     text-align: center;
+   padding-top:5px;
     float:left;
     margin-right: 10px;
+    
   }
   
   .detailPage_buttonParent{
@@ -116,12 +125,16 @@
     height:30px;
   }
   
+  .detailPage_line{
+    position: relative;
+    top:200px;
+  }
   .detailPage_Bottom_Container{
     
     margin: 0;
   width: 90%;
     position: relative;
-    top:150px;
+    top:250px;
     left:60px;
    
   }
@@ -130,6 +143,8 @@
   {
     color: white;
     position: relative;
+    font-size: large;
+    top:-15px;
     left:50px;
    
   }
