@@ -1,20 +1,18 @@
 .MyPage_list_Container{
-    margin:0;
+    position: relative;
+    top:110px;
     border-right:1px white solid;
-    width: 150px;
-    height: 640px;
+    width: 190px;
+    height: 645px;
   }
   .MyPage_list{
-    color:white;
+    position: relative;
+    top:130px;
     background-color: #232332;
-    font-size:medium;
-    height: 30px;
+    font-size:large;
     list-style:none;
-    padding: 70px;
-    padding-left: 10px;
-    
-   
-  
+    padding-bottom:130px;
+    padding-left: 30%;
   }
   
   
@@ -31,13 +29,13 @@
   }
   
   .MyPage_list_child{
-    
-    color:white;
     background-color: #232332;
     list-style:none;
-    padding-left: 10px;
+   position: relative;
+   left:-25px;
     padding-top:10px;
     text-align: center;
+    line-height: 25px;
   }
   
   #MyPage_Grid{
@@ -49,7 +47,7 @@
     width: 100px;
     position:relative;
     left:150px;
-    top:50px;
+    top:150px;
   }
   
   .MyPage_Word_Btn{
@@ -62,18 +60,37 @@
     color: white;
     font-weight: bold;
   }
+  .MyPage_Word_Btn_Unclick{
+    font-size: large;
+    padding-right:10px;
+    border: 0;
+    outline: 0;
+    border-right: 2px white solid;
+    background-color: #232332;
+    color: gray;
+    font-weight: bold;
+  }
+
   .MyPage_Img_Btn{
     border: 0;
     outline: 0;
     font-size: large;
     background-color: #232332;
-    color: gray
+    color: white;
+  }
+
+  .MyPage_Img_Btn_Unclick{
+    border: 0;
+    outline: 0;
+    font-size: large;
+    background-color: #232332;
+    color: gray;
   }
   
   .MyPage_Img_Container{
     position: relative;
     left: 150px;
-    top:80px;
+    top:200px;
     height: 500px;
     width:1200px;
   }
@@ -90,21 +107,26 @@
   }
   
   .MyPage_Word_Container{
-    
+   
     position: relative;
     left: 150px;
-    top:80px;
+    top:200px;
     height: 500px;
     width:1200px;
   }
   
   .MyPage_Word_title{
+    font-weight: bold;
+    font-size: 25px;
     color:white;
-    margin-bottom:0;
+   margin-bottom:20px;
+   margin-top: 30px;
+   
   }
   
   .MyPage_Word_content{
     color:white;
+    margin-bottom:10px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -119,16 +141,17 @@
     
     position: relative;
     left: 150px;
-    top:80px;
+    top:250px;
     height: 500px;
     width:1200px;
   }
   
   .MyPage_commentTitle{
-    margin-bottom:0;
+    margin-bottom:10px;
+    padding-top: 10px;
     color:white;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 30px;
    background-color: rgba(255, 255, 255, 0.12);
    width: 276px;
    height: 30px;
@@ -154,8 +177,9 @@
   .MyPage_pw_Container{
    
     position: relative;
-    left: 150px;
-    top:80px;
+    top:30%;
+    left:10%;
+    
     height: 500px;
     width:1200px;
   }
@@ -171,6 +195,7 @@
   .MyPage_pw_input{
     
     position: relative;
+    margin-bottom: 40px;
     left:70px;
     border-radius: 10px;
     width:610px;
@@ -196,5 +221,5 @@
     background-color: #232332;
     position: relative;
     left:400px;
-    top:270px;
+    top:250px;
   }

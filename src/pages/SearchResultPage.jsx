@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import styles from "../assets/style/SearchResultPage.module.css";
 import "../assets/style/reset.css";
 
+
 function SearchResultPage() {
   const [wordResults, setwordResults] = useState([
     "어쩔티비",
@@ -21,6 +22,7 @@ function SearchResultPage() {
       name: "어쩔 시크릿쥬쥬 리미티드 에디션",
       url: require("../assets/img/sample.jpeg"),
     },
+    
   ]);
   const [isWordClicked, setIsWordClicked] = useState(true);
 
@@ -30,7 +32,7 @@ function SearchResultPage() {
         <li
           className={styles.nav__list}
           style={isWordClicked ? { color: "#fff" } : null}
-          onClick={(e) => {
+          onClick={() => {
             setIsWordClicked(true);
           }}
         >
@@ -39,7 +41,7 @@ function SearchResultPage() {
         <li
           className={styles.nav__list}
           style={!isWordClicked ? { color: "#fff" } : null}
-          onClick={(e) => setIsWordClicked(false)}
+          onClick={() => setIsWordClicked(false)}
         >
           짤
         </li>
