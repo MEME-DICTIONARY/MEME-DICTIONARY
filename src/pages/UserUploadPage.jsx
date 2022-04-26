@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import styles from "../assets/style/UserUploadPage.module.css";
 import BaseButton from "../component/BaseButton";
+import styled from "styled-components";
 
 function UserUploadPage() {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
@@ -10,14 +10,14 @@ function UserUploadPage() {
   };
 
   return (
-    <form className={styles.upload__form}>
-      <ul className={styles.form__lists}>
-        <li className={styles.form__list}>
-          <strong className={styles.form__question}>
+    <Form>
+      <ul className="form__lists">
+        <li className="form__list">
+          <strong className="question__title">
             <span>*</span>
             등록할 밈은 어떤 것인가요?
           </strong>
-          <div className={styles.input__typeOfMeme}>
+          <div className="question__answer">
             <input
               type="radio"
               name="밈_유형"
@@ -39,66 +39,57 @@ function UserUploadPage() {
           </div>
         </li>
         {typeOfMeme === "짤" ? (
-          <ul>
-            <li>
-              <strong className={styles.form__question}>
+          <>
+            <li className="form__list">
+              <strong className="question__title">
                 <span>*</span>
                 카테고리 선택
               </strong>
-              <div className={styles.input__category}>
+              <div className="question__answer">
                 <input
                   type="radio"
                   name="카테고리"
                   value="예능"
-                  onClick={() => {
-                    setTypeOfMeme("신조어");
-                  }}
                 />
                 <label htmlFor="카테고리">예능</label>
                 <input
                   type="radio"
                   name="카테고리"
                   value="드라마"
-                  onClick={() => {
-                    setTypeOfMeme("짤");
-                  }}
                 />
                 <label htmlFor="카테고리">드라마</label>
                 <input
                   type="radio"
                   name="카테고리"
                   value="그 외"
-                  onClick={() => {
-                    setTypeOfMeme("짤");
-                  }}
                 />
                 <label htmlFor="카테고리">그 외</label>
               </div>
             </li>
-            <li>
-              <strong className={styles.form__question}>
+            <li className="form__list">
+              <strong className="question__title">
                 <span>*</span>
                 사진
               </strong>
-              <input type="file" onChange={handleChangeFile} />
+              <input type="file" onChange={handleChangeFile} className="file" />
               <p>사진을 업로드해주세요.</p>
             </li>
-            <li>
-              <strong className={styles.form__question}>
+            <li className="form__list">
+              <strong className="question__title">
                 <span>*</span>
                 제목
               </strong>
               <input type="text" placeholder="밈의 제목을 입력해주세요." />
             </li>
-            <li>
-              <strong className={styles.form__question}>
+            <li className="form__list">
+              <strong className="question__title">
                 <span>*</span>
                 설명
               </strong>
               <input type="text" placeholder="등록하려는 밈을 설명해주세요." />
             </li>
-            <li>
-              <strong className={styles.form__question}>
+            <li className="form__list">
+              <strong className="question__title">
                 <span>*</span>
                 키워드
               </strong>
@@ -107,7 +98,7 @@ function UserUploadPage() {
                 placeholder="띄어쓰기 없이 입력해주세요. (최대 3개)"
               />
             </li>
-          </ul>
+          </>
         ) : typeOfMeme === "신조어" ? (
           <div>신조어</div>
         ) : null}
@@ -120,8 +111,65 @@ function UserUploadPage() {
           ></BaseButton>
         ) : null}
       </ul>
-    </form>
+    </Form>
   );
 }
+
+const Form = styled.form`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  font-family: "Noto Sans KR", sans-serif;
+  letter-spacing: 0.5px;
+
+  span {
+    color: red;
+    vertical-align: middle;
+  }
+
+  .form__lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form__list {
+    width: 50%;
+    margin: 15px auto;
+  }
+  .question__answer {
+    margin: 15px auto;
+  }
+  .form__list > .file + p {
+    font-size: 14px;
+    color: #bdbdbd;
+    margin-top: 10px;
+  }
+  .form__list input + label{
+    padding-right: 25px;
+  }
+  .form__list > input:not(.file) {
+    display: block;
+    width: 400px;
+    height: 30px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #fff;
+    }
+    &:focus::placeholder {
+      color: transparent;
+    }
+    
+  }
+`;
 
 export default UserUploadPage;
