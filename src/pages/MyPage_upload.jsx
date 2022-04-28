@@ -27,16 +27,16 @@ function MyPage_upload() {
    
       <div id={styles.MyPage_Grid}>
         <ul className={styles.MyPage_list_Container}>
-          <li className={styles.MyPage_list}><a className={styles.MyPage_link}>등록한 글</a>
+          <li className={styles.MyPage_list}><a className={styles.MyPage_link}  href="http://localhost:3000/mypage/upload">등록한 글</a>
           </li>
-          <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} >
+          <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/bookmark" >
           나의 활동</a>
           <ul className={styles.MyPage_list_child}>
-            <li><a className={styles.MyPage_nonSelectlink} >북마크</a></li>
-            <li><a className={styles.MyPage_nonSelectlink} >댓글</a></li>
+            <li><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/bookmark" >북마크</a></li>
+            <li><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/comment" >댓글</a></li>
           </ul>
           </li>
-          <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink}>p/w 수정</a></li>
+          <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/pw">p/w 수정</a></li>
         </ul>
         <div>
             <div className={styles.MyPage_Btn_Container}>
