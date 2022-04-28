@@ -22,7 +22,7 @@ const StyledButton = styled.button`
 `;
 
 function BaseButton(props) {
-  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
+  return <StyledButton type="button" onClick={props.onClick}>{props.text}</StyledButton>;
 }
 
 export default BaseButton;

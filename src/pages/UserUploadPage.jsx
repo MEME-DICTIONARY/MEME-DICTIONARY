@@ -1,13 +1,23 @@
 import { React, useState } from "react";
 import BaseButton from "../component/BaseButton";
+import BaseTag from "../component/BaseTag";
 import styled from "styled-components";
 
 function UserUploadPage() {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
-  const [imageMeme, setImageMeme] = useState(null);
-  const handleChangeFile = (e) => {
-    setImageMeme(e.target.files);
-  };
+  const [imageMeme, setImageMeme] = useState({
+    category: "",
+    file: "",
+    title: "",
+    description: "",
+    keywords: [],
+  });
+  const [wordMeme, setWordMeme] = useState({
+    word: "",
+    meaning: "",
+    example: "",
+    keywords: [],
+  });
 
   return (
     <Form>
@@ -46,11 +56,32 @@ function UserUploadPage() {
                 카테고리 선택
               </strong>
               <div className="question__answer">
-                <input type="radio" name="카테고리" value="예능" />
+                <input
+                  type="radio"
+                  name="카테고리"
+                  value="예능"
+                  onChange={(e) =>
+                    setImageMeme({ ...imageMeme, category: e.target.value })
+                  }
+                />
                 <label htmlFor="카테고리">예능</label>
-                <input type="radio" name="카테고리" value="드라마" />
+                <input
+                  type="radio"
+                  name="카테고리"
+                  value="드라마"
+                  onChange={(e) =>
+                    setImageMeme({ ...imageMeme, category: e.target.value })
+                  }
+                />
                 <label htmlFor="카테고리">드라마</label>
-                <input type="radio" name="카테고리" value="그 외" />
+                <input
+                  type="radio"
+                  name="카테고리"
+                  value="그 외"
+                  onChange={(e) =>
+                    setImageMeme({ ...imageMeme, category: e.target.value })
+                  }
+                />
                 <label htmlFor="카테고리">그 외</label>
               </div>
             </li>
@@ -59,7 +90,13 @@ function UserUploadPage() {
                 <span>*</span>
                 사진
               </strong>
-              <input type="file" onChange={handleChangeFile} className="file" />
+              <input
+                type="file"
+                className="file"
+                onChange={(e) =>
+                  setImageMeme({ ...imageMeme, file: e.target.files })
+                }
+              />
               <p>사진을 업로드해주세요.</p>
             </li>
             <li className="form__list">
@@ -71,6 +108,9 @@ function UserUploadPage() {
                 className="text__input"
                 type="text"
                 placeholder="밈의 제목을 입력해주세요."
+                onChange={(e) =>
+                  setImageMeme({ ...imageMeme, title: e.target.value })
+                }
               />
             </li>
             <li className="form__list">
@@ -82,6 +122,9 @@ function UserUploadPage() {
                 className="text__input"
                 type="text"
                 placeholder="등록하려는 밈을 설명해주세요."
+                onChange={(e) =>
+                  setImageMeme({ ...imageMeme, description: e.target.value })
+                }
               />
             </li>
             <li className="form__list">
@@ -92,8 +135,30 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
-                placeholder="띄어쓰기 없이 입력해주세요. (최대 3개)"
+                placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    if (imageMeme.keywords.length === 3) {
+                      alert("키워드는 최대 3개까지만 입력할 수 있습니다.");
+                      return;
+                    }
+                    setImageMeme({
+                      ...imageMeme,
+                      keywords: [...imageMeme.keywords, e.target.value],
+                    });
+                    e.target.value = "";
+                  }
+                }}
               />
+              <div>
+                {imageMeme.keywords && imageMeme.keywords.map((keyword) => {
+                  return <BaseTag keyword={keyword} deleteTag={(word) => {
+                    let updatedArray = imageMeme.keywords;
+                    updatedArray.splice(updatedArray.indexOf(word),1);
+                    setImageMeme({...imageMeme,keywords:updatedArray});
+                  }}></BaseTag>;
+                })}
+              </div>
             </li>
           </>
         ) : typeOfMeme === "신조어" ? (
@@ -108,7 +173,9 @@ function UserUploadPage() {
                   className="text__input"
                   type="text"
                   placeholder="단어를 입력해주세요."
-                  value=""
+                  onChange={(e) =>
+                    setWordMeme({ ...wordMeme, word: e.target.value })
+                  }
                 />
                 <button type="button" className="filter__button">
                   필터링
@@ -123,6 +190,9 @@ function UserUploadPage() {
                 className="text__input"
                 type="text"
                 placeholder="등록하려는 밈의 뜻을 설명해주세요."
+                onChange={(e) =>
+                  setWordMeme({ ...wordMeme, meaning: e.target.value })
+                }
               />
             </li>
             <li className="form__list">
@@ -134,6 +204,9 @@ function UserUploadPage() {
                 className="text__input"
                 type="text"
                 placeholder="등록하려는 밈의 사용 예시를 들어주세요."
+                onChange={(e) =>
+                  setWordMeme({ ...wordMeme, example: e.target.value })
+                }
               />
             </li>
             <li className="form__list">
@@ -144,7 +217,10 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
-                placeholder="띄어쓰기 없이 입력해주세요.(최대 3단어)"
+                placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
+                onChange={(e) =>
+                  setWordMeme({ ...wordMeme, word: e.target.value })
+                }
               />
             </li>
           </>
@@ -152,7 +228,11 @@ function UserUploadPage() {
         {typeOfMeme !== null ? (
           <BaseButton
             onClick={() => {
-              console.log("등록되었습니다.");
+              if (typeOfMeme === "신조어") {
+                console.log(wordMeme);
+              } else {
+                console.log(imageMeme);
+              }
             }}
             text="등록"
           ></BaseButton>
@@ -163,7 +243,7 @@ function UserUploadPage() {
 }
 
 const Form = styled.form`
-margin-top:50px;
+  margin-top: 50px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -181,10 +261,10 @@ margin-top:50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    gap: 10px;
   }
   .form__list {
-    width:570px;
+    width: 570px;
     margin: 20px 0;
   }
 
@@ -201,12 +281,13 @@ margin-top:50px;
   }
   .form__list .text__input {
     display: block;
-    width:500px;
+    width: 500px;
     height: 35px;
-    padding-top:15px;
+    padding-top: 15px;
     background: none;
     border: none;
     border-bottom: 1px solid #fff;
+    font-size: 18px;
     color: #fff;
 
     &:focus {
@@ -215,6 +296,7 @@ margin-top:50px;
 
     &::placeholder {
       color: #fff;
+      font-size: 14px;
     }
     &:focus::placeholder {
       color: transparent;
@@ -222,8 +304,8 @@ margin-top:50px;
   }
   .form__list .filter__button {
     display: inline-block;
-    width:63px;
-    height:30px;
+    width: 63px;
+    height: 30px;
     background-color: #828282;
     border-radius: 20px;
     border: none;
@@ -233,6 +315,7 @@ margin-top:50px;
   .filter__text-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 `;
 
