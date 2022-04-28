@@ -3,12 +3,14 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import SearchResultPage from "./pages/SearchResultPage";
-import { Route, Routes } from "react-router-dom";
 import DetailPage from "./pages/DetailPage";
 import MyPage_upload from "./pages/MyPage_upload";
 import MyPage_bookmark from "./pages/MyPage_bookmark";
 import MyPage_comment from "./pages/MyPage_comment";
 import MyPage_pw from "./pages/MyPage_pw";
+import UserUploadPage from "./pages/UserUploadPage";
+import { Route, Routes } from "react-router-dom";
+
 function App() {
   return (
     <Routes>
@@ -22,6 +24,7 @@ function App() {
       <Route path="/mypage/bookmark" element={<MyPage_bookmark />} />
       <Route path="/mypage/comment" element={<MyPage_comment />} />
       <Route path="/mypage/pw" element={<MyPage_pw />} />
+      <Route path="/upload" element={<UserUploadPage />} />
 
     </Routes>
   );
