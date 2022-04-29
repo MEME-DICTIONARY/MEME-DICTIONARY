@@ -1,18 +1,21 @@
 import { React, useState } from "react";
 import styles from "../assets/style/LoginPage.module.css";
-import '../assets/style/reset.css';
+import "../assets/style/reset.css";
 
 import AccountSection from "../component/AccountSection.js";
 import BaseButton from "../component/BaseButton";
+import BaseModal from "../component/BaseModal";
 
 function LoginPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-const [isCheck, setIsCheck] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContents, setModalContents] = useState("");
 
   const handleId = (e) => {
-      setId(e.target.value);
-      setIsCheck(false);
+    setId(e.target.value);
+    setIsCheck(false);
   };
 
   const handlePassword = (e) => {
@@ -21,16 +24,25 @@ const [isCheck, setIsCheck] = useState(false);
 
   const handleLoginButton = () => {
     if (id === "" || password === "") {
-      alert("빈칸을 모두 채워주세요.");
+      setShowModal(true);
+      setModalContents("빈칸을 모두 채워주세요.");
     } else {
-        if (!isCheck) {
-            alert('아이디 중복체크를 먼저 해주세요.');
-        }
+      if (!isCheck) {
+        setShowModal(true);
+        setModalContents("아이디 중복체크를 먼저 해주세요.");
+      }
     }
   };
 
   return (
     <div className={styles.loginPage__wrapper}>
+      <BaseModal
+        hidden={!showModal}
+        content={modalContents}
+        hideModal={() => {
+          setShowModal(false);
+        }}
+      />
       <AccountSection />
       <div className={styles.account__wrapper}>
         <div className={styles.data__input}>
@@ -46,7 +58,15 @@ const [isCheck, setIsCheck] = useState(false);
               value={id}
               onChange={handleId}
             />
-            <button onClick={() => { setIsCheck(true); alert('중복체크 완료'); }}>중복확인</button>
+            <button
+              onClick={() => {
+                setIsCheck(true);
+                setShowModal(true);
+                setModalContents("중복체크 완료");
+              }}
+            >
+              중복확인
+            </button>
           </div>
         </div>
 

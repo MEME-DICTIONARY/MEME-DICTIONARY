@@ -59,7 +59,7 @@ function UserUploadPage() {
                 <input
                   type="radio"
                   name="카테고리"
-                  value="예능"
+                  value={"예능" || ""}
                   onChange={(e) =>
                     setImageMeme({ ...imageMeme, category: e.target.value })
                   }
@@ -68,7 +68,7 @@ function UserUploadPage() {
                 <input
                   type="radio"
                   name="카테고리"
-                  value="드라마"
+                  value={"드라마" || ""}
                   onChange={(e) =>
                     setImageMeme({ ...imageMeme, category: e.target.value })
                   }
@@ -77,7 +77,7 @@ function UserUploadPage() {
                 <input
                   type="radio"
                   name="카테고리"
-                  value="그 외"
+                  value={"그 외" || ""}
                   onChange={(e) =>
                     setImageMeme({ ...imageMeme, category: e.target.value })
                   }
@@ -93,6 +93,7 @@ function UserUploadPage() {
               <input
                 type="file"
                 className="file"
+                value={imageMeme.file || ""}
                 onChange={(e) =>
                   setImageMeme({ ...imageMeme, file: e.target.files })
                 }
@@ -107,6 +108,7 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
+                value={imageMeme.title || ""}
                 placeholder="밈의 제목을 입력해주세요."
                 onChange={(e) =>
                   setImageMeme({ ...imageMeme, title: e.target.value })
@@ -121,6 +123,7 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
+                value={imageMeme.description || ""}
                 placeholder="등록하려는 밈을 설명해주세요."
                 onChange={(e) =>
                   setImageMeme({ ...imageMeme, description: e.target.value })
@@ -135,9 +138,11 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
+                value={imageMeme.keywords || ""}
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
+                    console.log(imageMeme.keywords);
                     if (imageMeme.keywords.length === 3) {
                       alert("키워드는 최대 3개까지만 입력할 수 있습니다.");
                       return;
@@ -151,13 +156,23 @@ function UserUploadPage() {
                 }}
               />
               <div>
-                {imageMeme.keywords && imageMeme.keywords.map((keyword) => {
-                  return <BaseTag keyword={keyword} deleteTag={(word) => {
-                    let updatedArray = imageMeme.keywords;
-                    updatedArray.splice(updatedArray.indexOf(word),1);
-                    setImageMeme({...imageMeme,keywords:updatedArray});
-                  }}></BaseTag>;
-                })}
+                {imageMeme.keywords &&
+                  imageMeme.keywords.map((keyword) => {
+                    return (
+                      <BaseTag
+                        key={keyword}
+                        keyword={keyword}
+                        deleteTag={(word) => {
+                          let updatedArray = imageMeme.keywords;
+                          updatedArray.splice(updatedArray.indexOf(word), 1);
+                          setImageMeme({
+                            ...imageMeme,
+                            keywords: updatedArray,
+                          });
+                        }}
+                      ></BaseTag>
+                    );
+                  })}
               </div>
             </li>
           </>
@@ -173,6 +188,7 @@ function UserUploadPage() {
                   className="text__input"
                   type="text"
                   placeholder="단어를 입력해주세요."
+                  value={wordMeme.word || ""}
                   onChange={(e) =>
                     setWordMeme({ ...wordMeme, word: e.target.value })
                   }
@@ -189,6 +205,7 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
+                value={wordMeme.meaning || ""}
                 placeholder="등록하려는 밈의 뜻을 설명해주세요."
                 onChange={(e) =>
                   setWordMeme({ ...wordMeme, meaning: e.target.value })
@@ -202,6 +219,7 @@ function UserUploadPage() {
               </strong>
               <input
                 className="text__input"
+                value={wordMeme.example || ""}
                 type="text"
                 placeholder="등록하려는 밈의 사용 예시를 들어주세요."
                 onChange={(e) =>
@@ -217,11 +235,41 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
+                  defaultValue={wordMeme.keywords}
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
-                onChange={(e) =>
-                  setWordMeme({ ...wordMeme, word: e.target.value })
-                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    if (wordMeme.keywords.length === 3) {
+                      alert("키워드는 최대 3개까지만 입력할 수 있습니다.");
+                      return;
+                    }
+                    setWordMeme({
+                      ...wordMeme,
+                      keywords: [...wordMeme.keywords, e.target.value],
+                    });
+                    e.target.value = "";
+                  }
+                }}
               />
+              <div>
+                {wordMeme.keywords &&
+                  wordMeme.keywords.map((keyword) => {
+                    return (
+                      <BaseTag
+                        key={keyword}
+                        keyword={keyword}
+                        deleteTag={(word) => {
+                          let updatedArray = wordMeme.keywords;
+                          updatedArray.splice(updatedArray.indexOf(word), 1);
+                          setWordMeme({
+                            ...wordMeme,
+                            keywords: updatedArray,
+                          });
+                        }}
+                      ></BaseTag>
+                    );
+                  })}
+              </div>
             </li>
           </>
         ) : null}
