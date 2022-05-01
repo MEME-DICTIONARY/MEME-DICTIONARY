@@ -2,18 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 function BaseModal(props) {
-    return (
-        <>
-            {!props.hidden && (
-                <ModalWrapper onClick={props.hideModal}>
-                    <ModalContent>
-                        <p>{props.content}</p>
-                        <span onClick={props.hideModal}>X</span>
-                    </ModalContent>
-                </ModalWrapper>
-            )}
-        </>
-    );
+  return (
+    <>
+      {!props.hidden && (
+        <ModalWrapper onClick={props.hideModal}>
+          <ModalContent>
+            <p>{props.content}</p>
+            <span onClick={props.hideModal}>X</span>
+          </ModalContent>
+        </ModalWrapper>
+      )}
+    </>
+  );
 }
 
 const ModalWrapper = styled.div`

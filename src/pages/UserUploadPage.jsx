@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import BaseButton from "../component/BaseButton";
 import BaseTag from "../component/BaseTag";
+import BaseModal from "../component/BaseModal";
 import styled from "styled-components";
 
 function UserUploadPage() {
@@ -18,6 +19,8 @@ function UserUploadPage() {
     example: "",
     keywords: [],
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalContents, setModalContents] = useState("");
 
   return (
     <Form>
@@ -93,7 +96,7 @@ function UserUploadPage() {
               <input
                 type="file"
                 className="file"
-                value={imageMeme.file || ""}
+                defaultValue={imageMeme.file || null}
                 onChange={(e) =>
                   setImageMeme({ ...imageMeme, file: e.target.files })
                 }
@@ -138,24 +141,35 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
-                value={imageMeme.keywords || ""}
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    console.log(imageMeme.keywords);
                     if (imageMeme.keywords.length === 3) {
-                      alert("키워드는 최대 3개까지만 입력할 수 있습니다.");
+                      setShowModal(true);
+                      setModalContents(
+                        "키워드는 최대 3개까지만 입력할 수 있습니다."
+                      );
                       return;
                     }
                     setImageMeme({
                       ...imageMeme,
-                      keywords: [...imageMeme.keywords, e.target.value],
+                      keywords: [
+                        ...imageMeme.keywords,
+                        e.target.value.replace(/ /g, ""),
+                      ],
                     });
                     e.target.value = "";
                   }
                 }}
               />
-              <div>
+              <BaseModal
+                hidden={!showModal}
+                content={modalContents}
+                hideModal={() => {
+                  setShowModal(false);
+                }}
+              />
+              <div className="keywords__container">
                 {imageMeme.keywords &&
                   imageMeme.keywords.map((keyword) => {
                     return (
@@ -235,23 +249,35 @@ function UserUploadPage() {
               <input
                 className="text__input"
                 type="text"
-                  defaultValue={wordMeme.keywords}
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     if (wordMeme.keywords.length === 3) {
-                      alert("키워드는 최대 3개까지만 입력할 수 있습니다.");
+                      setShowModal(true);
+                      setModalContents(
+                        "키워드는 최대 3개까지만 입력할 수 있습니다."
+                      );
                       return;
                     }
                     setWordMeme({
                       ...wordMeme,
-                      keywords: [...wordMeme.keywords, e.target.value],
+                      keywords: [
+                        ...wordMeme.keywords,
+                        e.target.value.replace(/ /g, ""),
+                      ],
                     });
                     e.target.value = "";
                   }
                 }}
               />
-              <div>
+              <BaseModal
+                hidden={!showModal}
+                content={modalContents}
+                hideModal={() => {
+                  setShowModal(false);
+                }}
+              />
+              <div className="keywords__container">
                 {wordMeme.keywords &&
                   wordMeme.keywords.map((keyword) => {
                     return (
@@ -364,6 +390,10 @@ const Form = styled.form`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .keywords__container {
+    display: flex;
+    gap: 5px;
   }
 `;
 

@@ -11,17 +11,20 @@ function BaseTag(props) {
 }
 
 const Tag = styled.div`
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  gap: 2px;
   width: fit-content;
+  padding: 5px;
   border-radius: 20px;
   border: 2px solid #fff;
+  text-align: center;
+  align-items: center;
   color: #fff;
 
-  & > strong{
-      font-size:18px;
-  }
-  & > span{
-      font-size:16px;
-    color:#bdbdbd;
+  & > span {
+    font-size: 13px;
+    color: #bdbdbd;
   }
 `;
 
