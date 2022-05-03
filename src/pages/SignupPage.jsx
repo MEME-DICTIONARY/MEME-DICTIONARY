@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../assets/style/SignupPage.module.css";
 import "../assets/style/reset.css";
 
@@ -13,6 +14,8 @@ function SignupPage() {
   const [isCheck, setIsCheck] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
+
+  const navigate = useNavigate();
 
   const handleId = (e) => {
     setId(e.target.value);
@@ -38,6 +41,8 @@ function SignupPage() {
         } else if (password !== verifyPassword) {
           setShowModal(true);
           setModalContents("확인 비밀번호가 일치하지 않습니다.");
+        } else {
+          navigate("/main");
         }
       }
     }

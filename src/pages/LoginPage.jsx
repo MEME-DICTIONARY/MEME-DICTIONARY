@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../assets/style/LoginPage.module.css";
 import "../assets/style/reset.css";
 
@@ -12,6 +13,8 @@ function LoginPage() {
   const [isCheck, setIsCheck] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
+
+  const navigate = useNavigate();
 
   const handleId = (e) => {
     setId(e.target.value);
@@ -30,6 +33,11 @@ function LoginPage() {
       if (!isCheck) {
         setShowModal(true);
         setModalContents("아이디 중복체크를 먼저 해주세요.");
+      } else if (id.length < 5 || password.length < 5) {
+        setShowModal(true);
+        setModalContents(`아이디와 비밀번호는\n5글자 이상이어야 합니다.`);
+      } else {
+        navigate("/main");
       }
     }
   };

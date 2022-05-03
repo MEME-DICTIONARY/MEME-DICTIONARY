@@ -9,6 +9,12 @@ function BaseModal(props) {
           <ModalContent>
             <p>{props.content}</p>
             <span onClick={props.hideModal}>X</span>
+            {props.withdrawal && (
+              <div className="withdrawal__check">
+                <a href="/main">예</a>
+                <p>아니오</p>
+              </div>
+            )}
           </ModalContent>
         </ModalWrapper>
       )}
@@ -27,6 +33,7 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 `;
 
 const ModalContent = styled.div`
@@ -58,6 +65,16 @@ const ModalContent = styled.div`
     right: 20px;
     color: #bdbdbd;
     cursor: pointer;
+  }
+  .withdrawal__check{
+    display:flex;
+    gap:30px;
+    font-weight: 700;
+
+    a{
+      text-decoration: none;
+      color:#828282;
+    }
   }
 `;
 
