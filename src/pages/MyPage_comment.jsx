@@ -21,6 +21,7 @@ function MyPage_comment() {
           </ul>
           </li>
           <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/pw">p/w 수정</a></li>
+          <div className={styles.listLine}></div>
         </ul>
 
         <div className={styles.MyPage_comment_Container}>

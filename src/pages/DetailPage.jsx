@@ -6,9 +6,16 @@ import Header from '../component/Header.js';
 function DetailPage() {
   
   let[imghashtag, imghashtag_change]= useState(['#무야호','#무한도전','#신조어']);
+  let[wordhashtag, wordhashtag_change]= useState(['#어쩔티비','#저쩔티비','#신조어']);
+  let[wordLike, addWordLike] =useState(0);
+  let[wordWarning, addWordWarning]=useState(0);
+  let[imgLike , addImgLike] = useState(0);
+  let[imgWarning, addImgWarning] = useState(0);
+  
   
   return (
-    
+    <>
+   
     <div>
      
       <div className={ `${styles.detailPage_WordBody_Container} ${styles.detailPage_WordBody_Hidden}`}>
@@ -26,19 +33,19 @@ function DetailPage() {
       </p>
 
       <div className={styles.detailPage_hashtagParent}>
-        <div className={styles.detailPage_hashtag}>#어쩔티비</div>
-        <div className={styles.detailPage_hashtag}>#저쩔티비</div>
-        <div className={styles.detailPage_hashtag}>#신조어</div>
+        <div className={styles.detailPage_hashtag}>{wordhashtag[0]}</div>
+        <div className={styles.detailPage_hashtag}>{wordhashtag[1]}</div>
+        <div className={styles.detailPage_hashtag}>{wordhashtag[2]}</div>
       </div>
 
       <div className={styles.detailPage_buttonParent}>
         <button className={styles.detailPage_bottombtn}>
-          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/like.png")} alt='좋아요' />
-          20
+          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/like.png")} alt='좋아요' onClick={() => {addWordLike(wordLike+1)}} />
+          {wordLike}
         </button>
         <button className={styles.detailPage_bottombtn}>
-          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/report.png")} alt='신고'/>
-          20
+          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/report.png")} alt='신고' onClick={()=> {addWordWarning(wordWarning+1)}}/>
+          {wordWarning}
         </button>
         <button className={styles.detailPage_bottombtn}>
           <img className={styles.detailPage_bookmarkimg} src={require("../assets/img/detailPage/bookmark.png")}  alt='북마크'/>
@@ -60,12 +67,12 @@ function DetailPage() {
 
       <div className={styles.detailPage_buttonParent}>
         <button className={styles.detailPage_bottombtn}>
-          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/like.png")} alt="좋아요" />
-          20
+          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/like.png")} alt="좋아요"  onClick={()=>{addImgLike(imgLike+1)}} />
+          {imgLike}
         </button>
         <button className={styles.detailPage_bottombtn}>
-          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/report.png")} alt="신고"/>
-          20
+          <img className={styles.detailPage_buttonimg} src={require("../assets/img/detailPage/report.png")} alt="신고" onClick={()=>{addImgWarning(imgWarning+1)}}/>
+          {imgWarning}
         </button>
         <button className={styles.detailPage_bottombtn}>
           <img className={styles.detailPage_bookmarkimg} src={require("../assets/img/detailPage/bookmark.png")} alt="북마크" />
@@ -86,6 +93,7 @@ function DetailPage() {
     
     <Header></Header>
     </div>
+    </>
   );
 
 }

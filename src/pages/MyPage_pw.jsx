@@ -27,7 +27,9 @@ function MyPage_pw() {
         withdrawal={true}
       />
         <div id={styles.MyPage_Grid}>
+       
         <ul className={styles.MyPage_list_Container}>
+        
           <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/upload">등록한 글</a>
           </li>
           <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/bookmark" >
@@ -38,8 +40,9 @@ function MyPage_pw() {
           </ul>
           </li>
           <li className={styles.MyPage_list}><a className={styles.MyPage_link} href="http://localhost:3000/mypage/pw">p/w 수정</a></li>
+          <div className={styles.listLine}></div>
         </ul>
-
+       
         <div className={styles.MyPage_pw_Container}>
         
           <h3 className={styles.MyPage_pw}> 현재 비밀번호</h3>
