@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 export default function MainPage() {
   return (
     <>
-      <Header></Header>
+ 
       <main className={styles.mainpage_main_wrap}>
         <div className={styles.first_cont}>
           <div className={styles.searchBar}>
@@ -154,6 +154,7 @@ export default function MainPage() {
           </p>
         </footer>
       </main>
+      <Header></Header>
     </>
   );
 }

@@ -12,7 +12,11 @@
   left: 222px;
   top: 150px;
 }
-.detailPage_imgBody_Hidden {
+/*.detailPage_imgBody_Hidden {
+  display: none;
+}*/
+
+.detailPage_WordBody_Hidden{
   display: none;
 }
 
@@ -70,10 +74,10 @@
   width: 100px;
   height: 30px;
   border-radius: 75px;
-  text-align: center;
-  padding-top: 5px;
   float: left;
-  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .detailPage_buttonParent {
@@ -94,6 +98,7 @@
   margin-bottom: -10px;
   width: 30px;
   height: 30px;
+  
 }
 
 .detailPage_bookmarkimg {
