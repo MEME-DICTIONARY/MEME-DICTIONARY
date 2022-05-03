@@ -57,6 +57,10 @@ const ModalContent = styled.div`
   & > p {
     color: #232332;
     font-weight: 700;
+    width:70%;
+    line-height:23px;
+    word-break: keep-all;
+    text-align: center;
   }
 
   & > span {

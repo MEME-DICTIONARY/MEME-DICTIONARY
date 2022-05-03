@@ -35,7 +35,7 @@ function LoginPage() {
         setModalContents("아이디 중복체크를 먼저 해주세요.");
       } else if (id.length < 5 || password.length < 5) {
         setShowModal(true);
-        setModalContents(`아이디와 비밀번호는\n5글자 이상이어야 합니다.`);
+        setModalContents("아이디와 비밀번호는 5글자 이상이어야 합니다.");
       } else {
         navigate("/main");
       }
