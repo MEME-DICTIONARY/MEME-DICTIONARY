@@ -12,7 +12,6 @@ function MyPage_pw() {
   function quitModalOpen(){
     setShowModal(true);
     setModalContents("정말 탈퇴하시겠습니까?")
-    
   }
  
   

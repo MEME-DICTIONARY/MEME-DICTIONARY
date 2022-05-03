@@ -33,15 +33,10 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-<<<<<<< HEAD
-  z-index: 1;
-=======
   z-index:1;
->>>>>>> 1fb10841927550b71ed5bd0e16509b3f8648f345
 `;
 
 const ModalContent = styled.div`
-  display: flex;
   flex-direction: column;
   gap: 15px;
 
