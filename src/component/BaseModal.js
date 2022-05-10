@@ -33,10 +33,11 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index:1;
+  z-index: 1;
 `;
 
 const ModalContent = styled.div`
+  display: flex;
   flex-direction: column;
   gap: 15px;
 
@@ -56,8 +57,8 @@ const ModalContent = styled.div`
   & > p {
     color: #232332;
     font-weight: 700;
-    width:70%;
-    line-height:23px;
+    width: 70%;
+    line-height: 23px;
     word-break: keep-all;
     text-align: center;
   }
@@ -69,14 +70,14 @@ const ModalContent = styled.div`
     color: #bdbdbd;
     cursor: pointer;
   }
-  .withdrawal__check{
-    display:flex;
-    gap:30px;
+  .withdrawal__check {
+    display: flex;
+    gap: 30px;
     font-weight: 700;
 
-    a{
+    a {
       text-decoration: none;
-      color:#828282;
+      color: #828282;
     }
   }
 `;

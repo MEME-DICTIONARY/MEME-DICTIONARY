@@ -40,8 +40,7 @@
   background: none;
 }
 .searchBar input::placeholder {
-  font-family: "Noto Sans KR", sans-serif;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.7px;
 }
 .searchBar .searchIcon {
   padding-right: 32px;

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import Header from "../component/Header";
 import styles from "../assets/style/MainPage.module.css";
 import "../assets/style/reset.css";
@@ -7,10 +7,18 @@ import footer_logo from "../assets/img/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
+import customAxios from '../api/index';
+
 export default function MainPage() {
+  useEffect(() => {
+    customAxios('/hello', () => {
+      console.log('hello');
+    });
+  }, []);
+
+
   return (
     <>
- 
       <main className={styles.mainpage_main_wrap}>
         <div className={styles.first_cont}>
           <div className={styles.searchBar}>

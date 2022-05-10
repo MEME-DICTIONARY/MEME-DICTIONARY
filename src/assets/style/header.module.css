@@ -1,224 +1,215 @@
-body,html{
-    background-color: #232332;
-    height: 100%;
-    width: 100%;
-  }
+body,
+html {
+  background-color: #232332;
+  height: 100%;
+  width: 100%;
+  font-family: "Noto Sans KR",
+  sans-serif;
+}
 
-  .headcontainer{
-  
-    width: 100%
-    
-  }
-  
-  
-  
-  .header_HamburgerBtn{
-    background-color: white;
-    height: 40px;
-    width:40px;
-    position:absolute;
-    top:40px;
-    left:70px;
-  }
-  .header_HamburgerImg{
-    height: 50px;
-    width:50px;
-    position:relative;
-    top:-3px;
-    left:-10px
-  }
-  
-  .header_CircleParent{
-   position : absolute;
-   top:30px;
-   left:45%;
-   
-  }
-  
-  
-  .header_Circle1{
-    background-color: #ff0043;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-   
-  }
-  .header_Circle2{
-    background-color: #d422ff;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-  }
-  .header_Circle3{
-    background-color: #2737ff;
-    float:left;
-    width:50px;
-    height: 50px;
-    border-radius: 75px;
-  }
-  
-  .header_SearchParent{
-    position:absolute;
-    left:20px;
-    top:0px;
-  }
-  .header_SearchBox{
-   position: absolute;
-    left:1200px;
-    top:30px;
-    background-color: #232332;
-    border:1px solid white;
-    border-radius: 10px;
-    height:30px;
-    width:200px;
-  }
-  
-  .header_SearchBtn{
-    background-color: white;
+.headcontainer {
+  width: 100%;
+}
+
+.header_HamburgerBtn {
+  background-color: white;
+  height: 40px;
+  width: 40px;
   position: absolute;
-    left:1360px;
-    top:33px;
-    height:25px;
-    width: 30px;
-  }
-  
-  .header_SearchImg{
-    position: relative;
-    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
-    top:-4px;
-    height: 30px;
-    width: 30px;
-  }
-  
-  .header_PersonBtn{
-    height: 43px;
-    width:40px;
-   position: absolute;
-    left:1440px;
-    top:25px;
-  }
-  
-  .header_PersonImg{
-    position: relative;
-    top:-9px;
-    left:-8px;/*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
-    height:50px;
-    width: 40px;
-  }
+  top: 30px;
+  left: 70px;
+  cursor: pointer;
+}
+.header_HamburgerImg {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: -3px;
+  left: -10px;
+}
 
-  .header_Line{
-    position: absolute;
-    top:15%;
-    width: 100%;
-    border-bottom: 1px solid white;
-    opacity: 0.5;
-  }
-  
-  .categoryModal{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left: 0;
-    
-  }
-  .categoryModalHidden{
-    display: none;
-  }
-  
-  .categoryModal_overlay{
-    position: fixed;
-    background-color: rgba(0,0, 0,0.4);
-    width: 100%;
-    height: 100%;
-  }
-  
-  .categoryModal_content{
-    position: fixed;
-    background-color: white;
-    top:120px;
-    left:30px;
-    border-radius: 10px;
-    width:197px;
-    height: 500px;
-  }
-  .category_title{
-   position: relative;
-   margin-bottom: 20px;
-   margin-top:20px;
-   top:10px;
-   left:20px;
-  }
-  
-  .categoryButton_container{
-    position: relative;
-    left:3px;
-    margin: auto;
-    
-  }
-  .categoryButton_word{
-    background-color: white;
-    border:none;
-    padding: 10px;
-    
-  }
-  
-  .categoryButton_img{
-    background-color: white;
-    border:none;
-    padding: 10px;
-    display: block;
-  }
+.header_CircleParent {
+  position: absolute;
+  top: 30px;
+  left: 45%;
+}
 
-  .loginModalHidden{
-    display: none;
-  }
+.header_Circle1 {
+  background-color: #ff0043;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
+.header_Circle2 {
+  background-color: #d422ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
+.header_Circle3 {
+  background-color: #2737ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+}
 
-  .loginModal_overlay{
-   position: fixed;
-    top:0%;
-    background-color: rgba(0,0, 0,0.4);
-    width: 100%;
-    height: 100%;
-  }
+.header_SearchParent {
+  position: absolute;
+  left: 20px;
+  top: 0px;
+}
+.header_SearchBox {
+  position: absolute;
+  left: 1200px;
+  top: 30px;
+  background-color: #232332;
+  border: 1px solid white;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+}
 
-  .loginModal_content{
-    position: fixed;
-    top:13%;
-    left:90%;
-    background-color: white;
-    height: 120px;
-    width: 120px;
-    
-  }
+.header_SearchBtn {
+  background-color: white;
+  position: absolute;
+  left: 1360px;
+  top: 33px;
+  height: 25px;
+  width: 30px;
+}
 
-  .triangle {
-    position:relative;
-    width: 0;
-    height: 0;
-    top:-18%;
-    left:74%;
-    border-bottom: calc( 13px * 1.732 ) solid white;
-    border-left: 13px solid transparent;
-    border-right: 13px solid transparent;
-  }
+.header_SearchImg {
+  position: relative;
+  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  top: -4px;
+  height: 30px;
+  width: 30px;
+}
 
+.header_PersonBtn {
+  height: 43px;
+  width: 40px;
+  position: absolute;
+  left: 1440px;
+  top: 25px;
+}
 
-  .loginModalList{
-    
-  margin:auto;
-  list-style:none;
+.header_PersonImg {
+  position: relative;
+  top: -9px;
+  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  height: 50px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.header_Line {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  border-bottom: 1px solid white;
+  opacity: 0.5;
+}
+
+.categoryModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.categoryModalHidden {
+  display: none;
+}
+
+.categoryModal_overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+}
+
+.categoryModal_content {
+  position: fixed;
+  background-color: white;
+  top: 120px;
+  left: 30px;
+  border-radius: 10px;
+  width: 197px;
+  height: 500px;
+}
+.category_title {
+  position: relative;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  top: 10px;
+  left: 20px;
+}
+
+.categoryButton_container {
+  position: relative;
+  left: 3px;
+  margin: auto;
+}
+.categoryButton_word {
+  background-color: white;
+  border: none;
+  padding: 10px;
+}
+
+.categoryButton_img {
+  background-color: white;
+  border: none;
+  padding: 10px;
+  display: block;
+}
+
+.loginModalHidden {
+  display: none;
+}
+
+.loginModal_overlay {
+  position: fixed;
+  top: 0%;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+}
+
+.loginModal_content {
+  position: fixed;
+  top: 13%;
+  left: 90%;
+  background-color: white;
+  height: 120px;
+  width: 120px;
+}
+
+.triangle {
+  position: relative;
+  width: 0;
+  height: 0;
+  top: -18%;
+  left: 74%;
+  border-bottom: calc(13px * 1.732) solid white;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+}
+
+.loginModalList {
+  margin: auto;
+  list-style: none;
   display: block;
   text-align: center;
   position: relative;
-  top:-10%;
+  top: -10%;
   padding-top: 20%;
- 
-  }
+}
 
-  .loginModalSelect{
-    text-decoration: none;
-    color: black;
-  }
+.loginModalSelect {
+  text-decoration: none;
+  color: black;
+}

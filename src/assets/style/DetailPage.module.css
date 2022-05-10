@@ -1,4 +1,6 @@
 .detailPage_WordBody_Container {
+  font-family: "Noto Sans KR",
+  sans-serif;
   width: 70%;
   height: 550px;
   position: relative;

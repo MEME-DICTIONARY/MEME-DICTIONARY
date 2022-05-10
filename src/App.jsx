@@ -25,7 +25,6 @@ function App() {
       <Route path="/mypage/comment" element={<MyPage_comment />} />
       <Route path="/mypage/pw" element={<MyPage_pw />} />
       <Route path="/upload" element={<UserUploadPage />} />
-
     </Routes>
   );
 }
