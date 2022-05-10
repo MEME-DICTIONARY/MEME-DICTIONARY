@@ -5,14 +5,25 @@ import styles from '../assets/style/header.module.css';
 
 function Header() {
   let [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
-  let [loginModalClose, loginModalOpen] = useState(styles.loginModalHidden)
-  let[search , changeSearch] =useState("");
+  let [logoutModalClose, logoutModal] = useState(styles.logModalHidden);
+  let [loginModalClose, loginModal] = useState(styles.logModalHidden)
+ 
+  let[loginState, checkLogin] = useState(true);
 
   function moveToSearchPage(){
     window.location.href="http://localhost:3000/search"
-    changeSearch();
+  
   }
 
+  function handleLoginModal(){
+    
+    if(loginState==false){
+      logoutModal(styles.logoutModal);
+    }
+    else if(loginState==true){
+      loginModal(styles.loginModal);
+    }
+  }
 
   return (
     <div>
@@ -34,7 +45,7 @@ function Header() {
             <img className={styles.header_SearchImg} src={require("../assets/img/detailPage/search.PNG")} alt="검색아이콘" />
           </button>
         </article>
-        <button className={styles.header_PersonBtn} onClick={() => {loginModalOpen(styles.loginModal)}}>
+        <button className={styles.header_PersonBtn} onClick={handleLoginModal}>
           <img className={styles.header_PersonImg} src={require("../assets/img/detailPage/person.PNG")} alt="사람아이콘" />
         </button>
         <div className={styles.header_Line}></div>
@@ -46,41 +57,48 @@ function Header() {
           <h2 className={styles.category_title}>용어</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button className={styles.categoryButton_word}>ㄱ</button>
-            <button className={styles.categoryButton_word}>ㄴ</button>
-            <button className={styles.categoryButton_word}>ㄷ</button>
-            <button className={styles.categoryButton_word}>ㄹ</button>
-            <button className={styles.categoryButton_word}>ㅁ</button>
-            <button className={styles.categoryButton_word}>ㅂ</button>
-            <button className={styles.categoryButton_word}>ㅅ</button>
-            <button className={styles.categoryButton_word}>ㅇ</button>
-            <button className={styles.categoryButton_word}>ㅈ</button>
-            <button className={styles.categoryButton_word}>ㅊ</button>
-            <button className={styles.categoryButton_word}>ㅋ</button>
-            <button className={styles.categoryButton_word}>ㅌ</button>
-            <button className={styles.categoryButton_word}>ㅍ</button>
-            <button className={styles.categoryButton_word}>ㅎ</button>
+            <button className={styles.categoryButton_word}  onClick={moveToSearchPage}>ㄱ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㄴ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㄷ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㄹ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅁ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅂ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅅ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅇ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅈ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅊ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅋ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅌ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅍ</button>
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>ㅎ</button>
           </div>
           <br />
           <h2 className={styles.category_title}>짤</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button className={styles.categoryButton_img}>TV</button>
-            <button className={styles.categoryButton_img}>영화</button>
-            <button className={styles.categoryButton_img}>커뮤니티</button>
-            <button className={styles.categoryButton_img}>기타</button>
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>TV</button>
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>영화</button>
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>커뮤니티</button>
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>기타</button>
           </div>
         </div>
       </div>
 
+      <div className={logoutModalClose}>
+        <div className={styles.logModal_overlay} onClick={() => { logoutModal(styles.logModalHidden) }} ></div>
+        <ul className={styles.logoutModal_content}>
+            <div className={styles.triangleOut}></div>
+            <li className={styles.logModalList}><a className={styles.logModalSelect} href="http://localhost:3000/login"> 로그인</a></li>
+            <li className={styles.logModalList}><a className={styles.logModalSelect} href="http://localhost:3000/signup" > 회원가입</a></li>
+        </ul>
+      </div>
       <div className={loginModalClose}>
-        <div className={styles.loginModal_overlay} onClick={() => { loginModalOpen(styles.loginModalHidden) }} ></div>
+        <div className={styles.logModal_overlay} onClick={() => { loginModal(styles.logModalHidden) }} ></div>
         <ul className={styles.loginModal_content}>
-            <div className={styles.triangle}></div>
-            <li className={styles.loginModalList}><a className={styles.loginModalSelect} href="http://localhost:3000/login"> 로그인</a></li>
-            <li className={styles.loginModalList}><a className={styles.loginModalSelect} href="http://localhost:3000/signup" > 회원가입</a></li>
-         
-      
+        <div className={styles.triangleIn}></div>
+            <li className={styles.logModalList}><a className={styles.logModalSelect} href="http://localhost:3000/mypage/upload" > 마이페이지</a></li>
+            <li className={styles.logModalList}><a className={styles.logModalSelect} href="http://localhost:3000/upload" > 밈 등록하기</a></li>
+            <li className={styles.logModalList}><a className={styles.logModalSelect} href="http://localhost:3000/upload" > 로그아웃</a></li>
         </ul>
       </div>
 

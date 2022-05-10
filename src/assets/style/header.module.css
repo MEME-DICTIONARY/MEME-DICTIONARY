@@ -62,7 +62,7 @@ body,html{
   .header_SearchParent{
     position:absolute;
     left:20px;
-    top:0px;
+    top:10px;
   }
   .header_SearchBox{
    position: absolute;
@@ -73,12 +73,13 @@ body,html{
     border-radius: 10px;
     height:30px;
     width:200px;
+    padding-left:10px;
   }
   
   .header_SearchBtn{
     background-color: white;
   position: absolute;
-    left:1360px;
+    left:1370px;
     top:33px;
     height:25px;
     width: 30px;
@@ -97,7 +98,7 @@ body,html{
     width:40px;
    position: absolute;
     left:1440px;
-    top:25px;
+    top:35px;
   }
   
   .header_PersonImg{
@@ -172,11 +173,11 @@ body,html{
     display: block;
   }
 
-  .loginModalHidden{
+  .logModalHidden{
     display: none;
   }
 
-  .loginModal_overlay{
+  .logModal_overlay{
    position: fixed;
     top:0%;
     background-color: rgba(0,0, 0,0.4);
@@ -184,7 +185,7 @@ body,html{
     height: 100%;
   }
 
-  .loginModal_content{
+  .logoutModal_content{
     position: fixed;
     top:13%;
     left:90%;
@@ -194,7 +195,7 @@ body,html{
     
   }
 
-  .triangle {
+  .triangleOut {
     position:relative;
     width: 0;
     height: 0;
@@ -206,7 +207,7 @@ body,html{
   }
 
 
-  .loginModalList{
+  .logModalList{
     
   margin:auto;
   list-style:none;
@@ -218,7 +219,28 @@ body,html{
  
   }
 
-  .loginModalSelect{
+  .logModalSelect{
     text-decoration: none;
     color: black;
+  }
+
+  .loginModal_content{
+    position: fixed;
+    top:13%;
+    left:90%;
+    background-color: white;
+    height: 150px;
+    width: 120px;
+    
+  }
+
+  .triangleIn {
+    position:relative;
+    width: 0;
+    height: 0;
+    top:-15%;
+    left:74%;
+    border-bottom: calc( 13px * 1.732 ) solid white;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
   }

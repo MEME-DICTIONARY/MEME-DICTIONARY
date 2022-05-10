@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
 
-function MyPage_comment() {
+function MyPagecomment() {
 
 
   return (
@@ -41,4 +41,4 @@ function MyPage_comment() {
   )
 }
 
-export default MyPage_comment;
+export default MyPagecomment;

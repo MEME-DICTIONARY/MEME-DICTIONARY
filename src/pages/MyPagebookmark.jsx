@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
+import { Link } from 'react-router-dom';
 
-function MyPage_upload() {
+function MyPagebookmark() {
   
   let[btn, btnChange]= useState([styles.MyPage_Word_Btn,styles.MyPage_Img_Btn_Unclick]);
 
@@ -27,13 +28,13 @@ function MyPage_upload() {
    
       <div id={styles.MyPage_Grid}>
         <ul className={styles.MyPage_list_Container}>
-          <li className={styles.MyPage_list}><a className={styles.MyPage_link}  href="http://localhost:3000/mypage/upload">등록한 글</a>
+          <li className={styles.MyPage_list} > <a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/upload" >등록한 글  </a>
           </li>
-          <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/bookmark" >
+          <li className={styles.MyPage_list}><a className={styles.MyPage_link} href="http://localhost:3000/mypage/bookmark" > 
           나의 활동</a>
           <ul className={styles.MyPage_list_child}>
-            <li><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/bookmark" >북마크</a></li>
-            <li><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/comment" >댓글</a></li>
+            <li><a className={styles.MyPage_link}  href="http://localhost:3000/mypage/bookmark" >북마크</a></li>
+            <li><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/comment">댓글</a></li>
           </ul>
           </li>
           <li className={styles.MyPage_list}><a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/pw">p/w 수정</a></li>
@@ -78,4 +79,4 @@ function MyPage_upload() {
   );
 }
 
-export default MyPage_upload;
+export default MyPagebookmark;

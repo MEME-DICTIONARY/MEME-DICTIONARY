@@ -3,10 +3,12 @@ import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
 import BaseModal from "../component/BaseModal";
 
-function MyPage_pw() {
+function MyPagepw() {
 
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
+  const[newPW, setnewPW] = useState("");
+  const[verifyNewPW, setVerifyNewPw]= useState("");
 
 
   function quitModalOpen(){
@@ -14,6 +16,20 @@ function MyPage_pw() {
     setModalContents("정말 탈퇴하시겠습니까?")
   }
  
+  function pwChangeModalOpen(){
+   
+    if(newPW==verifyNewPW){
+      setShowModal(true);
+      setModalContents("정말 변경하시겠습니까?")}
+    else{
+      setShowModal(true);
+      setModalContents("비밀번호가 일치하지 않습니다");
+    }
+  }
+
+  const handleNewPassword = (e) => {
+    setnewPW(e.target.value);
+  };
   
   return (
     <div >
@@ -47,10 +63,10 @@ function MyPage_pw() {
           <h3 className={styles.MyPage_pw}> 현재 비밀번호</h3>
           <input className={styles.MyPage_pw_input} type="text"  />
           <h3 className={styles.MyPage_pw}> 비밀번호 수정</h3>
-          <input className={styles.MyPage_pw_input} type="text"  />
+          <input className={styles.MyPage_pw_input} type="text" value={newPW} onChange={handleNewPassword}  />
           <h3 className={styles.MyPage_pw}>비밀번호 확인</h3>
-          <input className={styles.MyPage_pw_input} type="text"  />
-          <button className={styles.MyPage_pw_changeBtn}> 변경</button>
+          <input className={styles.MyPage_pw_input} type="text" value={verifyNewPW}  onChange={(e) => setVerifyNewPw(e.target.value)}  />
+          <button className={styles.MyPage_pw_changeBtn} onClick={pwChangeModalOpen}> 변경</button>
           <button className={styles.MyPage_delete} onClick={quitModalOpen} >회원탈퇴</button>
         
       </div>
@@ -61,4 +77,4 @@ function MyPage_pw() {
   );
 }
 
-export default MyPage_pw;
+export default MyPagepw;
