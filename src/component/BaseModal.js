@@ -37,7 +37,7 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  display: flex;
+ display:flex;
   flex-direction: column;
   gap: 15px;
 

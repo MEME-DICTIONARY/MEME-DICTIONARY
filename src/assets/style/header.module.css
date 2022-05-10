@@ -3,36 +3,39 @@ html {
   background-color: #232332;
   height: 100%;
   width: 100%;
-  font-family: "Noto Sans KR",
-  sans-serif;
 }
 
 .headcontainer {
-  width: 100%;
+
+  width: 100%
 }
+
+
 
 .header_HamburgerBtn {
   background-color: white;
   height: 40px;
   width: 40px;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 70px;
-  cursor: pointer;
 }
+
 .header_HamburgerImg {
   height: 50px;
   width: 50px;
   position: relative;
   top: -3px;
-  left: -10px;
+  left: -10px
 }
 
 .header_CircleParent {
   position: absolute;
   top: 30px;
   left: 45%;
+
 }
+
 
 .header_Circle1 {
   background-color: #ff0043;
@@ -40,7 +43,9 @@ html {
   width: 50px;
   height: 50px;
   border-radius: 75px;
+
 }
+
 .header_Circle2 {
   background-color: #d422ff;
   float: left;
@@ -48,6 +53,7 @@ html {
   height: 50px;
   border-radius: 75px;
 }
+
 .header_Circle3 {
   background-color: #2737ff;
   float: left;
@@ -59,8 +65,9 @@ html {
 .header_SearchParent {
   position: absolute;
   left: 20px;
-  top: 0px;
+  top: 10px;
 }
+
 .header_SearchBox {
   position: absolute;
   left: 1200px;
@@ -70,12 +77,13 @@ html {
   border-radius: 10px;
   height: 30px;
   width: 200px;
+  padding-left: 10px;
 }
 
 .header_SearchBtn {
   background-color: white;
   position: absolute;
-  left: 1360px;
+  left: 1370px;
   top: 33px;
   height: 25px;
   width: 30px;
@@ -83,7 +91,8 @@ html {
 
 .header_SearchImg {
   position: relative;
-  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  left: -8px;
+  /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
   top: -4px;
   height: 30px;
   width: 30px;
@@ -94,16 +103,16 @@ html {
   width: 40px;
   position: absolute;
   left: 1440px;
-  top: 25px;
+  top: 35px;
 }
 
 .header_PersonImg {
   position: relative;
   top: -9px;
-  left: -8px; /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
+  left: -8px;
+  /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
   height: 50px;
   width: 40px;
-  cursor: pointer;
 }
 
 .header_Line {
@@ -120,7 +129,9 @@ html {
   height: 100%;
   top: 0;
   left: 0;
+
 }
+
 .categoryModalHidden {
   display: none;
 }
@@ -141,6 +152,7 @@ html {
   width: 197px;
   height: 500px;
 }
+
 .category_title {
   position: relative;
   margin-bottom: 20px;
@@ -153,11 +165,14 @@ html {
   position: relative;
   left: 3px;
   margin: auto;
+
 }
+
 .categoryButton_word {
   background-color: white;
   border: none;
   padding: 10px;
+
 }
 
 .categoryButton_img {
@@ -167,11 +182,11 @@ html {
   display: block;
 }
 
-.loginModalHidden {
+.logModalHidden {
   display: none;
 }
 
-.loginModal_overlay {
+.logModal_overlay {
   position: fixed;
   top: 0%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -179,16 +194,17 @@ html {
   height: 100%;
 }
 
-.loginModal_content {
+.logoutModal_content {
   position: fixed;
   top: 13%;
   left: 90%;
   background-color: white;
   height: 120px;
   width: 120px;
+
 }
 
-.triangle {
+.triangleOut {
   position: relative;
   width: 0;
   height: 0;
@@ -199,7 +215,9 @@ html {
   border-right: 13px solid transparent;
 }
 
-.loginModalList {
+
+.logModalList {
+
   margin: auto;
   list-style: none;
   display: block;
@@ -207,9 +225,31 @@ html {
   position: relative;
   top: -10%;
   padding-top: 20%;
+
 }
 
-.loginModalSelect {
+.logModalSelect {
   text-decoration: none;
   color: black;
+}
+
+.loginModal_content {
+  position: fixed;
+  top: 13%;
+  left: 90%;
+  background-color: white;
+  height: 150px;
+  width: 120px;
+
+}
+
+.triangleIn {
+  position: relative;
+  width: 0;
+  height: 0;
+  top: -15%;
+  left: 74%;
+  border-bottom: calc(13px * 1.732) solid white;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
 }

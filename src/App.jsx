@@ -4,14 +4,17 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import DetailPage from "./pages/DetailPage";
-import MyPage_upload from "./pages/MyPage_upload";
-import MyPage_bookmark from "./pages/MyPage_bookmark";
-import MyPage_comment from "./pages/MyPage_comment";
-import MyPage_pw from "./pages/MyPage_pw";
+import MyPageupload from "./pages/MyPageupload";
+import MyPagebookmark from "./pages/MyPagebookmark";
+import MyPagecomment from "./pages/MyPagecomment";
+import MyPagepw from "./pages/MyPagepw";
 import UserUploadPage from "./pages/UserUploadPage";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+
+  
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -20,10 +23,10 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/search" element={<SearchResultPage />} />
       <Route path="/detail" element={<DetailPage />} />
-      <Route path="/mypage/upload" element={<MyPage_upload />} />
-      <Route path="/mypage/bookmark" element={<MyPage_bookmark />} />
-      <Route path="/mypage/comment" element={<MyPage_comment />} />
-      <Route path="/mypage/pw" element={<MyPage_pw />} />
+      <Route path="/mypage/upload" element={<MyPageupload />} />
+      <Route path="/mypage/bookmark" element={<MyPagebookmark />} />
+      <Route path="/mypage/comment" element={<MyPagecomment />} />
+      <Route path="/mypage/pw" element={<MyPagepw />} />
       <Route path="/upload" element={<UserUploadPage />} />
     </Routes>
   );
