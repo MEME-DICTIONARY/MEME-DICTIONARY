@@ -54,29 +54,31 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.header_Circle3}></div>
         </a>
         <article className={styles.header_SearchParent}>
-          <input
-            className={styles.header_SearchBox}
-            type="text"
-            style={{ color: "white" }}
-          />
-          <button
-            className={styles.header_SearchBtn}
-            onClick={moveToSearchPage}
-          >
+          <div clssName={styles.header__searchContainer}>
+            <input
+              className={styles.header_SearchBox}
+              type="text"
+              style={{ color: "white" }}
+            />
+            <button
+              className={styles.header_SearchBtn}
+              onClick={moveToSearchPage}
+            >
+              <img
+                className={styles.header_SearchImg}
+                src={require("../assets/img/detailPage/search.PNG")}
+                alt="검색아이콘"
+              />
+            </button>
+          </div>
+          <button className={styles.header_PersonBtn} onClick={handleLoginModal}>
             <img
-              className={styles.header_SearchImg}
-              src={require("../assets/img/detailPage/search.PNG")}
-              alt="검색아이콘"
+              className={styles.header_PersonImg}
+              src={require("../assets/img/detailPage/person.PNG")}
+              alt="사람아이콘"
             />
           </button>
         </article>
-        <button className={styles.header_PersonBtn} onClick={handleLoginModal}>
-          <img
-            className={styles.header_PersonImg}
-            src={require("../assets/img/detailPage/person.PNG")}
-            alt="사람아이콘"
-          />
-        </button>
         <div className={styles.header_Line}></div>
       </div>
 
@@ -253,9 +255,8 @@ function Header({ isLogin, setUserLogout }) {
             </a>
           </li>
           <li className={styles.logModalList} onClick={() => setUserLogout()}>
-            로그아웃
+            <a href="/main"> 로그아웃</a>
           </li>
-          {/* <li className={styles.logModalList}><a className={styles.logModalSelect} href="/upload" > 로그아웃</a></li> */}
         </ul>
       </div>
     </div>

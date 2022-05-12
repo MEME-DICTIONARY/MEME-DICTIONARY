@@ -6,69 +6,59 @@ html {
 }
 
 .headcontainer {
-  width: 100%
+  width: 100%;
+  height:100px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header_HamburgerBtn {
-  background-color: white;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  top: 40px;
-  left: 70px;
+  margin-left:50px;
+  width:fit-content;
+border:none;
+background-color: inherit;
 }
 
 .header_HamburgerImg {
-  height: 50px;
-  width: 50px;
-  position: relative;
-  top: -3px;
-  left: -10px
+  background-size: cover;
 }
 
-.header_CircleParent {
-  position: absolute;
-  top: 30px;
-  left: 45%;
-
+.header_CircleParent{
+  display:flex;
+  width:fit-content;
 }
 
+.header_Circle1,.header_Circle2,.header_Circle3{
+  float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 75px;
+}
 
 .header_Circle1 {
   background-color: #ff0043;
-  float: left;
-  width: 50px;
-  height: 50px;
-  border-radius: 75px;
-
 }
 
 .header_Circle2 {
   background-color: #d422ff;
-  float: left;
-  width: 50px;
-  height: 50px;
-  border-radius: 75px;
 }
 
 .header_Circle3 {
   background-color: #2737ff;
-  float: left;
-  width: 50px;
-  height: 50px;
-  border-radius: 75px;
 }
 
 .header_SearchParent {
-  position: absolute;
-  left: 20px;
-  top: 10px;
+  display:flex;
+  width:fit-content;
+  align-items: center;
+  gap:10px;
+}
+.header__searchContainer{
+  display:inline-block;
 }
 
 .header_SearchBox {
-  position: absolute;
-  left: 1200px;
-  top: 30px;
   background-color: #232332;
   border: 1px solid white;
   border-radius: 10px;
@@ -76,38 +66,25 @@ html {
   width: 200px;
   padding-left: 10px;
 }
+.header_SearchBtn{
+  position:absolute;
+  top:35px;
+  right:70px;
 
-.header_SearchBtn {
-  background-color: white;
-  position: absolute;
-  left: 1370px;
-  top: 33px;
-  height: 25px;
-  width: 30px;
+}
+.header_SearchBtn ,.header_PersonBtn{
+  width: fit-content;
+    border: none;
+    background-color: inherit;
 }
 
 .header_SearchImg {
-  position: relative;
-  left: -8px;
-  /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
-  top: -4px;
   height: 30px;
   width: 30px;
 }
 
-.header_PersonBtn {
-  height: 43px;
-  width: 40px;
-  position: absolute;
-  left: 1440px;
-  top: 35px;
-}
 
 .header_PersonImg {
-  position: relative;
-  top: -9px;
-  left: -8px;
-  /*버튼 작동하는지 확인하고 싶으면 이거 움직여보셈*/
   height: 50px;
   width: 40px;
 }
