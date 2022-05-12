@@ -42,7 +42,7 @@ function SignupPage() {
           setShowModal(true);
           setModalContents("확인 비밀번호가 일치하지 않습니다.");
         } else {
-          navigate("/main");
+          navigate("/login");
         }
       }
     }

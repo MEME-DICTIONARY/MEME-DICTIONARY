@@ -31,7 +31,7 @@ function SearchResultPage() {
       <MainWrapper>
         <TypeNav>
           <NavList
-            props={isWordClicked}
+            isWordClicked={isWordClicked}
             onClick={() => {
               setIsWordClicked(true);
             }}
@@ -39,7 +39,7 @@ function SearchResultPage() {
             용어
           </NavList>
           <NavList
-            props={!isWordClicked}
+            isWordClicked={!isWordClicked}
             onClick={() => setIsWordClicked(false)}
           >
             짤
@@ -84,7 +84,7 @@ const MainWrapper = styled.main`
 
 const TypeNav = styled.nav`
   display: flex;
-  margin: 151px 0 57px 51px;
+  margin: 121px 0 57px 51px;
   color: #696868;
 `;
 
