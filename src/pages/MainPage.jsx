@@ -19,6 +19,7 @@ export default function MainPage() {
 
   return (
     <>
+      <Header />
       <main className={styles.mainpage_main_wrap}>
         <div className={styles.first_cont}>
           <div className={styles.searchBar}>
@@ -162,7 +163,6 @@ export default function MainPage() {
           </p>
         </footer>
       </main>
-      <Header></Header>
     </>
   );
 }

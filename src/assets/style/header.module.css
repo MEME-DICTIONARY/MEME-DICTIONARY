@@ -6,11 +6,8 @@ html {
 }
 
 .headcontainer {
-
   width: 100%
 }
-
-
 
 .header_HamburgerBtn {
   background-color: white;
@@ -116,9 +113,9 @@ html {
 }
 
 .header_Line {
+  width:100%;
   position: absolute;
   top: 15%;
-  width: 100%;
   border-bottom: 1px solid white;
   opacity: 0.5;
 }
