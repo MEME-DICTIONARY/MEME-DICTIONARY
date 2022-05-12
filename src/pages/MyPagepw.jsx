@@ -33,6 +33,7 @@ function MyPagepw() {
 
   return (
     <div>
+      <Header />
       <BaseModal
         hidden={!showModal}
         content={modalContents}
@@ -108,8 +109,6 @@ function MyPagepw() {
           </button>
         </div>
       </div>
-
-      <Header></Header>
     </div>
   );
 }
