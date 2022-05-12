@@ -71,7 +71,7 @@ function MyPageupload() {
               p/w 수정
             </a>
           </li>
-          <div className={styles.listLine}></div>
+         <div className={styles.listLine}></div>
         </ul>
         <div>
           <div className={styles.MyPage_Btn_Container}>

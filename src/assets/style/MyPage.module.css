@@ -6,21 +6,19 @@ html,body{
   font-family: "Noto Sans KR",
   sans-serif;
 }
+
 .MyPage_list_Container{
-    position: relative;
-    top:110px;
-    
+   display:  flex;
+   flex-direction: column;
+    border-right: 1px solid white;
+    top: 10px;
     width: 190px;
-    height: 645px;
+    border-right: 1px solid rgba(255, 255,255,0.5);
+    height: 100vh;
+   
+    
   }
-  .listLine{
-    position:absolute;
-    top: -0.3%;
-    left:95%;
-    border-left: 1px solid white;
-    height: 100%;
-    opacity: 0.5;
-  }
+
 
   .MyPage_list{
     position: relative;
@@ -56,16 +54,20 @@ html,body{
   }
   
   #MyPage_Grid{
+    position:relative;
     display: grid;
     grid-template-columns: 150px 1fr;
     z-index: 1;
+    height: 100%;
+    top:10%;
   }
   
   .MyPage_Btn_Container{
     width: 100px;
-    position:relative;
-    left:150px;
-    top:150px;
+  position:absolute;
+  top:70px;
+  left: 300px;
+    
   }
   
   .MyPage_Word_Btn{
@@ -108,7 +110,7 @@ html,body{
   .MyPage_Img_Container{
     position: relative;
     left: 150px;
-    top:200px;
+    top:150px;
     height: 500px;
     width:1200px;
   }
@@ -128,7 +130,7 @@ html,body{
    
     position: relative;
     left: 150px;
-    top:200px;
+    top:150px;
     height: 500px;
     width:1200px;
   }
@@ -159,7 +161,7 @@ html,body{
     
     position: relative;
     left: 150px;
-    top:250px;
+    top:150px;
     height: 500px;
     width:1200px;
   }
@@ -195,7 +197,7 @@ html,body{
   .MyPage_pw_Container{
    
     position: relative;
-    top:30%;
+    top:90px;
     left:10%;
     
     height: 500px;
