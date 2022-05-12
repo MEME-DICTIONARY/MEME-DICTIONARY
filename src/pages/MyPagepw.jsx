@@ -15,15 +15,13 @@ function MyPagepw() {
   }
 
   function pwChangeModalOpen() {
-    if(newPW.length<5){
+    if (newPW.length < 5) {
       setShowModal(true);
       setModalContents("비밀번호는 5글자 이상이어야 합니다.");
-
-    }
-    else if (newPW.length>=5 && newPW === verifyNewPW) {
+    } else if (newPW.length >= 5 && newPW === verifyNewPW) {
       setShowModal(true);
       setModalContents("정말 변경하시겠습니까?");
-    } else if(newPW.length>=5 && newPW !== verifyNewPW) {
+    } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
       setShowModal(true);
       setModalContents("비밀번호가 일치하지 않습니다");
     }
@@ -41,7 +39,7 @@ function MyPagepw() {
         hideModal={() => {
           setShowModal(false);
         }}
-        withdrawal={newPW === verifyNewPW && true && newPW.length>5 }
+        withdrawal={newPW === verifyNewPW && true}
       />
       <div id={styles.MyPage_Grid}>
         <ul className={styles.MyPage_list_Container}>

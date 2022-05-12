@@ -1,7 +1,7 @@
 import { React, useState } from "react";
-import styles from "../assets/style/SearchResultPage.module.css";
 import "../assets/style/reset.css";
 import Header from "../component/Header";
+import styled, { css } from "styled-components";
 
 function SearchResultPage() {
   const [wordResults, setwordResults] = useState([
@@ -28,53 +28,124 @@ function SearchResultPage() {
   return (
     <>
       <Header />
-      <div className={styles.searchResult__wrapper}>
-        <nav className={styles.searchResult__nav}>
-          <li
-            className={styles.nav__list}
-            style={isWordClicked ? { color: "#fff" } : null}
+      <MainWrapper>
+        <TypeNav>
+          <NavList
+            props={isWordClicked}
             onClick={() => {
               setIsWordClicked(true);
             }}
           >
             용어
-          </li>
-          <li
-            className={styles.nav__list}
-            style={!isWordClicked ? { color: "#fff" } : null}
+          </NavList>
+          <NavList
+            props={!isWordClicked}
             onClick={() => setIsWordClicked(false)}
           >
             짤
-          </li>
-        </nav>
+          </NavList>
+        </TypeNav>
 
-        <div className={styles.result__container}>
+        <ResultContainer>
           {isWordClicked ? (
-            <ul className={styles.result__lists__word}>
+            <WordResultLists>
               {wordResults.map((result, index) => (
-                <li key={index} className={styles.result__list__word}>
-                  {result}
-                </li>
+                <WordResultList key={index}>{result}</WordResultList>
               ))}
-            </ul>
+            </WordResultLists>
           ) : (
-            <ul className={styles.result__lists__img}>
+            <ImgResultLists>
               {imgResults.map((result, index) => {
                 return (
-                  <li className={styles.result__list__img} key={index}>
+                  <ImgResultList key={index}>
                     <img src={result.url} alt="짤" />
-                    <strong className={styles.result__title}>
-                      {result.name}
-                    </strong>
-                  </li>
+                    <ImgResultListTitle>{result.name}</ImgResultListTitle>
+                  </ImgResultList>
                 );
               })}
-            </ul>
+            </ImgResultLists>
           )}
-        </div>
-      </div>
+        </ResultContainer>
+      </MainWrapper>
     </>
   );
 }
 
 export default SearchResultPage;
+
+const MainWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  background-color: #232332;
+  color: #fff;
+  min-width: 100vw;
+  min-height: 100vh;
+`;
+
+const TypeNav = styled.nav`
+  display: flex;
+  margin: 151px 0 57px 51px;
+  color: #696868;
+`;
+
+const NavList = styled.li`
+  font-size: 24px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+  ${(props) =>
+    props.isWordClicked &&
+    css`
+      color: #fff;
+    `};
+
+  &:first-child::after {
+    display: inline-block;
+    content: "";
+    width: 2px;
+    height: 20px;
+    background-color: #696868;
+    vertical-align: middle;
+    margin: 0 7px;
+  }
+`;
+
+const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 51px;
+`;
+
+const WordResultLists = styled.ul``;
+
+const UnderLine = styled.li`
+  margin-bottom: 24px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #696868;
+  cursor: pointer;
+`;
+
+const WordResultList = styled(UnderLine)``;
+
+const ImgResultLists = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 105px;
+`;
+
+const ImgResultList = styled(UnderLine)`
+  display: flex;
+  flex-direction: column;
+  width: 375px;
+  height: 329px;
+  & > img {
+    width: 100%;
+  }
+`;
+
+const ImgResultListTitle = styled.strong`
+  margin: auto 0;
+  text-indent: 15px;
+  font-size: 24px;
+  font-weight: 700;
+`;

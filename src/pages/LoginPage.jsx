@@ -1,16 +1,23 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../assets/style/LoginPage.module.css";
-import "../assets/style/reset.css";
+
+import { connect } from "react-redux";
+import { setLogin } from "../redux/action";
 
 import AccountSection from "../component/AccountSection.js";
 import BaseButton from "../component/BaseButton";
 import BaseModal from "../component/BaseModal";
 
-function LoginPage() {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserLogin: () => dispatch(setLogin()),
+  };
+};
+
+function LoginPage({setUserLogin}) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [isCheck, setIsCheck] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
 
@@ -18,7 +25,6 @@ function LoginPage() {
 
   const handleId = (e) => {
     setId(e.target.value);
-    setIsCheck(false);
   };
 
   const handlePassword = (e) => {
@@ -29,16 +35,12 @@ function LoginPage() {
     if (id === "" || password === "") {
       setShowModal(true);
       setModalContents("빈칸을 모두 채워주세요.");
+    } else if (id.length < 5 || password.length < 5) {
+      setShowModal(true);
+      setModalContents("아이디와 비밀번호는 5글자 이상이어야 합니다.");
     } else {
-      if (!isCheck) {
-        setShowModal(true);
-        setModalContents("아이디 중복체크를 먼저 해주세요.");
-      } else if (id.length < 5 || password.length < 5) {
-        setShowModal(true);
-        setModalContents("아이디와 비밀번호는 5글자 이상이어야 합니다.");
-      } else {
-        navigate("/main");
-      }
+      setUserLogin();
+      navigate("/main");
     }
   };
 
@@ -66,15 +68,6 @@ function LoginPage() {
               value={id}
               onChange={handleId}
             />
-            <button
-              onClick={() => {
-                setIsCheck(true);
-                setShowModal(true);
-                setModalContents("중복체크 완료");
-              }}
-            >
-              중복확인
-            </button>
           </div>
         </div>
 
@@ -102,4 +95,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default connect(null, mapDispatchToProps)(LoginPage);
