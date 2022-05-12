@@ -14,11 +14,11 @@ html,body{
     height: 645px;
   }
   .listLine{
-    position:fixed;
-    top:15.5%;
-    left:13%;
+    position:absolute;
+    top: -0.3%;
+    left:95%;
     border-left: 1px solid white;
-    height: 90%;
+    height: 100%;
     opacity: 0.5;
   }
 
