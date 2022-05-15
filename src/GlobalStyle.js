@@ -10,6 +10,15 @@ const GlobalStyles = createGlobalStyle`
     body,*{
         font-family: "Noto Sans KR", sans-serif;
     }
+    button{
+        cursor:pointer;
+    }
+    input{
+        outline: none;
+    }
+    li{
+        list-style: none;
+    }
 `;
 
 export default GlobalStyles;

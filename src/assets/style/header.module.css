@@ -7,33 +7,36 @@ html {
 
 .headcontainer {
   width: 100%;
-  height:115px;
-  display:flex;
+  height: 115px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .header_HamburgerBtn {
-  margin-left:50px;
-  width:fit-content;
-border:none;
-background-color: inherit;
+  margin-left: 50px;
+  width: fit-content;
+  border: none;
+  background-color: inherit;
 }
 
 .header_HamburgerImg {
   background-size: cover;
 }
 
-.header_CircleParent{
-  display:flex;
-  width:fit-content;
+.header_CircleParent {
+  display: flex;
+  width: fit-content;
+  margin-left:120px;
 }
 
-.header_Circle1,.header_Circle2,.header_Circle3{
+.header_Circle1,
+.header_Circle2,
+.header_Circle3 {
   float: left;
-    width: 50px;
-    height: 50px;
-    border-radius: 75px;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
 }
 
 .header_Circle1 {
@@ -49,13 +52,13 @@ background-color: inherit;
 }
 
 .header_SearchParent {
-  display:flex;
-  width:fit-content;
+  display: flex;
+  width: fit-content;
   align-items: center;
-  gap:10px;
+  gap: 10px;
 }
-.header__searchContainer{
-  display:inline-block;
+.header__searchContainer {
+  display: inline-block;
 }
 
 .header_SearchBox {
@@ -66,16 +69,16 @@ background-color: inherit;
   width: 200px;
   padding-left: 10px;
 }
-.header_SearchBtn{
-  position:absolute;
-  top:42px;
-  right:70px;
-
+.header_SearchBtn {
+  position: absolute;
+  top: 42px;
+  right: 70px;
 }
-.header_SearchBtn ,.header_PersonBtn{
+.header_SearchBtn,
+.header_PersonBtn {
   width: fit-content;
-    border: none;
-    background-color: inherit;
+  border: none;
+  background-color: inherit;
 }
 
 .header_SearchImg {
@@ -83,14 +86,13 @@ background-color: inherit;
   width: 30px;
 }
 
-
 .header_PersonImg {
   height: 50px;
   width: 40px;
 }
 
 .header_Line {
-  width:100%;
+  width: 100%;
   position: absolute;
   top: 15%;
   border-bottom: 1px solid white;
@@ -103,8 +105,7 @@ background-color: inherit;
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
-
+  z-index: 2;
 }
 
 .categoryModalHidden {
@@ -140,14 +141,12 @@ background-color: inherit;
   position: relative;
   left: 3px;
   margin: auto;
-
 }
 
 .categoryButton_word {
   background-color: white;
   border: none;
   padding: 10px;
-
 }
 
 .categoryButton_img {
@@ -176,7 +175,6 @@ background-color: inherit;
   background-color: white;
   height: 120px;
   width: 120px;
-
 }
 
 .triangleOut {
@@ -190,9 +188,7 @@ background-color: inherit;
   border-right: 13px solid transparent;
 }
 
-
 .logModalList {
-
   margin: auto;
   list-style: none;
   display: block;
@@ -200,7 +196,6 @@ background-color: inherit;
   position: relative;
   top: -10%;
   padding-top: 20%;
-
 }
 
 .logModalSelect {
@@ -215,7 +210,6 @@ background-color: inherit;
   background-color: white;
   height: 150px;
   width: 120px;
-
 }
 
 .triangleIn {

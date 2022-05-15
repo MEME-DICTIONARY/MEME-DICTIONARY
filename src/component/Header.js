@@ -54,7 +54,7 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.header_Circle3}></div>
         </a>
         <article className={styles.header_SearchParent}>
-          <div clssName={styles.header__searchContainer}>
+          <div className={styles.header__searchContainer}>
             <input
               className={styles.header_SearchBox}
               type="text"

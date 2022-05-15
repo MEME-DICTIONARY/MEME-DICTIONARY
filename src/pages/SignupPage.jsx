@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../assets/style/SignupPage.module.css";
-import "../assets/style/reset.css";
+import styled from "styled-components";
 
 import AccountSection from "../component/AccountSection.js";
 import BaseModal from "../component/BaseModal";
@@ -48,7 +47,7 @@ function SignupPage() {
     }
   };
   return (
-    <div className={styles.signupPage__wrapper}>
+    <MainWrapper>
       <BaseModal
         hidden={!showModal}
         content={modalContents}
@@ -57,19 +56,19 @@ function SignupPage() {
         }}
       />
       <AccountSection />
-      <div className={styles.account__wrapper}>
-        <div className={styles.data__input}>
+      <AccountWrapper>
+        <DataInputBox>
           <strong>
             <span>*</span>아이디
           </strong>
-          <div className={styles.data__id}>
-            <input
+          <DataIdBox>
+            <DataIdBoxInput
               type="text"
               placeholder="아이디를 입력해주세요."
               value={id}
               onChange={handleId}
             />
-            <button
+            <OverLapCheckButton
               onClick={() => {
                 setIsCheck(true);
                 setShowModal(true);
@@ -77,41 +76,115 @@ function SignupPage() {
               }}
             >
               중복확인
-            </button>
-          </div>
-        </div>
+            </OverLapCheckButton>
+          </DataIdBox>
+        </DataInputBox>
 
-        <div className={styles.data__input}>
+        <DataInputBox>
           <strong>
             <span>*</span>비밀번호
           </strong>
-          <div className={styles.data__password}>
-            <input
+          <DataIdBox>
+            <DataIdBoxInput
               type="password"
               placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={handlePassword}
             />
-          </div>
-        </div>
+          </DataIdBox>
+        </DataInputBox>
 
-        <div className={styles.data__input}>
+        <DataInputBox>
           <strong>
             <span>*</span>비밀번호 확인
           </strong>
-          <div className={styles.data__password}>
-            <input
+          <DataIdBox>
+            <DataIdBoxInput
               type="password"
               placeholder="비밀번호를 한 번 더 입력해주세요."
               value={verifyPassword}
               onChange={(e) => setVerifyPassword(e.target.value)}
             />
-          </div>
-        </div>
-      </div>
+          </DataIdBox>
+        </DataInputBox>
+      </AccountWrapper>
       <BaseButton text="확인" onClick={handleSignupButton}></BaseButton>
-    </div>
+    </MainWrapper>
   );
 }
+
+const MainWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #232332;
+  min-width: fit-content;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 60px;
+`;
+
+const AccountWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px 0 0 60px;
+`;
+
+const DataInputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+
+  &:last-child {
+    padding-bottom: 70px;
+  }
+  & > strong {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    padding-bottom: 5px;
+  }
+  & > span {
+    color: #ff0000;
+    vertical-align: middle;
+    padding-right: 3px;
+  }
+`;
+
+const DataIdBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 13px;
+`;
+
+const DataIdBoxInput = styled.input`
+  border: none;
+  border-radius: 25px;
+  width: 609px;
+  height: 52px;
+  text-indent: 20px;
+  font-size: 20px;
+
+  &::placeholder {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    color: #bdbdbd;
+  }
+`;
+
+const OverLapCheckButton = styled.button`
+  color: #fff;
+  width: 93px;
+  height: 39px;
+  border: none;
+  border-radius: 20px;
+  background-color: #828282;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 2px;
+`;
 
 export default SignupPage;

@@ -78,8 +78,8 @@ const MainWrapper = styled.main`
   flex-direction: column;
   background-color: #232332;
   color: #fff;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
 `;
 
 const TypeNav = styled.nav`
@@ -120,7 +120,7 @@ const WordResultLists = styled.ul``;
 
 const UnderLine = styled.li`
   margin-bottom: 24px;
-  padding-bottom: 11px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #696868;
   cursor: pointer;
 `;
