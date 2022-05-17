@@ -129,7 +129,7 @@ function DetailPage() {
           </button>
         </div>
       </div>
-      <hr className={styles.detailPage_line}></hr>
+   
       <div className={styles.detailPage_Bottom_Container}>
         <h3 className={styles.detailPage_CommentTitle}>댓글 3개</h3>
         <input
