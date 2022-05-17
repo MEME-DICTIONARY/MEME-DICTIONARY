@@ -12,39 +12,39 @@ function RankingContainer({ wordRankingList }) {
     "인기 급상승 밈 TOP 10 밈과사전이 직접 추천해드립니다.";
   return (
     <>
-      <Container section="second">
+      <StContainer section="second">
         <LeftSideContainer
           title={secondTitle}
           description={secondDescription}
         />
 
-        <RightSideOfSecondCont>
-          <UpdateButton>
+        <StRightSideOfSecondCont>
+          <StUpdateButton>
             <img src={icon_update} alt="업데이트" />
             업데이트
-          </UpdateButton>
-          <WordRankingLists>
+          </StUpdateButton>
+          <StWordRankingLists>
             {wordRankingList.map((wordInfo) => {
               return (
                 <FlexBox key={wordInfo.id}>
                   <span>{wordInfo.id}</span>
-                  <WordRankingList key={wordInfo}>
+                  <StWordRankingList key={wordInfo}>
                     {wordInfo.word}
-                  </WordRankingList>
+                  </StWordRankingList>
                 </FlexBox>
               );
             })}
-          </WordRankingLists>
-        </RightSideOfSecondCont>
-      </Container>
+          </StWordRankingLists>
+        </StRightSideOfSecondCont>
+      </StContainer>
 
-      <Container section="third">
+      <StContainer section="third">
         <LeftSideContainer title={thirdTitle} description={thirdDescription} />
 
-        <RightSideOfThirdContainer>
+        <StRightSideOfThirdContainer>
           <img src={sampleImg} alt="이미지 슬라이더" />
-        </RightSideOfThirdContainer>
-      </Container>
+        </StRightSideOfThirdContainer>
+      </StContainer>
     </>
   );
 }
@@ -59,7 +59,7 @@ const FlexBox = styled.ul`
   }
 `;
 
-const Container = styled.div`
+const StContainer = styled.div`
   display: flex;
   height: 512px;
   background-color: #232332;
@@ -74,41 +74,9 @@ const Container = styled.div`
   padding-top: 41px;
 `;
 
-const LeftSideOfSecondCont = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+const StRightSideOfSecondCont = styled.div``;
 
-const RankingBox = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  border: 3px solid transparent;
-  background-image: linear-gradient(
-    to right,
-    #ff0000 0%,
-    #d422ff 50%,
-    #2737ff 100%
-  );
-  background-origin: border-box;
-  background-clip: border-box;
-  display: flex;
-  justify-content: center;
-
-  & > h3 {
-    color: white;
-    text-align: center;
-    font-weight: 700;
-    font-size: 30px;
-    transform: translateY(15px);
-    text-shadow: 2px 2px 3px #000;
-  }
-`;
-
-const RightSideOfSecondCont = styled.div``;
-
-const WordRankingLists = styled.ul`
+const StWordRankingLists = styled.ul`
   width: 510px;
   height: 341px;
   font-weight: 700;
@@ -116,7 +84,7 @@ const WordRankingLists = styled.ul`
   margin-top: 65px;
 `;
 
-const WordRankingList = styled.li`
+const StWordRankingList = styled.li`
   width: 100%;
   text-align: center;
   color: #fff;
@@ -131,7 +99,7 @@ const WordRankingList = styled.li`
   cursor: pointer;
 `;
 
-const UpdateButton = styled.button`
+const StUpdateButton = styled.button`
   display: flex;
   float: right;
   font-size: 20px;
@@ -143,7 +111,7 @@ const UpdateButton = styled.button`
   color: #828282;
 `;
 
-const RightSideOfThirdContainer = styled.article`
+const StRightSideOfThirdContainer = styled.article`
   background-color: #232332;
   & > img {
     width: 514px;

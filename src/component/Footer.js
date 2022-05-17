@@ -2,20 +2,20 @@ import footer_logo from "../assets/img/logo.png";
 import styled from "styled-components";
 
 function Footer() {
-    return (
-        <FooterWrapper>
-            <FooterLogo>
-                <img src={footer_logo} alt="푸터로고" />
-            </FooterLogo>
-            <FooterEmail>meme.dictionary2022@gmail.com</FooterEmail>
-            <FooterCopyRight>
-                &copy; 2022. 밈과사전 All right reserved
-            </FooterCopyRight>
-        </FooterWrapper>
-    );
+  return (
+    <StFooterWrapper>
+      <StFooterLogo>
+        <img src={footer_logo} alt="푸터로고" />
+      </StFooterLogo>
+      <StFooterEmail>meme.dictionary2022@gmail.com</StFooterEmail>
+      <StFooterCopyRight>
+        &copy; 2022. 밈과사전 All right reserved
+      </StFooterCopyRight>
+    </StFooterWrapper>
+  );
 }
 
-const FooterWrapper = styled.footer`
+const StFooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   min-width: fit-content;
@@ -24,7 +24,7 @@ const FooterWrapper = styled.footer`
   align-items: center;
 `;
 
-const FooterLogo = styled.a`
+const StFooterLogo = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,8 +40,8 @@ const FooterInfo = styled.p`
   color: #fff;
   padding: 10px;
 `;
-const FooterEmail = styled(FooterInfo)``;
-const FooterCopyRight = styled(FooterInfo)`
+const StFooterEmail = styled(FooterInfo)``;
+const StFooterCopyRight = styled(FooterInfo)`
   margin-bottom: 20px;
 `;
 
