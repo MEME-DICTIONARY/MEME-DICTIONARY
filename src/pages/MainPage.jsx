@@ -26,9 +26,7 @@ export default function MainPage() {
   }, []);
 
   const showHello = async () => {
-    const res = await client.get("/hello").then((response)=>{
-      console.log(response);
-    })
+    const res = await client.get("/hello");
   };
 
   return (
