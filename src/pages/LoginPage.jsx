@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { setLogin } from "../redux/action";
 
 import AccountSection from "../component/AccountSection.js";
-import BaseButton from "../component/BaseButton";
-import BaseModal from "../component/BaseModal";
+import BaseButton from "../component/base/BaseButton";
+import BaseModal from "../component/base/BaseModal";
 
 const mapDispatchToProps = (dispatch) => {
   return {

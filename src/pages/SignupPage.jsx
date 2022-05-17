@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import AccountSection from "../component/AccountSection.js";
-import BaseModal from "../component/BaseModal";
-import BaseButton from "../component/BaseButton";
+import BaseModal from "../component/base/BaseModal";
+import BaseButton from "../component/base/BaseButton";
 
 function SignupPage() {
   const [id, setId] = useState("");

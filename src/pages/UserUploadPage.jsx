@@ -1,7 +1,7 @@
 import { React, useState } from "react";
-import BaseButton from "../component/BaseButton";
-import BaseTag from "../component/BaseTag";
-import BaseModal from "../component/BaseModal";
+import BaseButton from "../component/base/BaseButton";
+import BaseTag from "../component/base/BaseTag";
+import BaseModal from "../component/base/BaseModal";
 import styled from "styled-components";
 
 function UserUploadPage() {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../assets/style/MyPage.module.css";
 import Header from "../component/Header.js";
-import BaseModal from "../component/BaseModal";
+import BaseModal from "../component/base/BaseModal";
 
 function MyPagepw() {
   const [showModal, setShowModal] = useState(false);
