@@ -52,10 +52,11 @@ html {
 }
 
 .header_SearchParent {
+  position: relative;
   display: flex;
   width: fit-content;
   align-items: center;
-  gap: 10px;
+  
 }
 .header__searchContainer {
   display: inline-block;
@@ -70,7 +71,7 @@ html {
   padding-left: 10px;
 }
 .header_SearchBtn {
-  position: absolute;
+position: relative;
   top: 42px;
   right: 70px;
 }
@@ -79,6 +80,16 @@ html {
   width: fit-content;
   border: none;
   background-color: inherit;
+}
+
+.header_SearchBtn{
+  position: relative;
+  top:10px;
+  right:50px;
+}
+.header_PersonBtn{
+  position: relative;
+ right:25px;
 }
 
 .header_SearchImg {
@@ -156,6 +167,9 @@ html {
   display: block;
 }
 
+
+
+
 .logModalHidden {
   display: none;
 }
@@ -175,6 +189,7 @@ html {
   background-color: white;
   height: 120px;
   width: 120px;
+
 }
 
 .triangleOut {
@@ -196,6 +211,7 @@ html {
   position: relative;
   top: -10%;
   padding-top: 20%;
+  
 }
 
 .logModalSelect {
@@ -210,6 +226,7 @@ html {
   background-color: white;
   height: 150px;
   width: 120px;
+ 
 }
 
 .triangleIn {
