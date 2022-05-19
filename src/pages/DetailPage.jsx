@@ -3,8 +3,8 @@ import styles from '../assets/style/DetailPage.module.css';
 import Header from '../component/Header.js';
 
 function DetailPage() {
-  let [imghashtag, imghashtag_change] = useState(['#무야호', '#무한도전', '#신조어']);
-  let [wordhashtag, wordhashtag_change] = useState(['#어쩔티비', '#저쩔티비', '#신조어']);
+  let [imghashtag] = useState(['#무야호', '#무한도전', '#신조어']);
+  let [wordhashtag] = useState(['#어쩔티비', '#저쩔티비', '#신조어']);
   let [wordLike, addWordLike] = useState(0);
   let [wordWarning, addWordWarning] = useState(0);
   let [imgLike, addImgLike] = useState(0);

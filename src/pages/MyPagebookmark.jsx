@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
-import { Link } from 'react-router-dom';
 
 function MyPagebookmark() {
   let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);

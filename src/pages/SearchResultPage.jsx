@@ -3,12 +3,12 @@ import Header from '../component/Header';
 import styled, { css } from 'styled-components';
 
 function SearchResultPage() {
-  const [wordResults, setwordResults] = useState([
+  const [wordResults] = useState([
     '어쩔티비',
     '어쩔 시크릿쥬쥬 리미티드 에디션',
     '어쩔 삼성비스포크',
   ]);
-  const [imgResults, setImgResults] = useState([
+  const [imgResults] = useState([
     {
       name: '어쩔어쩔티비',
       url: require('../assets/img/sample.jpeg'),

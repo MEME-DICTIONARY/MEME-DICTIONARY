@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
 
