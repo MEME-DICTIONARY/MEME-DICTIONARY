@@ -1,13 +1,12 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "../assets/style/LoginPage.module.css";
+import { React, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { setLogin } from '../redux/action';
 
-import { connect } from "react-redux";
-import { setLogin } from "../redux/action";
-
-import AccountSection from "../component/AccountSection.js";
-import BaseButton from "../component/base/BaseButton";
-import BaseModal from "../component/base/BaseModal";
+import AccountSection from '../component/AccountSection.js';
+import BaseButton from '../component/base/BaseButton';
+import BaseModal from '../component/base/BaseModal';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -15,11 +14,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-function LoginPage({setUserLogin}) {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+function LoginPage({ setUserLogin }) {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [modalContents, setModalContents] = useState("");
+  const [modalContents, setModalContents] = useState('');
 
   const navigate = useNavigate();
 
@@ -32,20 +31,20 @@ function LoginPage({setUserLogin}) {
   };
 
   const handleLoginButton = () => {
-    if (id === "" || password === "") {
+    if (id === '' || password === '') {
       setShowModal(true);
-      setModalContents("빈칸을 모두 채워주세요.");
+      setModalContents('빈칸을 모두 채워주세요.');
     } else if (id.length < 5 || password.length < 5) {
       setShowModal(true);
-      setModalContents("아이디와 비밀번호는 5글자 이상이어야 합니다.");
+      setModalContents('아이디와 비밀번호는 5글자 이상이어야 합니다.');
     } else {
       setUserLogin();
-      navigate("/main");
+      navigate('/main');
     }
   };
 
   return (
-    <div className={styles.loginPage__wrapper}>
+    <StWrapper>
       <BaseModal
         hidden={!showModal}
         content={modalContents}
@@ -54,12 +53,12 @@ function LoginPage({setUserLogin}) {
         }}
       />
       <AccountSection />
-      <div className={styles.account__wrapper}>
-        <div className={styles.data__input}>
-          <strong>
+      <StAccountWrapper>
+        <StLoginInfo>
+          <StLoginTitle>
             <span>*</span>아이디
-          </strong>
-          <div className={styles.data__id}>
+          </StLoginTitle>
+          <StIdInputWrapper>
             <input
               type="text"
               minLength={5}
@@ -68,14 +67,14 @@ function LoginPage({setUserLogin}) {
               value={id}
               onChange={handleId}
             />
-          </div>
-        </div>
+          </StIdInputWrapper>
+        </StLoginInfo>
 
-        <div className={styles.data__input}>
-          <strong>
+        <StLoginInfo>
+          <StLoginTitle>
             <span>*</span>비밀번호
-          </strong>
-          <div className={styles.data__password}>
+          </StLoginTitle>
+          <StIdInputWrapper>
             <input
               type="password"
               minLength={5}
@@ -84,15 +83,82 @@ function LoginPage({setUserLogin}) {
               value={password}
               onChange={handlePassword}
             />
-          </div>
-        </div>
-      </div>
-      <a className={styles.signup__link} href="/signup">
-        회원가입 하러가기
-      </a>
+          </StIdInputWrapper>
+        </StLoginInfo>
+      </StAccountWrapper>
+      <StSignupLink href="/signup">회원가입 하러가기</StSignupLink>
       <BaseButton text="로그인" onClick={handleLoginButton}></BaseButton>
-    </div>
+    </StWrapper>
   );
 }
+
+const StWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #232332;
+  min-width: fit-content;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 60px;
+`;
+
+const FlexColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+`;
+
+const StAccountWrapper = styled(FlexColumnWrapper)`
+  padding-left: 60px;
+`;
+
+const StLoginInfo = styled(FlexColumnWrapper)`
+  &:last-child {
+    padding-bottom: 70px;
+  }
+`;
+const StLoginTitle = styled.strong`
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  padding-bottom: 5px;
+
+  & > span {
+    color: #ff0000;
+    vertical-align: middle;
+    padding-right: 3px;
+  }
+`;
+const StIdInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  & > input {
+    border: none;
+    border-radius: 25px;
+    width: 609px;
+    height: 52px;
+    text-indent: 20px;
+    font-size: 20px;
+
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 28px;
+      color: #bdbdbd;
+    }
+  }
+`;
+const StSignupLink = styled.a`
+  color: #bdbdbd;
+  margin-bottom: 24px;
+`;
 
 export default connect(null, mapDispatchToProps)(LoginPage);

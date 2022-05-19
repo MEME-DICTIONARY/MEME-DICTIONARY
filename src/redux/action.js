@@ -1,9 +1,9 @@
 export const setLogin = () => ({
-    type: "LOGIN",
-    payload: true,
+  type: 'LOGIN',
+  payload: true,
 })
 
 export const setLogout = () => ({
-    type: "LOGOUT",
-    payload: false,
+  type: 'LOGOUT',
+  payload: false,
 })

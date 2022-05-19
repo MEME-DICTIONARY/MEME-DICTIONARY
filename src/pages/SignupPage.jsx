@@ -1,18 +1,18 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { React, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import AccountSection from "../component/AccountSection.js";
-import BaseModal from "../component/base/BaseModal";
-import BaseButton from "../component/base/BaseButton";
+import AccountSection from '../component/AccountSection.js';
+import BaseModal from '../component/base/BaseModal';
+import BaseButton from '../component/base/BaseButton';
 
 function SignupPage() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [verifyPassword, setVerifyPassword] = useState("");
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [verifyPassword, setVerifyPassword] = useState('');
   const [isCheck, setIsCheck] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalContents, setModalContents] = useState("");
+  const [modalContents, setModalContents] = useState('');
 
   const navigate = useNavigate();
 
@@ -26,22 +26,22 @@ function SignupPage() {
   };
 
   const handleSignupButton = () => {
-    if (id === "" || password === "") {
+    if (id === '' || password === '') {
       setShowModal(true);
-      setModalContents("빈칸을 모두 채워주세요.");
+      setModalContents('빈칸을 모두 채워주세요.');
     } else {
       if (!isCheck) {
         setShowModal(true);
-        setModalContents("아이디 중복체크를 먼저 해주세요.");
+        setModalContents('아이디 중복체크를 먼저 해주세요.');
       } else {
         if (id.length < 5 || password.length < 5 || verifyPassword.length < 5) {
           setShowModal(true);
-          setModalContents("아이디와 비밀번호는 5글자 이상이어야 합니다.");
+          setModalContents('아이디와 비밀번호는 5글자 이상이어야 합니다.');
         } else if (password !== verifyPassword) {
           setShowModal(true);
-          setModalContents("확인 비밀번호가 일치하지 않습니다.");
+          setModalContents('확인 비밀번호가 일치하지 않습니다.');
         } else {
-          navigate("/login");
+          navigate('/login');
         }
       }
     }
@@ -72,7 +72,7 @@ function SignupPage() {
               onClick={() => {
                 setIsCheck(true);
                 setShowModal(true);
-                setModalContents("중복체크 완료");
+                setModalContents('중복체크 완료');
               }}
             >
               중복확인

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
 export const client = axios.create({
-    baseURL: 'http://13.125.150.135:8000',
-    // proxy: 'http://13.125.150.135:8000',
+  baseURL: 'http://13.125.150.135:8000',
 });

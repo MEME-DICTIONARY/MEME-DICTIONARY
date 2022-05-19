@@ -1,26 +1,26 @@
-import { React, useState } from "react";
-import "../assets/style/reset.css";
-import Header from "../component/Header";
-import styled, { css } from "styled-components";
+import { React, useState } from 'react';
+import '../assets/style/reset.css';
+import Header from '../component/Header';
+import styled, { css } from 'styled-components';
 
 function SearchResultPage() {
   const [wordResults, setwordResults] = useState([
-    "어쩔티비",
-    "어쩔 시크릿쥬쥬 리미티드 에디션",
-    "어쩔 삼성비스포크",
+    '어쩔티비',
+    '어쩔 시크릿쥬쥬 리미티드 에디션',
+    '어쩔 삼성비스포크',
   ]);
   const [imgResults, setImgResults] = useState([
     {
-      name: "어쩔어쩔티비",
-      url: require("../assets/img/sample.jpeg"),
+      name: '어쩔어쩔티비',
+      url: require('../assets/img/sample.jpeg'),
     },
     {
-      name: "어쩔 티비",
-      url: require("../assets/img/sample.jpeg"),
+      name: '어쩔 티비',
+      url: require('../assets/img/sample.jpeg'),
     },
     {
-      name: "어쩔 시크릿쥬쥬 리미티드 에디션",
-      url: require("../assets/img/sample.jpeg"),
+      name: '어쩔 시크릿쥬쥬 리미티드 에디션',
+      url: require('../assets/img/sample.jpeg'),
     },
   ]);
   const [isWordClicked, setIsWordClicked] = useState(true);
@@ -38,10 +38,7 @@ function SearchResultPage() {
           >
             용어
           </NavList>
-          <NavList
-            isWordClicked={!isWordClicked}
-            onClick={() => setIsWordClicked(false)}
-          >
+          <NavList isWordClicked={!isWordClicked} onClick={() => setIsWordClicked(false)}>
             짤
           </NavList>
         </TypeNav>
@@ -101,7 +98,7 @@ const NavList = styled.li`
 
   &:first-child::after {
     display: inline-block;
-    content: "";
+    content: '';
     width: 2px;
     height: 20px;
     background-color: #696868;

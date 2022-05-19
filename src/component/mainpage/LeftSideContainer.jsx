@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 function LeftSideContainer({ title, description }) {
   return (
@@ -23,12 +23,7 @@ const StRankingWrapper = styled.div`
   height: 100px;
   border-radius: 100%;
   border: 3px solid transparent;
-  background-image: linear-gradient(
-    to right,
-    #ff0000 0%,
-    #d422ff 50%,
-    #2737ff 100%
-  );
+  background-image: linear-gradient(to right, #ff0000 0%, #d422ff 50%, #2737ff 100%);
   background-origin: border-box;
   background-clip: border-box;
   display: flex;
@@ -43,7 +38,7 @@ const StRankingWrapper = styled.div`
     transform: translateY(25px);
     text-shadow: 2px 2px 3px #000;
     white-space: normal;
-    width:150px;
+    width: 150px;
   }
 `;
 

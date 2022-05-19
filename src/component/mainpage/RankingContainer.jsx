@@ -1,22 +1,18 @@
-import styled, { css } from "styled-components";
-import LeftSideContainer from "./LeftSideContainer";
-import icon_update from "../../assets/img/icon_update.svg";
-import sampleImg from "../../assets/img/sample.jpeg";
+import styled, { css } from 'styled-components';
+import LeftSideContainer from './LeftSideContainer';
+import icon_update from '../../assets/img/icon_update.svg';
+import sampleImg from '../../assets/img/sample.jpeg';
 
 function RankingContainer({ wordRankingList }) {
-  const secondTitle = "WORD RANKING";
-  const thirdTitle = "HOT MEME TOP 10";
+  const secondTitle = 'WORD RANKING';
+  const thirdTitle = 'HOT MEME TOP 10';
   const secondDescription =
-    "사용자들에게 가장 인기있는 단어 밈 순위입니다. 업데이트 버튼을 클릭하면 실시간 좋아요 수에따라 순위가 변경됩니다.";
-  const thirdDescription =
-    "인기 급상승 밈 TOP 10 밈과사전이 직접 추천해드립니다.";
+    '사용자들에게 가장 인기있는 단어 밈 순위입니다. 업데이트 버튼을 클릭하면 실시간 좋아요 수에따라 순위가 변경됩니다.';
+  const thirdDescription = '인기 급상승 밈 TOP 10 밈과사전이 직접 추천해드립니다.';
   return (
     <>
       <StContainer section="second">
-        <LeftSideContainer
-          title={secondTitle}
-          description={secondDescription}
-        />
+        <LeftSideContainer title={secondTitle} description={secondDescription} />
 
         <StRightSideOfSecondCont>
           <StUpdateButton>
@@ -28,9 +24,7 @@ function RankingContainer({ wordRankingList }) {
               return (
                 <FlexBox key={wordInfo.id}>
                   <span>{wordInfo.id}</span>
-                  <StWordRankingList key={wordInfo}>
-                    {wordInfo.word}
-                  </StWordRankingList>
+                  <StWordRankingList key={wordInfo}>{wordInfo.word}</StWordRankingList>
                 </FlexBox>
               );
             })}
@@ -64,7 +58,7 @@ const StContainer = styled.div`
   height: 512px;
   background-color: #232332;
   ${({ section }) =>
-    section === "second" &&
+    section === 'second' &&
     css`
       background: #2e335f;
     `}

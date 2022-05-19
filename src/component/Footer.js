@@ -1,5 +1,5 @@
-import footer_logo from "../assets/img/logo.png";
-import styled from "styled-components";
+import footer_logo from '../assets/img/logo.png';
+import styled from 'styled-components';
 
 function Footer() {
   return (

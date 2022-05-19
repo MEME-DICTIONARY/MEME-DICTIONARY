@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styles from "../assets/style/MyPage.module.css";
-import Header from "../component/Header.js";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import styles from '../assets/style/MyPage.module.css';
+import Header from '../component/Header.js';
+import { Link } from 'react-router-dom';
 
 function MyPagebookmark() {
   let [btn, btnChange] = useState([
@@ -30,12 +30,12 @@ function MyPagebookmark() {
       <div id={styles.MyPage_Grid}>
         <ul className={styles.MyPage_list_Container}>
           <li className={styles.MyPage_list}>
-            {" "}
+            {' '}
             <a
               className={styles.MyPage_nonSelectlink}
               href="http://localhost:3000/mypage/upload"
             >
-              등록한 글{" "}
+              등록한 글{' '}
             </a>
           </li>
           <li className={styles.MyPage_list}>
@@ -77,24 +77,24 @@ function MyPagebookmark() {
         <div>
           <div className={styles.MyPage_Btn_Container}>
             <button className={btn[0]} onClick={changeToWord}>
-              {" "}
+              {' '}
               용어
             </button>
             <button className={btn[1]} onClick={changeToImg}>
-              {" "}
-              짤{" "}
+              {' '}
+              짤{' '}
             </button>
           </div>
           <div className={content[0]}>
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
             <p className={styles.MyPage_Word_content}>
-              {" "}
+              {' '}
               "어쩌라고 티비나봐"의 줄임말
             </p>
             <hr />
             <h2 className={styles.MyPage_Word_title}>깐부</h2>
             <p className={styles.MyPage_Word_content}>
-              {" "}
+              {' '}
               "오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때
               언급되어 유행하였다."오징어게임" 오일남 할아버지가 성기훈과
               구슬치기 게임을 할때 언급되어 유행하였다.
@@ -102,13 +102,13 @@ function MyPagebookmark() {
             <hr />
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
             <p className={styles.MyPage_Word_content}>
-              {" "}
+              {' '}
               "어쩌라고 티비나봐"의 줄임말
             </p>
             <hr />
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
             <p className={styles.MyPage_Word_content}>
-              {" "}
+              {' '}
               "어쩌라고 티비나봐"의 줄임말
             </p>
             <hr />
@@ -116,32 +116,32 @@ function MyPagebookmark() {
           <div className={content[1]}>
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/무야호.png")}
+              src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
             />
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/computer.jpeg")}
+              src={require('../assets/img/detailPage/computer.jpeg')}
               alt="짤"
             />
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/community.png")}
+              src={require('../assets/img/detailPage/community.png')}
               alt="짤"
             />
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/twitter.jpg")}
+              src={require('../assets/img/detailPage/twitter.jpg')}
               alt="짤"
             />
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/무야호.png")}
+              src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
             />
             <img
               className={styles.MyPage_Img}
-              src={require("../assets/img/detailPage/무야호.png")}
+              src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
             />
           </div>

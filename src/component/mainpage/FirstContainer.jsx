@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { AiOutlineSearch } from "react-icons/ai";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 function FirstContainer({ hashTagList }) {
   return (
-    <FirstContainerWrapper>
-      <SearchBar>
-        <SearchBarInput
+    <StWrapper>
+      <StSearchBar>
+        <StSearchBarInput
           type="text"
           id="search"
           placeholder="키워드를 입력하여 밈을 검색해보세요!"
@@ -14,18 +14,18 @@ function FirstContainer({ hashTagList }) {
         <Link to="/search">
           <AiOutlineSearch className="search__icon" size="50" color="#828282" />
         </Link>
-      </SearchBar>
-      <HashTagLists>
+      </StSearchBar>
+      <StHashTagList>
         {hashTagList.map((hashTag) => {
-          return <HashTagList key={hashTag}>{hashTag}</HashTagList>;
+          return <StHashTagItem key={hashTag}>{hashTag}</StHashTagItem>;
         })}
-      </HashTagLists>
-    </FirstContainerWrapper>
+      </StHashTagList>
+    </StWrapper>
   );
 }
 
 //첫 번째 컨테이너
-const FirstContainerWrapper = styled.div`
+const StWrapper = styled.div`
   background-color: #232332;
   height: 820px;
   padding: 0 175px;
@@ -35,7 +35,7 @@ const FirstContainerWrapper = styled.div`
   align-items: center;
 `;
 
-const SearchBar = styled.div`
+const StSearchBar = styled.div`
   display: flex;
   width: 100%;
   height: 114px;
@@ -52,7 +52,7 @@ const SearchBar = styled.div`
   }
 `;
 
-const SearchBarInput = styled.input`
+const StSearchBarInput = styled.input`
   width: 100%;
   height: 50%;
   border: none;
@@ -68,7 +68,7 @@ const SearchBarInput = styled.input`
   }
 `;
 
-const HashTagLists = styled.ul`
+const StHashTagList = styled.ul`
   display: flex;
   text-align: end;
   justify-content: end;
@@ -76,7 +76,7 @@ const HashTagLists = styled.ul`
   margin-top: 24px;
 `;
 
-const HashTagList = styled.li`
+const StHashTagItem = styled.li`
   color: #fff;
   margin-right: 25px;
   cursor: pointer;

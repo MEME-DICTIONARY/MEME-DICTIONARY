@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 function BaseTag(props) {
-    return (
-        <Tag>
-            <strong>{props.keyword}</strong>
-            <span onClick={() => props.deleteTag(props.keyword)}>X</span>
-        </Tag>
-    );
+  return (
+    <Tag>
+      <strong>{props.keyword}</strong>
+      <span onClick={() => props.deleteTag(props.keyword)}>X</span>
+    </Tag>
+  );
 }
 
 const Tag = styled.div`

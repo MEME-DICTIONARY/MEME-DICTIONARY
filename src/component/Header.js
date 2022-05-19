@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import styles from "../assets/style/header.module.css";
-import { setLogout } from "../redux/action";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import styles from '../assets/style/header.module.css';
+import { setLogout } from '../redux/action';
 
 const mapStateToProps = (state) => {
   return {
@@ -21,7 +21,7 @@ function Header({ isLogin, setUserLogout }) {
   let [loginModalClose, loginModal] = useState(styles.logModalHidden);
 
   function moveToSearchPage() {
-    window.location.href = "/search";
+    window.location.href = '/search';
   }
 
   function handleLoginModal() {
@@ -44,7 +44,7 @@ function Header({ isLogin, setUserLogout }) {
         >
           <img
             className={styles.header_HamburgerImg}
-            src={require("../assets/img/detailPage/hamburger.PNG")}
+            src={require('../assets/img/detailPage/hamburger.PNG')}
             alt="햄버거 아이콘"
           />
         </button>
@@ -58,7 +58,7 @@ function Header({ isLogin, setUserLogout }) {
             <input
               className={styles.header_SearchBox}
               type="text"
-              style={{ color: "white" }}
+              style={{ color: 'white' }}
             />
             <button
               className={styles.header_SearchBtn}
@@ -66,7 +66,7 @@ function Header({ isLogin, setUserLogout }) {
             >
               <img
                 className={styles.header_SearchImg}
-                src={require("../assets/img/detailPage/search.PNG")}
+                src={require('../assets/img/detailPage/search.PNG')}
                 alt="검색아이콘"
               />
             </button>
@@ -74,7 +74,7 @@ function Header({ isLogin, setUserLogout }) {
           <button className={styles.header_PersonBtn} onClick={handleLoginModal}>
             <img
               className={styles.header_PersonImg}
-              src={require("../assets/img/detailPage/person.PNG")}
+              src={require('../assets/img/detailPage/person.PNG')}
               alt="사람아이콘"
             />
           </button>
@@ -221,13 +221,13 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.triangleOut}></div>
           <li className={styles.logModalList}>
             <a className={styles.logModalSelect} href="/login">
-              {" "}
+              {' '}
               로그인
             </a>
           </li>
           <li className={styles.logModalList}>
             <a className={styles.logModalSelect} href="/signup">
-              {" "}
+              {' '}
               회원가입
             </a>
           </li>
@@ -244,13 +244,13 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.triangleIn}></div>
           <li className={styles.logModalList}>
             <a className={styles.logModalSelect} href="/mypage/upload">
-              {" "}
+              {' '}
               마이페이지
             </a>
           </li>
           <li className={styles.logModalList}>
             <a className={styles.logModalSelect} href="/upload">
-              {" "}
+              {' '}
               밈 등록하기
             </a>
           </li>
