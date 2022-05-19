@@ -4,15 +4,9 @@ import Header from '../component/Header.js';
 import { Link } from 'react-router-dom';
 
 function MyPagebookmark() {
-  let [btn, btnChange] = useState([
-    styles.MyPage_Word_Btn,
-    styles.MyPage_Img_Btn_Unclick,
-  ]);
+  let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
 
-  let [content, contentChange] = useState([
-    styles.MyPage_Word_Container,
-    styles.MyPage_Img_Hidden,
-  ]);
+  let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Img_Hidden]);
 
   function changeToWord() {
     contentChange([styles.MyPage_Word_Container, styles.MyPage_Img_Hidden]);
@@ -31,26 +25,17 @@ function MyPagebookmark() {
         <ul className={styles.MyPage_list_Container}>
           <li className={styles.MyPage_list}>
             {' '}
-            <a
-              className={styles.MyPage_nonSelectlink}
-              href="http://localhost:3000/mypage/upload"
-            >
+            <a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/upload">
               등록한 글{' '}
             </a>
           </li>
           <li className={styles.MyPage_list}>
-            <a
-              className={styles.MyPage_link}
-              href="http://localhost:3000/mypage/bookmark"
-            >
+            <a className={styles.MyPage_link} href="http://localhost:3000/mypage/bookmark">
               나의 활동
             </a>
             <ul className={styles.MyPage_list_child}>
               <li>
-                <a
-                  className={styles.MyPage_link}
-                  href="http://localhost:3000/mypage/bookmark"
-                >
+                <a className={styles.MyPage_link} href="http://localhost:3000/mypage/bookmark">
                   북마크
                 </a>
               </li>
@@ -65,10 +50,7 @@ function MyPagebookmark() {
             </ul>
           </li>
           <li className={styles.MyPage_list}>
-            <a
-              className={styles.MyPage_nonSelectlink}
-              href="http://localhost:3000/mypage/pw"
-            >
+            <a className={styles.MyPage_nonSelectlink} href="http://localhost:3000/mypage/pw">
               p/w 수정
             </a>
           </li>
@@ -87,30 +69,21 @@ function MyPagebookmark() {
           </div>
           <div className={content[0]}>
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}>
-              {' '}
-              "어쩌라고 티비나봐"의 줄임말
-            </p>
+            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
             <hr />
             <h2 className={styles.MyPage_Word_title}>깐부</h2>
             <p className={styles.MyPage_Word_content}>
               {' '}
-              "오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때
-              언급되어 유행하였다."오징어게임" 오일남 할아버지가 성기훈과
-              구슬치기 게임을 할때 언급되어 유행하였다.
+              "오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때 언급되어
+              유행하였다."오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때 언급되어
+              유행하였다.
             </p>
             <hr />
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}>
-              {' '}
-              "어쩌라고 티비나봐"의 줄임말
-            </p>
+            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
             <hr />
             <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}>
-              {' '}
-              "어쩌라고 티비나봐"의 줄임말
-            </p>
+            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
             <hr />
           </div>
           <div className={content[1]}>

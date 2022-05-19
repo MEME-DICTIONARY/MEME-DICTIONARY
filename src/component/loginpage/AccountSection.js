@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/img/logo_circles.svg';
+import logo from '../../assets/img/logo_circles.svg';
 
 
 function AccountSection() {

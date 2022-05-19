@@ -28,49 +28,51 @@ function SearchResultPage() {
   return (
     <>
       <Header />
-      <MainWrapper>
-        <TypeNav>
-          <NavList
+      <StWrapper>
+        <StTypeNav>
+          <StNavList
             isWordClicked={isWordClicked}
             onClick={() => {
               setIsWordClicked(true);
             }}
           >
             용어
-          </NavList>
-          <NavList isWordClicked={!isWordClicked} onClick={() => setIsWordClicked(false)}>
+          </StNavList>
+          <StNavList isWordClicked={!isWordClicked} onClick={() => setIsWordClicked(false)}>
             짤
-          </NavList>
-        </TypeNav>
+          </StNavList>
+        </StTypeNav>
 
-        <ResultContainer>
+        <StResultWrapper>
           {isWordClicked ? (
-            <WordResultLists>
+            <StWordResultList>
               {wordResults.map((result, index) => (
-                <WordResultList key={index}>{result}</WordResultList>
+                <StWordItem key={index}>{result}</StWordItem>
               ))}
-            </WordResultLists>
+            </StWordResultList>
           ) : (
-            <ImgResultLists>
+            <StImgResultList>
               {imgResults.map((result, index) => {
                 return (
-                  <ImgResultList key={index}>
+                  <StImgResultItem key={index}>
                     <img src={result.url} alt="짤" />
-                    <ImgResultListTitle>{result.name}</ImgResultListTitle>
-                  </ImgResultList>
+                    <StImgTitleWrapper>
+                      <StImgTitle>{result.name}</StImgTitle>
+                    </StImgTitleWrapper>
+                  </StImgResultItem>
                 );
               })}
-            </ImgResultLists>
+            </StImgResultList>
           )}
-        </ResultContainer>
-      </MainWrapper>
+        </StResultWrapper>
+      </StWrapper>
     </>
   );
 }
 
 export default SearchResultPage;
 
-const MainWrapper = styled.main`
+const StWrapper = styled.main`
   display: flex;
   flex-direction: column;
   background-color: #232332;
@@ -79,13 +81,13 @@ const MainWrapper = styled.main`
   min-height: 100%;
 `;
 
-const TypeNav = styled.nav`
+const StTypeNav = styled.nav`
   display: flex;
-  margin: 121px 0 57px 51px;
+  margin: 85px 0 57px 51px;
   color: #696868;
 `;
 
-const NavList = styled.li`
+const StNavList = styled.li`
   font-size: 24px;
   font-weight: 700;
   list-style: none;
@@ -107,42 +109,46 @@ const NavList = styled.li`
   }
 `;
 
-const ResultContainer = styled.div`
+const StResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 51px;
 `;
 
-const WordResultLists = styled.ul``;
+const StWordResultList = styled.ul``;
 
 const UnderLine = styled.li`
-  margin-bottom: 24px;
-  padding-bottom: 20px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #696868;
   cursor: pointer;
 `;
 
-const WordResultList = styled(UnderLine)``;
+const StWordItem = styled(UnderLine)``;
 
-const ImgResultLists = styled.ul`
+const StImgResultList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 105px;
+  gap: 55px;
 `;
 
-const ImgResultList = styled(UnderLine)`
+const StImgResultItem = styled(UnderLine)`
   display: flex;
   flex-direction: column;
-  width: 375px;
-  height: 329px;
+  width: 330px;
   & > img {
     width: 100%;
   }
 `;
 
-const ImgResultListTitle = styled.strong`
+const StImgTitleWrapper = styled.div`
+  width: inherit;
+  padding: 36px 0;
+`;
+
+const StImgTitle = styled.strong`
   margin: auto 0;
   text-indent: 15px;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
 `;

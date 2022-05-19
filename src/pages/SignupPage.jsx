@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import AccountSection from '../component/AccountSection.js';
+import AccountSection from '../component/loginpage/AccountSection.js';
 import BaseModal from '../component/base/BaseModal';
 import BaseButton from '../component/base/BaseButton';
 
@@ -112,7 +112,6 @@ function SignupPage() {
     </MainWrapper>
   );
 }
-
 const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
@@ -122,7 +121,7 @@ const MainWrapper = styled.main`
   min-width: fit-content;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 164px 60px 110px 60px;
 `;
 
 const AccountWrapper = styled.div`
@@ -145,11 +144,11 @@ const DataInputBox = styled.div`
     font-size: 20px;
     line-height: 28px;
     padding-bottom: 5px;
-  }
-  & > span {
-    color: #ff0000;
-    vertical-align: middle;
-    padding-right: 3px;
+    & > span {
+      color: #ff0000;
+      vertical-align: middle;
+      padding-right: 3px;
+    }
   }
 `;
 
