@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import '../assets/style/reset.css';
 import Header from '../component/Header';
 import styled, { css } from 'styled-components';
 

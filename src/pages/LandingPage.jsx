@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../assets/style/LandingPage.module.css';
-import '../assets/style/reset.css';
 
 import logo_image from '../assets/img/logo.png';
 

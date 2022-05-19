@@ -185,7 +185,7 @@ function UserUploadPage() {
                   value={wordMeme.word || ''}
                   onChange={(e) => setWordMeme({ ...wordMeme, word: e.target.value })}
                 />
-                <StFilterButton>필터링</StFilterButton>
+                <StFilterButton type="button">필터링</StFilterButton>
               </StFilterWordWrapper>
             </StQuestionItem>
             <StQuestionItem>
