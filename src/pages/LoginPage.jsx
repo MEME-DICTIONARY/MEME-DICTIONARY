@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setLogin } from '../redux/action';
 
-import AccountSection from '../component/AccountSection.js';
+import AccountSection from '../component/loginpage/AccountSection.js';
 import BaseButton from '../component/base/BaseButton';
 import BaseModal from '../component/base/BaseModal';
 
@@ -100,8 +100,8 @@ const StWrapper = styled.div`
   background-color: #232332;
   min-width: fit-content;
   min-height: 100vh;
+  padding: 164px 60px 110px 60px;
   margin: 0 auto;
-  padding: 0 60px;
 `;
 
 const FlexColumnWrapper = styled.div`
