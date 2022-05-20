@@ -5,111 +5,6 @@ html {
   width: 100%;
 }
 
-.headcontainer {
-  width: 100%;
-  height: 115px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header_HamburgerBtn {
-  margin-left: 50px;
-  width: fit-content;
-  border: none;
-  background-color: inherit;
-}
-
-.header_HamburgerImg {
-  background-size: cover;
-}
-
-.header_CircleParent {
-  display: flex;
-  width: fit-content;
-  margin-left:120px;
-}
-
-.header_Circle1,
-.header_Circle2,
-.header_Circle3 {
-  float: left;
-  width: 50px;
-  height: 50px;
-  border-radius: 75px;
-}
-
-.header_Circle1 {
-  background-color: #ff0043;
-}
-
-.header_Circle2 {
-  background-color: #d422ff;
-}
-
-.header_Circle3 {
-  background-color: #2737ff;
-}
-
-.header_SearchParent {
-  position: relative;
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  
-}
-.header__searchContainer {
-  display: inline-block;
-}
-
-.header_SearchBox {
-  background-color: #232332;
-  border: 1px solid white;
-  border-radius: 10px;
-  height: 30px;
-  width: 200px;
-  padding-left: 10px;
-}
-.header_SearchBtn {
-position: relative;
-  top: 42px;
-  right: 70px;
-}
-.header_SearchBtn,
-.header_PersonBtn {
-  width: fit-content;
-  border: none;
-  background-color: inherit;
-}
-
-.header_SearchBtn{
-  position: relative;
-  top:10px;
-  right:50px;
-}
-.header_PersonBtn{
-  position: relative;
- right:25px;
-}
-
-.header_SearchImg {
-  height: 30px;
-  width: 30px;
-}
-
-.header_PersonImg {
-  height: 50px;
-  width: 40px;
-}
-
-.header_Line {
-  width: 100%;
-  position: absolute;
-  top: 15%;
-  border-bottom: 1px solid white;
-  opacity: 0.5;
-}
-
 .categoryModal {
   position: absolute;
   width: 100%;
@@ -129,7 +24,23 @@ position: relative;
   width: 100%;
   height: 100%;
 }
+.logoutModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
 
+.loginModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
 .categoryModal_content {
   position: fixed;
   background-color: white;
@@ -167,9 +78,6 @@ position: relative;
   display: block;
 }
 
-
-
-
 .logModalHidden {
   display: none;
 }
@@ -189,7 +97,6 @@ position: relative;
   background-color: white;
   height: 120px;
   width: 120px;
-
 }
 
 .triangleOut {
@@ -211,7 +118,6 @@ position: relative;
   position: relative;
   top: -10%;
   padding-top: 20%;
-  
 }
 
 .logModalSelect {
@@ -226,7 +132,6 @@ position: relative;
   background-color: white;
   height: 150px;
   width: 120px;
- 
 }
 
 .triangleIn {

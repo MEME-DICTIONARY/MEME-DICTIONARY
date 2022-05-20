@@ -1,248 +1,56 @@
-html,body{
-  width: 100%;
-  height: 100%;
+.MyPage_Word_Btn {
+  font-size: large;
+  padding-right: 10px;
+  border: 0;
+  outline: 0;
+  border-right: 2px white solid;
+  background-color: #232332;
+  color: white;
+  font-weight: bold;
 }
-*{
-  font-family: "Noto Sans KR",
-  sans-serif;
+.MyPage_Word_Btn_Unclick {
+  font-size: large;
+  padding-right: 10px;
+  border: 0;
+  outline: 0;
+  border-right: 2px white solid;
+  background-color: #232332;
+  color: gray;
+  font-weight: bold;
 }
 
-.MyPage_list_Container{
-   display:  flex;
-   flex-direction: column;
-    border-right: 1px solid white;
-    top: 10px;
-    width: 190px;
-    border-right: 1px solid rgba(255, 255,255,0.5);
-    height: 100vh;
-   
-    
-  }
+.MyPage_Img_Btn {
+  border: 0;
+  outline: 0;
+  font-size: large;
+  background-color: #232332;
+  color: white;
+}
 
+.MyPage_Img_Btn_Unclick {
+  border: 0;
+  outline: 0;
+  font-size: large;
+  background-color: #232332;
+  color: gray;
+}
 
-  .MyPage_list{
-    position: relative;
-    top:130px;
-    background-color: #232332;
-    font-size:large;
-    list-style:none;
-    padding-bottom:130px;
-    padding-left: 30%;
-  }
-  
-  
-  .MyPage_nonSelectlink{
-    text-decoration: none;
-    color:gray;
-   
-  }
-  
-  .MyPage_link{
-    text-decoration: none;
-    color:white;
-    font-weight: bold;
-  }
-  
-  .MyPage_list_child{
-    background-color: #232332;
-    list-style:none;
-   position: relative;
-   left:-25px;
-    padding-top:10px;
-    text-align: center;
-    line-height: 25px;
-  }
-  
-  #MyPage_Grid{
-    position:relative;
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    z-index: 1;
-    height: 100%;
-    top:10%;
-  }
-  
-  .MyPage_Btn_Container{
-    width: 100px;
-  position:absolute;
-  top:70px;
-  left: 300px;
-    
-  }
-  
-  .MyPage_Word_Btn{
-    font-size: large;
-    padding-right:10px;
-    border: 0;
-    outline: 0;
-    border-right: 2px white solid;
-    background-color: #232332;
-    color: white;
-    font-weight: bold;
-  }
-  .MyPage_Word_Btn_Unclick{
-    font-size: large;
-    padding-right:10px;
-    border: 0;
-    outline: 0;
-    border-right: 2px white solid;
-    background-color: #232332;
-    color: gray;
-    font-weight: bold;
-  }
+.MyPage_Img_Container {
+  position: relative;
+  left: 150px;
+  top: 150px;
+  height: 500px;
+  width: 1200px;
+}
 
-  .MyPage_Img_Btn{
-    border: 0;
-    outline: 0;
-    font-size: large;
-    background-color: #232332;
-    color: white;
-  }
+.MyPage_Hidden {
+  display: none;
+}
 
-  .MyPage_Img_Btn_Unclick{
-    border: 0;
-    outline: 0;
-    font-size: large;
-    background-color: #232332;
-    color: gray;
-  }
-  
-  .MyPage_Img_Container{
-    position: relative;
-    left: 150px;
-    top:150px;
-    height: 500px;
-    width:1200px;
-  }
-  
-  .MyPage_Img{
-    padding-right:50px;
-    padding-bottom: 30px;
-    width: 300px;
-    height:225px;
-  }
-  
-  .MyPage_Img_Hidden{
-    display: none;
-  }
-  
-  .MyPage_Word_Container{
-   
-    position: relative;
-    left: 150px;
-    top:150px;
-    height: 500px;
-    width:1200px;
-  }
-  
-  .MyPage_Word_title{
-    font-weight: bold;
-    font-size: 25px;
-    color:white;
-   margin-bottom:20px;
-   margin-top: 30px;
-   
-  }
-  
-  .MyPage_Word_content{
-    color:white;
-    margin-bottom:10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  
-  .MyPage_Word_Hidden{
-    display: none;
-  }
-  
-  .MyPage_comment_Container{
-   
-    
-    position: relative;
-    left: 150px;
-    top:150px;
-    height: 500px;
-    width:1200px;
-  }
-  
-  .MyPage_commentTitle{
-    margin-bottom:10px;
-    padding-top: 10px;
-    color:white;
-    text-align: center;
-    border-radius: 30px;
-   background-color: rgba(255, 255, 255, 0.12);
-   width: 276px;
-   height: 30px;
-  }
-  
-  .MyPage_commentContent{
-    margin-bottom:0;
-    width: 90%;
-    color:white;
-    position: relative;
-    left:50px;
-  }
-  
-  .MyPage_commentTime{
-    margin-bottom:50px;
-    font-size: small;
-    color: gray;
-    width: 90%;
-    position: relative;
-    left:50px;
-  }
-  
-  .MyPage_pw_Container{
-   
-    position: relative;
-    top:90px;
-    left:10%;
-    
-    height: 500px;
-    width:1200px;
-  }
-  .MyPage_pw{
-    
-    width:90%;
-    position: relative;
-    left:70px;
-    top:70px;
-    color:white;
-    margin-bottom:10px;
-  }
-  .MyPage_pw_input{
-    
-    position: relative;
-    margin-bottom: 40px;
-    left:70px;
-    border-radius: 10px;
-    width:610px;
-    height: 35px;
-    top:70px;
-  }
-  
-  .MyPage_pw_changeBtn{
-    
-    color:white;
-    width: 70px;
-    background-color: gray;
-    border-radius: 10px;
-    position: relative;
-    left:80px;
-    top:70px;
-  }
-  
-  .MyPage_delete{
-    height: 30px;
-    color:red;
-    border:1px red solid;
-    background-color: #232332;
-    position: relative;
-    left:400px;
-    top:250px;
-  }
-
- 
- 
+.MyPage_Word_Container {
+  position: relative;
+  left: 150px;
+  top: 150px;
+  height: 500px;
+  width: 1200px;
+}

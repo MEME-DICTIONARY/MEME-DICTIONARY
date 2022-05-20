@@ -1,123 +1,169 @@
 import React, { useState } from 'react';
 import styles from '../assets/style/MyPage.module.css';
 import Header from '../component/Header.js';
+import styled from 'styled-components';
 
 function MyPageupload() {
   let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
-
-  let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Img_Hidden]);
+  let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
 
   function changeToWord() {
-    contentChange([styles.MyPage_Word_Container, styles.MyPage_Img_Hidden]);
+    contentChange([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
     btnChange([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
   }
 
   function changeToImg() {
-    contentChange([styles.MyPage_Word_Hidden, styles.MyPage_Img_Container]);
+    contentChange([styles.MyPage_Hidden, styles.MyPage_Img_Container]);
     btnChange([styles.MyPage_Word_Btn_Unclick, styles.MyPage_Img_Btn]);
   }
 
   return (
-    <div>
+    <>
       <Header />
-
-      <div id={styles.MyPage_Grid}>
-        <ul className={styles.MyPage_list_Container}>
-          <li className={styles.MyPage_list}>
-            <a className={styles.MyPage_link} href="/mypage/upload">
-              등록한 글
-            </a>
-          </li>
-          <li className={styles.MyPage_list}>
-            <a className={styles.MyPage_nonSelectlink} href="/mypage/bookmark">
-              나의 활동
-            </a>
-            <ul className={styles.MyPage_list_child}>
+      <StMyPageWrapper>
+        <StMyPageListWrapper>
+          <StMyPageList>
+            <StMyPageLink href="/mypage/upload"> 등록한글 </StMyPageLink>
+          </StMyPageList>
+          <StMyPageList>
+            <StMyPageNonSelectLink href="/mypage/bookmark"> 나의 활동 </StMyPageNonSelectLink>
+            <StMyPageListChild>
               <li>
-                <a className={styles.MyPage_nonSelectlink} href="/mypage/bookmark">
-                  북마크
-                </a>
+                <StMyPageNonSelectLink href="/mypage/bookmark"> 북마크</StMyPageNonSelectLink>
               </li>
               <li>
-                <a className={styles.MyPage_nonSelectlink} href="/mypage/comment">
-                  댓글
-                </a>
+                <StMyPageNonSelectLink href="/mypage/comment"> 댓글</StMyPageNonSelectLink>
               </li>
-            </ul>
-          </li>
-          <li className={styles.MyPage_list}>
-            <a className={styles.MyPage_nonSelectlink} href="/mypage/pw">
-              p/w 수정
-            </a>
-          </li>
-          <div className={styles.listLine}></div>
-        </ul>
+            </StMyPageListChild>
+          </StMyPageList>
+          <StMyPageList>
+            <StMyPageNonSelectLink href="/mypage/pw"> p/w 수정</StMyPageNonSelectLink>
+          </StMyPageList>
+        </StMyPageListWrapper>
         <div>
-          <div className={styles.MyPage_Btn_Container}>
+          <StBtnContainer>
             <button className={btn[0]} onClick={changeToWord}>
               {' '}
               용어
             </button>
             <button className={btn[1]} onClick={changeToImg}>
-              {' '}
               짤{' '}
             </button>
-          </div>
+          </StBtnContainer>
           <div className={content[0]}>
-            <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
+            <StWordTitle>어쩔티비</StWordTitle>
+            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
             <hr />
-            <h2 className={styles.MyPage_Word_title}>깐부</h2>
-            <p className={styles.MyPage_Word_content}>
-              {' '}
-              "오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때 언급되어
-              유행하였다."오징어게임" 오일남 할아버지가 성기훈과 구슬치기 게임을 할때 언급되어
-              유행하였다.
-            </p>
+            <StWordTitle>어쩔티비</StWordTitle>
+            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
             <hr />
-            <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
-            <hr />
-            <h2 className={styles.MyPage_Word_title}>어쩔티비</h2>
-            <p className={styles.MyPage_Word_content}> "어쩌라고 티비나봐"의 줄임말</p>
-            <hr />
+            <StWordTitle>어쩔티비</StWordTitle>
+            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
           </div>
           <div className={content[1]}>
-            <img
-              className={styles.MyPage_Img}
+            <StMyPageImg
               src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
-            />
-            <img
-              className={styles.MyPage_Img}
-              src={require('../assets/img/detailPage/computer.jpeg')}
-              alt="짤"
-            />
-            <img
-              className={styles.MyPage_Img}
-              src={require('../assets/img/detailPage/community.png')}
-              alt="짤"
-            />
-            <img
-              className={styles.MyPage_Img}
-              src={require('../assets/img/detailPage/twitter.jpg')}
-              alt="짤"
-            />
-            <img
-              className={styles.MyPage_Img}
+            ></StMyPageImg>
+            <StMyPageImg
               src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
-            />
-            <img
-              className={styles.MyPage_Img}
+            ></StMyPageImg>
+            <StMyPageImg
               src={require('../assets/img/detailPage/무야호.png')}
               alt="짤"
-            />
+            ></StMyPageImg>
+            <StMyPageImg
+              src={require('../assets/img/detailPage/무야호.png')}
+              alt="짤"
+            ></StMyPageImg>
+            <StMyPageImg
+              src={require('../assets/img/detailPage/무야호.png')}
+              alt="짤"
+            ></StMyPageImg>
+            <StMyPageImg
+              src={require('../assets/img/detailPage/무야호.png')}
+              alt="짤"
+            ></StMyPageImg>
           </div>
         </div>
-      </div>
-    </div>
+      </StMyPageWrapper>
+    </>
   );
 }
+const StMyPageWrapper = styled.div`
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  z-index: 1;
+  height: 100%;
+  top: 10%;
+`;
+const StMyPageListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid white;
+  top: 10px;
+  width: 190px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  height: 100vh;
+`;
+
+const StMyPageList = styled.li`
+  position: relative;
+  top: 130px;
+  background-color: #232332;
+  font-size: large;
+  list-style: none;
+  padding-bottom: 130px;
+  padding-left: 30%;
+`;
+
+const StMyPageLink = styled.a`
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+`;
+const StMyPageNonSelectLink = styled.a`
+  text-decoration: none;
+  color: gray;
+`;
+const StMyPageListChild = styled.ul`
+  background-color: #232332;
+  list-style: none;
+  position: relative;
+  left: -25px;
+  padding-top: 10px;
+  text-align: center;
+  line-height: 25px;
+`;
+const StBtnContainer = styled.div`
+  width: 100px;
+  position: absolute;
+  top: 70px;
+  left: 300px;
+`;
+
+const StWordTitle = styled.h2`
+  font-weight: bold;
+  font-size: 25px;
+  color: white;
+  margin-bottom: 20px;
+  margin-top: 30px;
+`;
+const StWordContent = styled.p`
+  color: white;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+
+const StMyPageImg = styled.img`
+  padding-right: 50px;
+  padding-bottom: 30px;
+  width: 300px;
+  height: 225px;
+`;
 
 export default MyPageupload;

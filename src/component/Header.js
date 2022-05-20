@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styles from '../assets/style/header.module.css';
 import { setLogout } from '../redux/action';
+import styled from 'styled-components';
 
 const mapStateToProps = (state) => {
   return {
@@ -34,53 +35,36 @@ function Header({ isLogin, setUserLogout }) {
   }
 
   return (
-    <div>
-      <div className={styles.headcontainer}>
-        <button
-          className={styles.header_HamburgerBtn}
+    <>
+      <StHeadContainer>
+        <StHamburgerBtn
           onClick={() => {
             categoryOpen(styles.categoryModal);
           }}
         >
-          <img
-            className={styles.header_HamburgerImg}
+          {' '}
+          <StHamburgerImg
             src={require('../assets/img/detailPage/hamburger.PNG')}
             alt="햄버거 아이콘"
-          />
-        </button>
-        <a className={styles.header_CircleParent} href="/main">
-          <div className={styles.header_Circle1}></div>
-          <div className={styles.header_Circle2}></div>
-          <div className={styles.header_Circle3}></div>
-        </a>
-        <article className={styles.header_SearchParent}>
-          <div className={styles.header__searchContainer}>
-            <input
-              className={styles.header_SearchBox}
-              type="text"
-              style={{ color: 'white' }}
-            />
-            <button
-              className={styles.header_SearchBtn}
-              onClick={moveToSearchPage}
-            >
-              <img
-                className={styles.header_SearchImg}
-                src={require('../assets/img/detailPage/search.PNG')}
-                alt="검색아이콘"
-              />
-            </button>
-          </div>
-          <button className={styles.header_PersonBtn} onClick={handleLoginModal}>
-            <img
-              className={styles.header_PersonImg}
-              src={require('../assets/img/detailPage/person.PNG')}
-              alt="사람아이콘"
-            />
-          </button>
-        </article>
-        <div className={styles.header_Line}></div>
-      </div>
+          />{' '}
+        </StHamburgerBtn>
+        <StCircleWrapper href="/main">
+          <StCircle1></StCircle1>
+          <StCircle2></StCircle2>
+          <StCircle3></StCircle3>
+        </StCircleWrapper>
+        <StSearchWrapper>
+          <StSearchConatiner>
+            <StSearchBox type="text" style={{ color: 'white' }} />
+            <StSearchBtn onClick={moveToSearchPage}>
+              <StSearchImg src={require('../assets/img/detailPage/search.PNG')} alt="검색아이콘" />
+            </StSearchBtn>
+          </StSearchConatiner>
+          <StPersonBtn onClick={handleLoginModal}>
+            <StPersonImg src={require('../assets/img/detailPage/person.PNG')} alt="사람아이콘" />
+          </StPersonBtn>
+        </StSearchWrapper>
+      </StHeadContainer>
 
       <div className={categoryClose}>
         <div
@@ -93,88 +77,46 @@ function Header({ isLogin, setUserLogout }) {
           <h2 className={styles.category_title}>용어</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㄱ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㄴ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㄷ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㄹ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅁ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅂ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅅ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅇ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅈ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅊ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅋ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅌ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅍ
             </button>
-            <button
-              className={styles.categoryButton_word}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
               ㅎ
             </button>
           </div>
@@ -182,28 +124,16 @@ function Header({ isLogin, setUserLogout }) {
           <h2 className={styles.category_title}>짤</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button
-              className={styles.categoryButton_img}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
               TV
             </button>
-            <button
-              className={styles.categoryButton_img}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
               영화
             </button>
-            <button
-              className={styles.categoryButton_img}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
               커뮤니티
             </button>
-            <button
-              className={styles.categoryButton_img}
-              onClick={moveToSearchPage}
-            >
+            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
               기타
             </button>
           </div>
@@ -259,7 +189,102 @@ function Header({ isLogin, setUserLogout }) {
           </li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }
+
+const StHeadContainer = styled.div`
+  width: 100%;
+  height: 102px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  align-items: center;
+`;
+
+const StHamburgerBtn = styled.button`
+  margin-left: 50px;
+  width: 37px;
+  height: 35px;
+  border: none;
+  background-color: inherit;
+`;
+
+const StHamburgerImg = styled.img`
+  width: 37px;
+  height: 35px;
+  background-size: cover;
+`;
+
+const StCircleWrapper = styled.a`
+  display: flex;
+  width: fit-content;
+  margin-left: 120px;
+`;
+
+const StCircle1 = styled.div`
+  background-color: #ff0043;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+`;
+
+const StCircle2 = styled.div`
+  background-color: #d422ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+`;
+const StCircle3 = styled.div`
+  background-color: #2737ff;
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 75px;
+`;
+const StSearchWrapper = styled.article`
+  position: relative;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+`;
+const StSearchConatiner = styled.div`
+  display: inline-block;
+`;
+const StSearchBox = styled.input`
+  background-color: #232332;
+  border: 1px solid white;
+  border-radius: 10px;
+  height: 50px;
+  width: 282px;
+  padding-left: 10px;
+`;
+
+const StSearchBtn = styled.button`
+  position: relative;
+  top: 10px;
+  right: 50px;
+  width: fit-content;
+  border: none;
+  background-color: inherit;
+`;
+
+const StSearchImg = styled.img`
+  height: 30px;
+  width: 30px;
+`;
+
+const StPersonBtn = styled.button`
+  position: relative;
+  right: 25px;
+  width: fit-content;
+  border: none;
+  background-color: inherit;
+`;
+const StPersonImg = styled.img`
+  height: 50px;
+  width: 40px;
+`;
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
