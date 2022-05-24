@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setLogin } from '../redux/action';
 
-import AccountSection from '../component/loginpage/AccountSection.js';
+import AccountSection from '../component/loginpage/AccountSection';
 import BaseButton from '../component/base/BaseButton';
 import BaseModal from '../component/base/BaseModal';
 

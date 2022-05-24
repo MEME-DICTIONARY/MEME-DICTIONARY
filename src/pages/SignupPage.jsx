@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import AccountSection from '../component/loginpage/AccountSection.js';
+import AccountSection from '../component/loginpage/AccountSection';
 import BaseModal from '../component/base/BaseModal';
 import BaseButton from '../component/base/BaseButton';
 
