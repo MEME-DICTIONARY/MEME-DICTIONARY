@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from '../assets/style/header.module.css';
 import { setLogout } from '../redux/action';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -33,6 +34,12 @@ function Header({ isLogin, setUserLogout }) {
       loginModal(styles.loginModal);
     }
   }
+  const navigator = useNavigate();
+  const onEnterPress = (e) => {
+    if (e.key === 'Enter') {
+      navigator('/search');
+    }
+  };
 
   return (
     <>
@@ -55,7 +62,7 @@ function Header({ isLogin, setUserLogout }) {
         </StCircleWrapper>
         <StSearchWrapper>
           <StSearchConatiner>
-            <StSearchBox type="text" style={{ color: 'white' }} />
+            <StSearchBox type="text" style={{ color: 'white' }} onKeyDown={onEnterPress} />
             <StSearchBtn onClick={moveToSearchPage}>
               <StSearchImg src={require('../assets/img/detailPage/search.PNG')} alt="검색아이콘" />
             </StSearchBtn>

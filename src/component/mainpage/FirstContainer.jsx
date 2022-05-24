@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 function FirstContainer({ hashTagList }) {
+  const navigator = useNavigate();
+  const onEnterPress = (e) => {
+    if (e.key === 'Enter') {
+      navigator('/search');
+    }
+  };
   return (
     <StWrapper>
       <StSearchBar>
@@ -10,6 +16,7 @@ function FirstContainer({ hashTagList }) {
           type="text"
           id="search"
           placeholder="키워드를 입력하여 밈을 검색해보세요!"
+          onKeyDown={onEnterPress}
         />
         <Link to="/search">
           <AiOutlineSearch className="search__icon" size="50" color="#828282" />
