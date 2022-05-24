@@ -127,13 +127,13 @@ const MainWrapper = styled.main`
 const AccountWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 24px 0 0 60px;
+  padding-left: 100px;
+  gap: 24px;
 `;
 
 const DataInputBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 24px;
 
   &:last-child {
     padding-bottom: 70px;

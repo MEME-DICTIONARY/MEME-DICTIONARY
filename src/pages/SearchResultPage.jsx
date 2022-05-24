@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import Header from '../component/Header';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function SearchResultPage() {
   const [wordResults] = useState([
@@ -15,6 +16,10 @@ function SearchResultPage() {
     },
     {
       name: '어쩔 티비',
+      url: require('../assets/img/sample.jpeg'),
+    },
+    {
+      name: '어쩔 시크릿쥬쥬 리미티드 에디션',
       url: require('../assets/img/sample.jpeg'),
     },
     {
@@ -46,19 +51,23 @@ function SearchResultPage() {
           {isWordClicked ? (
             <StWordResultList>
               {wordResults.map((result, index) => (
-                <StWordItem key={index}>{result}</StWordItem>
+                <Link to="/detail">
+                  <StWordItem key={index}>{result}</StWordItem>
+                </Link>
               ))}
             </StWordResultList>
           ) : (
             <StImgResultList>
               {imgResults.map((result, index) => {
                 return (
-                  <StImgResultItem key={index}>
-                    <img src={result.url} alt="짤" />
-                    <StImgTitleWrapper>
-                      <StImgTitle>{result.name}</StImgTitle>
-                    </StImgTitleWrapper>
-                  </StImgResultItem>
+                  <Link to="/detail">
+                    <StImgResultItem key={index}>
+                      <img src={result.url} alt="짤" />
+                      <StImgTitleWrapper>
+                        <StImgTitle>{result.name}</StImgTitle>
+                      </StImgTitleWrapper>
+                    </StImgResultItem>
+                  </Link>
                 );
               })}
             </StImgResultList>
@@ -76,8 +85,7 @@ const StWrapper = styled.main`
   flex-direction: column;
   background-color: #232332;
   color: #fff;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
 `;
 
 const StTypeNav = styled.nav`
@@ -114,29 +122,43 @@ const StResultWrapper = styled.div`
   padding: 0 51px;
 `;
 
-const StWordResultList = styled.ul``;
+const StWordResultList = styled.ul`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const StWordItem = styled.li`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
 
-const UnderLine = styled.li`
-  margin-bottom: 14px;
-  padding-bottom: 10px;
   border-bottom: 1px solid #696868;
   cursor: pointer;
-`;
 
-const StWordItem = styled(UnderLine)``;
+  &:hover {
+    background-color: #696868;
+  }
+`;
 
 const StImgResultList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 55px;
+  gap: 30px 105px;
 `;
 
-const StImgResultItem = styled(UnderLine)`
+const StImgResultItem = styled.li`
   display: flex;
   flex-direction: column;
-  width: 330px;
+  width: 375px;
+  height: 432px;
+  border-bottom: 1px solid #696868;
+
   & > img {
     width: 100%;
+    height: 329px;
+    object-fit: cover;
   }
 `;
 
