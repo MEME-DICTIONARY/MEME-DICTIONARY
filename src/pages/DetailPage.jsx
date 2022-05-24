@@ -13,7 +13,7 @@ function DetailPage() {
 
   useEffect(() => {
     console.log(params.type);
-  }, []);
+  });
 
   return (
     <>
@@ -72,6 +72,11 @@ function DetailPage() {
               ></StBookMarkImg>
             </StBottomBtn>
           </StButtonWrapper>
+          <StButtomWrapper>
+            <StCommentTitle>댓글 3개</StCommentTitle>
+            <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
+            <StCommentBtn>등록</StCommentBtn>
+          </StButtomWrapper>
         </StWordWrapper>
       ) : (
         <>
@@ -132,7 +137,12 @@ function DetailPage() {
   );
 }
 
-const StWordWrapper = styled.div``;
+const StWordWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const StWordInfo = styled.div`
   display: flex;
@@ -224,13 +234,6 @@ const StImgWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /*display: none;*/
-  ${(isWord) =>
-    isWord === false &&
-    css`
-      display: none;
-    `}
 `;
 
 const StBodyImg = styled.img`

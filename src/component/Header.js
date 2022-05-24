@@ -219,7 +219,7 @@ const StHamburgerImg = styled.img`
 const StCircleWrapper = styled.a`
   display: flex;
   width: fit-content;
-  margin-left: 120px;
+  margin-left: 290px;
 `;
 
 const StCircle1 = styled.div`
