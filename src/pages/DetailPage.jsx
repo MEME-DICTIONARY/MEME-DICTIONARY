@@ -1,136 +1,138 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../component/Header.js';
 import styled, { css } from 'styled-components';
 
-function DetailPage({ isWord }) {
+function DetailPage() {
   const [imghashtag, imghashtag_change] = useState(['#무야호', '#무한도전']);
   const [wordhashtag, wordhashtag_change] = useState(['#어쩔티비', '#저쩔티비']);
   const [wordLike, addWordLike] = useState(0);
   const [wordWarning, addWordWarning] = useState(0);
 
+  let params = useParams();
+
+  useEffect(() => {
+    console.log(params.type);
+  }, []);
+
   return (
     <>
       <Header />
 
-      <StWordWrapper isWord={isWord}>
-        <StTitle>어쩔티비</StTitle>
+      {params.type === 'word' ? (
+        <StWordWrapper>
+          <StTitle>어쩔티비</StTitle>
 
-        <StWordInfo>
-          <StWordInfoWrapper>
-            <StWordMeaning>뜻</StWordMeaning>
-            <StWordContent>
-              줄바뀌니?? 어쩌라고, 어쩔건데, 안물어봤는데 등의 의미. 상대방이 귀찮게 하거나 대답하기
-              곤란한 질문을 했을 경우에 하는 말로, 상대방을 도발하는 의미
-            </StWordContent>
-          </StWordInfoWrapper>
-          <StExampleWrapper>
-            <StWordExample>예문</StWordExample>
-            <StWordContent>"야 너 못생김" "어쩔티비"</StWordContent>
-          </StExampleWrapper>
-        </StWordInfo>
+          <StWordInfo>
+            <StWordInfoWrapper>
+              <StWordMeaning>뜻</StWordMeaning>
+              <StWordContent>
+                줄바뀌니?? 어쩌라고, 어쩔건데, 안물어봤는데 등의 의미. 상대방이 귀찮게 하거나
+                대답하기 곤란한 질문을 했을 경우에 하는 말로, 상대방을 도발하는 의미
+              </StWordContent>
+            </StWordInfoWrapper>
+            <StExampleWrapper>
+              <StWordExample>예문</StWordExample>
+              <StWordContent>"야 너 못생김" "어쩔티비"</StWordContent>
+            </StExampleWrapper>
+          </StWordInfo>
 
-        <StHashtagWrapper>
-          <StHashTag>{wordhashtag[0]}</StHashTag>
-          <StHashTag>{wordhashtag[1]}</StHashTag>
-        </StHashtagWrapper>
+          <StHashtagWrapper>
+            <StHashTag>{wordhashtag[0]}</StHashTag>
+            <StHashTag>{wordhashtag[1]}</StHashTag>
+          </StHashtagWrapper>
 
-        <StButtonWrapper>
-          <StBottomBtn>
-            <StButtonImg
-              src={require('../assets/img/detailPage/like.png')}
-              alt="좋아요"
-              onClick={() => {
-                addWordLike(wordLike + 1);
-              }}
-            ></StButtonImg>
-            {wordLike}
-          </StBottomBtn>
+          <StButtonWrapper>
+            <StBottomBtn>
+              <StButtonImg
+                src={require('../assets/img/detailPage/like.png')}
+                alt="좋아요"
+                onClick={() => {
+                  addWordLike(wordLike + 1);
+                }}
+              ></StButtonImg>
+              {wordLike}
+            </StBottomBtn>
 
-          <StBottomBtn>
-            <StButtonImg
-              src={require('../assets/img/detailPage/report.png')}
-              alt="신고"
-              onClick={() => {
-                addWordWarning(wordWarning + 1);
-              }}
-            ></StButtonImg>
-            {wordWarning}
-          </StBottomBtn>
+            <StBottomBtn>
+              <StButtonImg
+                src={require('../assets/img/detailPage/report.png')}
+                alt="신고"
+                onClick={() => {
+                  addWordWarning(wordWarning + 1);
+                }}
+              ></StButtonImg>
+              {wordWarning}
+            </StBottomBtn>
 
-          <StBottomBtn>
-            <StBookMarkImg
-              src={require('../assets/img/detailPage/bookmark.png')}
-              alt="북마크"
-            ></StBookMarkImg>
-          </StBottomBtn>
-        </StButtonWrapper>
-      </StWordWrapper>
+            <StBottomBtn>
+              <StBookMarkImg
+                src={require('../assets/img/detailPage/bookmark.png')}
+                alt="북마크"
+              ></StBookMarkImg>
+            </StBottomBtn>
+          </StButtonWrapper>
+        </StWordWrapper>
+      ) : (
+        <>
+          <StImgWrapper>
+            <StTitle>무야호</StTitle>
+            <StBodyImg
+              src={require('../assets/img/detailPage/무야호.png')}
+              alt="무야호"
+            ></StBodyImg>
+            <StImgContent>
+              무한도전 197화 '알레스카 편'에 방영된 장면으로, 무한도전을 안다고 얘기하신 뒤 외치신
+              의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
+            </StImgContent>
+            <StHashtagWrapper>
+              <StHashTag>{imghashtag[0]}</StHashTag>
+              <StHashTag>{imghashtag[1]}</StHashTag>
+            </StHashtagWrapper>
+            <StButtonWrapper>
+              <StBottomBtn>
+                <StButtonImg
+                  src={require('../assets/img/detailPage/like.png')}
+                  alt="좋아요"
+                  onClick={() => {
+                    addWordLike(wordLike + 1);
+                  }}
+                ></StButtonImg>
+                {wordLike}
+              </StBottomBtn>
 
-      <StImgWrapper isWord={isWord}>
-        <StTitle>무야호</StTitle>
-        <StBodyImg src={require('../assets/img/detailPage/무야호.png')} alt="무야호"></StBodyImg>
-        <StImgContent>
-          무한도전 197화 '알레스카 편'에 방영된 장면으로, 무한도전을 안다고 얘기하신 뒤 외치신
-          의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
-        </StImgContent>
-        <StHashtagWrapper>
-          <StHashTag>{imghashtag[0]}</StHashTag>
-          <StHashTag>{imghashtag[1]}</StHashTag>
-        </StHashtagWrapper>
-        <StButtonWrapper>
-          <StBottomBtn>
-            <StButtonImg
-              src={require('../assets/img/detailPage/like.png')}
-              alt="좋아요"
-              onClick={() => {
-                addWordLike(wordLike + 1);
-              }}
-            ></StButtonImg>
-            {wordLike}
-          </StBottomBtn>
+              <StBottomBtn>
+                <StButtonImg
+                  src={require('../assets/img/detailPage/report.png')}
+                  alt="신고"
+                  onClick={() => {
+                    addWordWarning(wordWarning + 1);
+                  }}
+                ></StButtonImg>
+                {wordWarning}
+              </StBottomBtn>
 
-          <StBottomBtn>
-            <StButtonImg
-              src={require('../assets/img/detailPage/report.png')}
-              alt="신고"
-              onClick={() => {
-                addWordWarning(wordWarning + 1);
-              }}
-            ></StButtonImg>
-            {wordWarning}
-          </StBottomBtn>
+              <StBottomBtn>
+                <StBookMarkImg
+                  src={require('../assets/img/detailPage/bookmark.png')}
+                  alt="북마크"
+                ></StBookMarkImg>
+              </StBottomBtn>
+            </StButtonWrapper>
+          </StImgWrapper>
 
-          <StBottomBtn>
-            <StBookMarkImg
-              src={require('../assets/img/detailPage/bookmark.png')}
-              alt="북마크"
-            ></StBookMarkImg>
-          </StBottomBtn>
-        </StButtonWrapper>
-      </StImgWrapper>
-
-      <StButtomWrapper>
-        <StCommentTitle>댓글 3개</StCommentTitle>
-        <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
-        <StCommentBtn>등록</StCommentBtn>
-      </StButtomWrapper>
+          <StButtomWrapper>
+            <StCommentTitle>댓글 3개</StCommentTitle>
+            <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
+            <StCommentBtn>등록</StCommentBtn>
+          </StButtomWrapper>
+        </>
+      )}
     </>
   );
 }
 
-const StWordWrapper = styled.div`
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;*/
-
-  display: none;
-  ${(isWord) =>
-    isWord === false &&
-    css`
-      display: none;
-    `}
-`;
+const StWordWrapper = styled.div``;
 
 const StWordInfo = styled.div`
   display: flex;

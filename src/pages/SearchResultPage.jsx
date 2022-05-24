@@ -11,18 +11,22 @@ function SearchResultPage() {
   ]);
   const [imgResults] = useState([
     {
+      id: 0,
       name: '어쩔어쩔티비',
       url: require('../assets/img/sample.jpeg'),
     },
     {
+      id: 1,
       name: '어쩔 티비',
       url: require('../assets/img/sample.jpeg'),
     },
     {
+      id: 2,
       name: '어쩔 시크릿쥬쥬 리미티드 에디션',
       url: require('../assets/img/sample.jpeg'),
     },
     {
+      id: 3,
       name: '어쩔 시크릿쥬쥬 리미티드 에디션',
       url: require('../assets/img/sample.jpeg'),
     },
@@ -50,26 +54,26 @@ function SearchResultPage() {
         <StResultWrapper>
           {isWordClicked ? (
             <StWordResultList>
-              {wordResults.map((result, index) => (
-                <Link to="/detail">
-                  <StWordItem key={index}>{result}</StWordItem>
-                </Link>
-              ))}
+              <Link to={'/detail/word'}>
+                {wordResults.map((result) => (
+                  <StWordItem key={result.id}>{result}</StWordItem>
+                ))}
+              </Link>
             </StWordResultList>
           ) : (
             <StImgResultList>
-              {imgResults.map((result, index) => {
-                return (
-                  <Link to="/detail">
-                    <StImgResultItem key={index}>
+              <Link to={'/detail/image'}>
+                {imgResults.map((result) => {
+                  return (
+                    <StImgResultItem key={result.id}>
                       <img src={result.url} alt="짤" />
-                      <StImgTitleWrapper>
-                        <StImgTitle>{result.name}</StImgTitle>
+                      <StImgTitleWrapper key={result.id}>
+                        <StImgTitle key={result.id}>{result.name}</StImgTitle>
                       </StImgTitleWrapper>
                     </StImgResultItem>
-                  </Link>
-                );
-              })}
+                  );
+                })}
+              </Link>
             </StImgResultList>
           )}
         </StResultWrapper>
