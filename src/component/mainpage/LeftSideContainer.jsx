@@ -38,7 +38,8 @@ const StRankingWrapper = styled.div`
     transform: translateY(25px);
     text-shadow: 2px 2px 3px #000;
     white-space: normal;
-    width: 150px;
+    width: 180px;
+    letter-spacing: 3px;
   }
 `;
 
@@ -48,7 +49,7 @@ const StDesc = styled.div`
   color: #bdbdbd;
   font-size: 20px;
   font-weight: 400;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.3px;
   line-height: 30px;
   text-align: center;
 `;
