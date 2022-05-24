@@ -62,18 +62,18 @@ function SearchResultPage() {
             </StWordResultList>
           ) : (
             <StImgResultList>
-              <Link to={'/detail/image'}>
-                {imgResults.map((result) => {
-                  return (
+              {imgResults.map((result) => {
+                return (
+                  <Link to={'/detail/image'}>
                     <StImgResultItem key={result.id}>
                       <img src={result.url} alt="짤" />
                       <StImgTitleWrapper key={result.id}>
                         <StImgTitle key={result.id}>{result.name}</StImgTitle>
                       </StImgTitleWrapper>
                     </StImgResultItem>
-                  );
-                })}
-              </Link>
+                  </Link>
+                );
+              })}
             </StImgResultList>
           )}
         </StResultWrapper>
