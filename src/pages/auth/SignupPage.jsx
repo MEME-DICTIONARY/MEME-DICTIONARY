@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import AccountSection from 'component/authpage/AccountSection';
 import BaseModal from 'component/base/BaseModal';
 import BaseButton from 'component/base/BaseButton';
-import { postUserData } from 'api/auth';
 
 function SignupPage() {
   const [id, setId] = useState('');
@@ -42,18 +41,10 @@ function SignupPage() {
           setShowModal(true);
           setModalContents('확인 비밀번호가 일치하지 않습니다.');
         } else {
-          postSignupData();
           navigate('/login');
         }
       }
     }
-  };
-
-  const postSignupData = async () => {
-    await postUserData({
-      email: id,
-      password: password,
-    });
   };
   return (
     <MainWrapper>
@@ -190,9 +181,9 @@ const OverLapCheckButton = styled.button`
   border: none;
   border-radius: 20px;
   background-color: #828282;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 700;
   text-align: center;
-  letter-spacing: 2px;
 `;
 
 export default SignupPage;

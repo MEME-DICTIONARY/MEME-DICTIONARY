@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setLogin } from 'redux/action';
+import { postUserData } from 'api/auth';
 
 import AccountSection from 'component/authpage/AccountSection';
 import BaseButton from 'component/base/BaseButton';
@@ -30,6 +31,14 @@ function LoginPage({ setUserLogin }) {
     setPassword(e.target.value);
   };
 
+  const handleSignIn = async () => {
+    //로그인 정보 서버에 post
+    setUserLogin();
+    await postUserData({
+      email: id,
+      password: password,
+    });
+  };
   const handleLoginButton = () => {
     if (id === '' || password === '') {
       setShowModal(true);
@@ -38,7 +47,7 @@ function LoginPage({ setUserLogin }) {
       setShowModal(true);
       setModalContents('아이디와 비밀번호는 5글자 이상이어야 합니다.');
     } else {
-      setUserLogin();
+      handleSignIn();
       navigate('/main');
     }
   };

@@ -4,8 +4,8 @@ import Header from '../component/Header';
 import styled from 'styled-components';
 
 function DetailPage() {
-  const [imghashtag, imghashtag_change] = useState(['#무야호', '#무한도전']);
-  const [wordhashtag, wordhashtag_change] = useState(['#어쩔티비', '#저쩔티비']);
+  const [imghashtag] = useState(['#무야호', '#무한도전']);
+  const [wordhashtag] = useState(['#어쩔티비', '#저쩔티비']);
   const [wordLike, addWordLike] = useState(0);
   const [wordWarning, addWordWarning] = useState(0);
 
