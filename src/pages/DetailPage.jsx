@@ -68,11 +68,11 @@ function DetailPage() {
               ></StBookMarkImg>
             </StBottomBtn>
           </StButtonWrapper>
-          <StButtomWrapper>
+          <StReplyWrapper>
             <StCommentTitle>댓글 3개</StCommentTitle>
             <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
             <StCommentBtn>등록</StCommentBtn>
-          </StButtomWrapper>
+          </StReplyWrapper>
         </StWordWrapper>
       ) : (
         <>
@@ -121,11 +121,11 @@ function DetailPage() {
             </StButtonWrapper>
           </StImgWrapper>
 
-          <StButtomWrapper>
+          <StReplyWrapper>
             <StCommentTitle>댓글 3개</StCommentTitle>
-            <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
+            <StComment type="text" placeholder="로그인 후 이용 가능합니다."></StComment>
             <StCommentBtn>등록</StCommentBtn>
-          </StButtomWrapper>
+          </StReplyWrapper>
         </>
       )}
     </>
@@ -201,9 +201,10 @@ const StHashTag = styled.div`
 `;
 
 const StButtonWrapper = styled.div`
-  width: 1000px;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
+  margin: 0 6px 19px 0;
 `;
 const StBottomBtn = styled.button`
   text-align: center;
@@ -239,17 +240,17 @@ const StBodyImg = styled.img`
 `;
 
 const StImgContent = styled.p`
-  margin-bottom: 30px;
+  padding: 0 185px;
+  font-size: 25px;
+  margin-bottom: 110px;
   color: white;
 `;
 
-const StButtomWrapper = styled.div`
+const StReplyWrapper = styled.div`
   border-top: 1px solid white;
   padding: 20px;
   width: 97%;
   display: flex;
-  position: absolute;
-  top: 110%;
   justify-content: space-evenly;
 `;
 
