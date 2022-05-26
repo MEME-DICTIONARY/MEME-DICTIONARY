@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { setLogin } from 'redux/action';
@@ -86,7 +86,9 @@ function LoginPage({ setUserLogin }) {
           </StIdInputWrapper>
         </StLoginInfo>
       </StAccountWrapper>
-      <StSignupLink href="/signup">회원가입 하러가기</StSignupLink>
+      <StSignupLink>
+        <Link to="/signup">회원가입 하러가기</Link>
+      </StSignupLink>
       <BaseButton text="로그인" onClick={handleLoginButton}></BaseButton>
     </StWrapper>
   );

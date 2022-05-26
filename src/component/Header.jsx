@@ -102,7 +102,9 @@ function Header({ isLogin, setUserLogout }) {
           <hr />
           <div className={styles.categoryButton_container}>
             {categoryArray.map((category) => (
-              <button className={styles.categoryButton_word}>{category}</button>
+              <button className={styles.categoryButton_word} key={category}>
+                <Link to="/search">{category}</Link>
+              </button>
             ))}
           </div>
           <br />
@@ -116,7 +118,7 @@ function Header({ isLogin, setUserLogout }) {
               <Link to="/search">영화</Link>
             </button>
             <button className={styles.categoryButton_img}>
-              커<Link to="/search">커뮤니티</Link>뮤니티
+              <Link to="/search">커뮤니티</Link>
             </button>
             <button className={styles.categoryButton_img}>
               <Link to="/search">기타</Link>
