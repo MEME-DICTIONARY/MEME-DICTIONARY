@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styles from 'assets/style/header.module.css';
 import { setLogout } from 'redux/action';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -38,10 +38,6 @@ function Header({ isLogin, setUserLogout }) {
     'ㅎ',
   ];
 
-  function moveToSearchPage() {
-    window.location.href = '/search';
-  }
-
   function handleLoginModal() {
     console.log(isLogin);
     if (!isLogin) {
@@ -51,6 +47,7 @@ function Header({ isLogin, setUserLogout }) {
     }
   }
   const navigator = useNavigate();
+
   const onEnterPress = (e) => {
     if (e.key === 'Enter') {
       navigator('/search');
@@ -67,24 +64,28 @@ function Header({ isLogin, setUserLogout }) {
         >
           {' '}
           <StHamburgerImg
-            src={require('../assets/img/detailPage/hamburger.PNG')}
+            src={require('assets/img/detailPage/hamburger.PNG')}
             alt="햄버거 아이콘"
           />{' '}
         </StHamburgerBtn>
-        <StCircleWrapper href="/main">
-          <StCircle1></StCircle1>
-          <StCircle2></StCircle2>
-          <StCircle3></StCircle3>
-        </StCircleWrapper>
+        <Link to="/main">
+          <StCircleWrapper>
+            <StCircle1></StCircle1>
+            <StCircle2></StCircle2>
+            <StCircle3></StCircle3>
+          </StCircleWrapper>
+        </Link>
         <StSearchWrapper>
           <StSearchConatiner>
             <StSearchBox type="text" style={{ color: 'white' }} onKeyDown={onEnterPress} />
-            <StSearchBtn onClick={moveToSearchPage}>
-              <StSearchImg src={require('../assets/img/detailPage/search.PNG')} alt="검색아이콘" />
-            </StSearchBtn>
+            <Link to="/search">
+              <StSearchBtn>
+                <StSearchImg src={require('assets/img/detailPage/search.PNG')} alt="검색아이콘" />
+              </StSearchBtn>
+            </Link>
           </StSearchConatiner>
           <StPersonBtn onClick={handleLoginModal}>
-            <StPersonImg src={require('../assets/img/detailPage/person.PNG')} alt="사람아이콘" />
+            <StPersonImg src={require('assets/img/detailPage/person.PNG')} alt="사람아이콘" />
           </StPersonBtn>
         </StSearchWrapper>
       </StHeadContainer>
@@ -101,26 +102,24 @@ function Header({ isLogin, setUserLogout }) {
           <hr />
           <div className={styles.categoryButton_container}>
             {categoryArray.map((category) => (
-              <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-                {category}
-              </button>
+              <button className={styles.categoryButton_word}>{category}</button>
             ))}
           </div>
           <br />
           <h2 className={styles.category_title}>짤</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
-              TV
+            <button className={styles.categoryButton_img}>
+              <Link to="/search">TV</Link>
             </button>
-            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
-              영화
+            <button className={styles.categoryButton_img}>
+              <Link to="/search">영화</Link>
             </button>
-            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
-              커뮤니티
+            <button className={styles.categoryButton_img}>
+              커<Link to="/search">커뮤니티</Link>뮤니티
             </button>
-            <button className={styles.categoryButton_img} onClick={moveToSearchPage}>
-              기타
+            <button className={styles.categoryButton_img}>
+              <Link to="/search">기타</Link>
             </button>
           </div>
         </div>
@@ -136,16 +135,14 @@ function Header({ isLogin, setUserLogout }) {
         <ul className={styles.logoutModal_content}>
           <div className={styles.triangleOut}></div>
           <li className={styles.logModalList}>
-            <a className={styles.logModalSelect} href="/login">
-              {' '}
+            <Link to="/login" className={styles.logModalSelect}>
               로그인
-            </a>
+            </Link>
           </li>
           <li className={styles.logModalList}>
-            <a className={styles.logModalSelect} href="/signup">
-              {' '}
+            <Link to="/signup" className={styles.logModalSelect}>
               회원가입
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -159,19 +156,17 @@ function Header({ isLogin, setUserLogout }) {
         <ul className={styles.loginModal_content}>
           <div className={styles.triangleIn}></div>
           <li className={styles.logModalList}>
-            <a className={styles.logModalSelect} href="/mypage/upload">
-              {' '}
+            <Link to="/mypage/upload" className={styles.logModalSelect}>
               마이페이지
-            </a>
+            </Link>
           </li>
           <li className={styles.logModalList}>
-            <a className={styles.logModalSelect} href="/upload">
-              {' '}
+            <Link to="/upload" className={styles.logModalSelect}>
               밈 등록하기
-            </a>
+            </Link>
           </li>
           <li className={styles.logModalList} onClick={() => setUserLogout()}>
-            <a href="/main"> 로그아웃</a>
+            <Link to="/main"> 로그아웃</Link>
           </li>
         </ul>
       </div>
