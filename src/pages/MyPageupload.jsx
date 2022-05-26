@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../assets/style/MyPage.module.css';
-import Header from '../component/Header.js';
+import Header from '../component/Header';
 import styled from 'styled-components';
 
 function MyPageupload() {

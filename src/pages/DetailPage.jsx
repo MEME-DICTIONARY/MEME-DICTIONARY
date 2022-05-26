@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../component/Header.js';
-import styled, { css } from 'styled-components';
+import Header from '../component/Header';
+import styled from 'styled-components';
 
 function DetailPage() {
   const [imghashtag, imghashtag_change] = useState(['#무야호', '#무한도전']);
@@ -10,10 +10,6 @@ function DetailPage() {
   const [wordWarning, addWordWarning] = useState(0);
 
   let params = useParams();
-
-  useEffect(() => {
-    console.log(params.type);
-  });
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Header from '../component/Header.js';
+import Header from '../component/Header';
 import BaseModal from '../component/base/BaseModal';
 import styled from 'styled-components';
 

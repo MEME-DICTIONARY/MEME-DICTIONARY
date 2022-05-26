@@ -5,7 +5,7 @@ import FirstContainer from '../component/mainpage/FirstContainer';
 import RankingContainer from '../component/mainpage/RankingContainer';
 import styled from 'styled-components';
 
-import { client } from '../api/index';
+import { serverAxios } from '../api/index';
 
 export default function MainPage() {
   const [wordRankingList, setWordRankingList] = useState([]);
@@ -27,7 +27,7 @@ export default function MainPage() {
   }, []);
 
   const showHello = async () => {
-    const res = await client.get('/hello');
+    const res = await serverAxios.get('/hello');
     console.log(res);
   };
 

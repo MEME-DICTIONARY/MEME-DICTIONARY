@@ -18,9 +18,25 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function Header({ isLogin, setUserLogout }) {
-  let [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
-  let [logoutModalClose, logoutModal] = useState(styles.logModalHidden);
-  let [loginModalClose, loginModal] = useState(styles.logModalHidden);
+  const [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
+  const [logoutModalClose, logoutModal] = useState(styles.logModalHidden);
+  const [loginModalClose, loginModal] = useState(styles.logModalHidden);
+  const categoryArray = [
+    'ㄱ',
+    'ㄴ',
+    'ㄷ',
+    'ㄹ',
+    'ㅁ',
+    'ㅂ',
+    'ㅅ',
+    'ㅇ',
+    'ㅈ',
+    'ㅊ',
+    'ㅋ',
+    'ㅌ',
+    'ㅍ',
+    'ㅎ',
+  ];
 
   function moveToSearchPage() {
     window.location.href = '/search';
@@ -84,48 +100,11 @@ function Header({ isLogin, setUserLogout }) {
           <h2 className={styles.category_title}>용어</h2>
           <hr />
           <div className={styles.categoryButton_container}>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㄱ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㄴ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㄷ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㄹ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅁ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅂ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅅ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅇ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅈ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅊ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅋ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅌ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅍ
-            </button>
-            <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
-              ㅎ
-            </button>
+            {categoryArray.map((category) => (
+              <button className={styles.categoryButton_word} onClick={moveToSearchPage}>
+                {category}
+              </button>
+            ))}
           </div>
           <br />
           <h2 className={styles.category_title}>짤</h2>
