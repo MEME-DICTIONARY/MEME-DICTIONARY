@@ -50,7 +50,10 @@ function SignupPage() {
   };
 
   const postSignupData = async () => {
-    await postUserData();
+    await postUserData({
+      email: id,
+      password: password,
+    });
   };
   return (
     <MainWrapper>

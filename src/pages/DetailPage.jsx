@@ -41,7 +41,7 @@ function DetailPage() {
           <StButtonWrapper>
             <StBottomBtn>
               <StButtonImg
-                src={require('../assets/img/detailPage/like.png')}
+                src={require('assets/img/detailPage/like.png')}
                 alt="좋아요"
                 onClick={() => {
                   addWordLike(wordLike + 1);
@@ -52,7 +52,7 @@ function DetailPage() {
 
             <StBottomBtn>
               <StButtonImg
-                src={require('../assets/img/detailPage/report.png')}
+                src={require('assets/img/detailPage/report.png')}
                 alt="신고"
                 onClick={() => {
                   addWordWarning(wordWarning + 1);
@@ -63,7 +63,7 @@ function DetailPage() {
 
             <StBottomBtn>
               <StBookMarkImg
-                src={require('../assets/img/detailPage/bookmark.png')}
+                src={require('assets/img/detailPage/bookmark.png')}
                 alt="북마크"
               ></StBookMarkImg>
             </StBottomBtn>
@@ -78,10 +78,7 @@ function DetailPage() {
         <>
           <StImgWrapper>
             <StTitle>무야호</StTitle>
-            <StBodyImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="무야호"
-            ></StBodyImg>
+            <StBodyImg src={require('assets/img/detailPage/무야호.png')} alt="무야호"></StBodyImg>
             <StImgContent>
               무한도전 197화 '알레스카 편'에 방영된 장면으로, 무한도전을 안다고 얘기하신 뒤 외치신
               의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
@@ -91,31 +88,33 @@ function DetailPage() {
               <StHashTag>{imghashtag[1]}</StHashTag>
             </StHashtagWrapper>
             <StButtonWrapper>
-              <StBottomBtn>
+              <StBottomBtn
+                onClick={() => {
+                  addWordLike(wordLike + 1);
+                }}
+              >
                 <StButtonImg
-                  src={require('../assets/img/detailPage/like.png')}
+                  src={require('assets/img/detailPage/like.png')}
                   alt="좋아요"
-                  onClick={() => {
-                    addWordLike(wordLike + 1);
-                  }}
                 ></StButtonImg>
                 {wordLike}
               </StBottomBtn>
 
-              <StBottomBtn>
+              <StBottomBtn
+                onClick={() => {
+                  addWordWarning(wordWarning + 1);
+                }}
+              >
                 <StButtonImg
-                  src={require('../assets/img/detailPage/report.png')}
+                  src={require('assets/img/detailPage/report.png')}
                   alt="신고"
-                  onClick={() => {
-                    addWordWarning(wordWarning + 1);
-                  }}
                 ></StButtonImg>
                 {wordWarning}
               </StBottomBtn>
 
               <StBottomBtn>
                 <StBookMarkImg
-                  src={require('../assets/img/detailPage/bookmark.png')}
+                  src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
                 ></StBookMarkImg>
               </StBottomBtn>
@@ -154,28 +153,26 @@ const StTitle = styled.h1`
   color: white;
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 45px;
   margin: 50px;
 `;
 
-const StWordMeaning = styled.h2`
+const CommonH2 = styled.h2`
+  font-size: 30px;
   font-weight: bold;
   padding-right: 40px;
   color: white;
 `;
+
+const StWordMeaning = styled(CommonH2)``;
+const StWordExample = styled(CommonH2)``;
 
 const StExampleWrapper = styled.div`
   display: flex;
 `;
 
-const StWordExample = styled.h2`
-  font-weight: bold;
-  padding-right: 40px;
-  color: white;
-`;
-
 const StWordContent = styled.p`
-  line-height: 20px;
+  font-size: 30px;
   color: white;
   height: 188px;
   width: 900px;
@@ -185,16 +182,18 @@ const StWordContent = styled.p`
 
 const StHashtagWrapper = styled.div`
   display: flex;
-  width: 1000px;
+  gap: 34px;
   justify-content: flex-start;
+  width: 65%;
 `;
 
 const StHashTag = styled.div`
   background-color: #232332;
   color: white;
-  border: 1px solid white;
-  width: 100px;
-  height: 30px;
+  border: 3px solid white;
+  padding: 5px;
+  width: fit-content;
+  font-size: 25px;
   border-radius: 75px;
   align-items: center;
   justify-content: center;
