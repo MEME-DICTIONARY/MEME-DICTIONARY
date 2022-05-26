@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import MainPage from './pages/MainPage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignupPage from './pages/auth/SignupPage';
 import SearchResultPage from './pages/SearchResultPage';
 import DetailPage from './pages/DetailPage';
-import MyPageupload from './pages/MyPageupload';
-import MyPagebookmark from './pages/MyPagebookmark';
-import MyPagecomment from './pages/MyPagecomment';
-import MyPagepw from './pages/MyPagepw';
+import MyPageupload from './pages/mypage/MyPageupload';
+import MyPagebookmark from './pages/mypage/MyPagebookmark';
+import MyPagecomment from './pages/mypage/MyPagecomment';
+import MyPagepw from './pages/mypage/MyPagepw';
 import UserUploadPage from './pages/UserUploadPage';
 
 export default function Router() {

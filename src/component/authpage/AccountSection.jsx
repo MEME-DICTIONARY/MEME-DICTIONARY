@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../../assets/img/logo_circles.svg';
+import { ReactComponent as Logo } from 'assets/img/logo_circles.svg';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 

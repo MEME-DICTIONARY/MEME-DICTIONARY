@@ -1,4 +1,4 @@
-import footer_logo from '../assets/img/logo.png';
+import footer_logo from 'assets/img/logo.png';
 import styled from 'styled-components';
 
 function Footer() {
@@ -8,9 +8,7 @@ function Footer() {
         <img src={footer_logo} alt="푸터로고" />
       </StFooterLogo>
       <StFooterEmail>meme.dictionary2022@gmail.com</StFooterEmail>
-      <StFooterCopyRight>
-        &copy; 2022. 밈과사전 All right reserved
-      </StFooterCopyRight>
+      <StFooterCopyRight>&copy; 2022. 밈과사전 All right reserved</StFooterCopyRight>
     </StFooterWrapper>
   );
 }

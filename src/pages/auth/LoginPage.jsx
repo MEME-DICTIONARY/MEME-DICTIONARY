@@ -2,11 +2,11 @@ import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { setLogin } from '../redux/action';
+import { setLogin } from 'redux/action';
 
-import AccountSection from '../component/loginpage/AccountSection';
-import BaseButton from '../component/base/BaseButton';
-import BaseModal from '../component/base/BaseModal';
+import AccountSection from 'component/authpage/AccountSection';
+import BaseButton from 'component/base/BaseButton';
+import BaseModal from 'component/base/BaseModal';
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import styles from '../assets/style/header.module.css';
-import { setLogout } from '../redux/action';
+import styles from 'assets/style/header.module.css';
+import { setLogout } from 'redux/action';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 

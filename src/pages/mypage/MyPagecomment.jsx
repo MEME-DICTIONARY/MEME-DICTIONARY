@@ -1,4 +1,4 @@
-import Header from '../component/Header';
+import Header from 'component/Header';
 import styled from 'styled-components';
 
 function MyPagecomment() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from '../assets/style/MyPage.module.css';
-import Header from '../component/Header';
+import styles from 'assets/style/MyPage.module.css';
+import Header from 'component/Header';
 import styled from 'styled-components';
 
 function MyPagebookmark() {
@@ -61,30 +61,12 @@ function MyPagebookmark() {
             <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
           </div>
           <div className={content[1]}>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
-            <StMyPageImg
-              src={require('../assets/img/detailPage/무야호.png')}
-              alt="짤"
-            ></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
+            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
           </div>
         </div>
       </StMyPageWrapper>

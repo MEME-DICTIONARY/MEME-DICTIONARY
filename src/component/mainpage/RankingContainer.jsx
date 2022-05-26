@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import LeftSideContainer from './LeftSideContainer';
-import icon_update from '../../assets/img/icon_update.svg';
-import sampleImg from '../../assets/img/sample.jpeg';
+import icon_update from 'assets/img/icon_update.svg';
+import sampleImg from 'assets/img/sample.jpeg';
 
 function RankingContainer({ wordRankingList }) {
   const secondTitle = 'WORD RANKING';
