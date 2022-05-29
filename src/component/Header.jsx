@@ -39,7 +39,6 @@ function Header({ isLogin, setUserLogout }) {
   ];
 
   function handleLoginModal() {
-    console.log(isLogin);
     if (!isLogin) {
       logoutModal(styles.logoutModal);
     } else if (isLogin) {
@@ -167,7 +166,13 @@ function Header({ isLogin, setUserLogout }) {
               밈 등록하기
             </Link>
           </li>
-          <li className={styles.logModalList} onClick={() => setUserLogout()}>
+          <li
+            className={styles.logModalList}
+            onClick={() => {
+              setUserLogout();
+              loginModal(styles.logModalHidden);
+            }}
+          >
             <Link to="/main"> 로그아웃</Link>
           </li>
         </ul>

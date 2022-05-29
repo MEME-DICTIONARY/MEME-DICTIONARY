@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { postSignup } from 'api/auth';
 
 import AccountSection from 'component/authpage/AccountSection';
 import BaseModal from 'component/base/BaseModal';
@@ -25,6 +26,15 @@ function SignupPage() {
     setPassword(e.target.value);
   };
 
+  const handleSignIn = async () => {
+    //로그인 정보 서버에 post
+    const { data } = await postSignup({
+      email: id,
+      password: password,
+    });
+    console.log(data);
+  };
+
   const handleSignupButton = () => {
     if (id === '' || password === '') {
       setShowModal(true);
@@ -41,6 +51,7 @@ function SignupPage() {
           setShowModal(true);
           setModalContents('확인 비밀번호가 일치하지 않습니다.');
         } else {
+          handleSignIn(); //회원가입 data post
           navigate('/login');
         }
       }
@@ -67,6 +78,8 @@ function SignupPage() {
               placeholder="아이디를 입력해주세요."
               value={id}
               onChange={handleId}
+              minLength={5}
+              maxLength={10}
             />
             <OverLapCheckButton
               onClick={() => {
@@ -89,6 +102,8 @@ function SignupPage() {
               type="password"
               placeholder="비밀번호를 입력해주세요."
               value={password}
+              minLength={5}
+              maxLength={10}
               onChange={handlePassword}
             />
           </DataIdBox>
@@ -103,6 +118,8 @@ function SignupPage() {
               type="password"
               placeholder="비밀번호를 한 번 더 입력해주세요."
               value={verifyPassword}
+              minLength={5}
+              maxLength={10}
               onChange={(e) => setVerifyPassword(e.target.value)}
             />
           </DataIdBox>

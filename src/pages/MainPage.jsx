@@ -5,14 +5,11 @@ import FirstContainer from '../component/mainpage/FirstContainer';
 import RankingContainer from '../component/mainpage/RankingContainer';
 import styled from 'styled-components';
 
-import { serverAxios } from '../api/index';
-
 export default function MainPage() {
   const [wordRankingList, setWordRankingList] = useState([]);
   const [hashTagList, setHashTagList] = useState([]);
 
   useEffect(() => {
-    showHello();
     setWordRankingList([
       {
         id: 1,
@@ -25,11 +22,6 @@ export default function MainPage() {
     ]);
     setHashTagList(['#어쩔티비', '#관짝춤', '#신기방기뿡뿡방기']);
   }, []);
-
-  const showHello = async () => {
-    const res = await serverAxios.get('/hello');
-    console.log(res);
-  };
 
   return (
     <>
