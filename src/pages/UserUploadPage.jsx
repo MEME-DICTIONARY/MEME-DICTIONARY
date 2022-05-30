@@ -4,6 +4,7 @@ import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
 import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
+import { postUploadMeme } from '../api/upload';
 
 function UserUploadPage() {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
@@ -58,6 +59,18 @@ function UserUploadPage() {
       onClick: onClickRadioInput,
     },
   ];
+
+  const handlePostWordMeme = async () => {
+    const body = {
+      type: typeOfMeme,
+      category: null,
+      title: wordMeme.word,
+      description: wordMeme.meaning,
+      example: wordMeme.example,
+      keyw: wordMeme.keywords[0],
+    };
+    postUploadMeme(body);
+  };
 
   return (
     <StWrapper>
@@ -267,6 +280,7 @@ function UserUploadPage() {
           <BaseButton
             onClick={() => {
               if (typeOfMeme === '신조어') {
+                handlePostWordMeme();
                 console.log(wordMeme);
               } else {
                 console.log(imageMeme);
