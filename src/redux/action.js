@@ -1,6 +1,9 @@
-export const setLogin = () => ({
+export const setLogin = (token) => ({
   type: 'LOGIN',
-  payload: true,
+  payload: {
+    isLogin:true,
+    token:token,
+  },
 })
 
 export const setLogout = () => ({

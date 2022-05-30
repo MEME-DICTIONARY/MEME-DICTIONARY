@@ -25,7 +25,6 @@ const Tag = styled.div`
   & > span {
     font-size: 13px;
     color: red;
-    
   }
 `;
 

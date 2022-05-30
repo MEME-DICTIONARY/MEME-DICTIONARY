@@ -1,12 +1,17 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
 import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
 import { postUploadMeme } from '../api/upload';
+import { connect } from 'react-redux';
 
-function UserUploadPage() {
+const mapStateToProps = (state) => {
+  return state;
+};
+
+function UserUploadPage({ token }) {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
     category: '',
@@ -69,7 +74,8 @@ function UserUploadPage() {
       example: wordMeme.example,
       keyw: wordMeme.keywords[0],
     };
-    postUploadMeme(body);
+    console.log('token: ' + token);
+    postUploadMeme(body, token);
   };
 
   return (
@@ -373,4 +379,5 @@ const StFilterWordWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-export default UserUploadPage;
+
+export default connect(mapStateToProps, null)(UserUploadPage);

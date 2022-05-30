@@ -11,7 +11,7 @@ import BaseModal from 'component/base/BaseModal';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserLogin: () => dispatch(setLogin()),
+    setUserLogin: (token) => dispatch(setLogin(token)),
   };
 };
 
@@ -37,7 +37,7 @@ function LoginPage({ setUserLogin }) {
       password: password,
     });
     if (response !== null) {
-      setUserLogin();
+      setUserLogin(response.data.token);
       navigate('/main');
     } else {
       setShowModal(true);
@@ -177,4 +177,4 @@ const StSignupLink = styled.a`
   margin-bottom: 24px;
 `;
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect((state) => state.token, mapDispatchToProps)(LoginPage);
