@@ -102,7 +102,7 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.categoryButton_container}>
             {categoryArray.map((category) => (
               <button className={styles.categoryButton_word} key={category}>
-                <Link to={`/search/단어/${category}`}>{category}</Link>
+                <a href={`/search/단어/${category}`}>{category}</a>
               </button>
             ))}
           </div>
@@ -111,16 +111,16 @@ function Header({ isLogin, setUserLogout }) {
           <hr />
           <div className={styles.categoryButton_container}>
             <button className={styles.categoryButton_img}>
-              <Link to="/search/짤/TV">TV</Link>
+              <a href={'/search/짤/TV'}>TV</a>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search/짤/영화">영화</Link>
+              <a href={'/search/짤/영화'}>영화</a>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search/짤/커뮤니티">커뮤니티</Link>
+              <a href={'/search/짤/커뮤니티'}>커뮤니티</a>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search/짤/기타">기타</Link>
+              <a href={'/search/짤/기타'}>기타</a>
             </button>
           </div>
         </div>
@@ -173,7 +173,7 @@ function Header({ isLogin, setUserLogout }) {
               loginModal(styles.logModalHidden);
             }}
           >
-            <Link to="/main"> 로그아웃</Link>
+            <a href="/main"> 로그아웃</a>
           </li>
         </ul>
       </div>

@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 function UserUploadPage({ token }) {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
+    id: 0,
     category: '',
     file: '',
     title: '',
@@ -21,6 +22,7 @@ function UserUploadPage({ token }) {
     keywords: [],
   });
   const [wordMeme, setWordMeme] = useState({
+    id: 0,
     word: '',
     meaning: '',
     example: '',
@@ -110,8 +112,9 @@ function UserUploadPage({ token }) {
               <input
                 type="file"
                 className="file"
-                defaultValue={imageMeme.file || null}
-                onChange={(e) => setImageMeme({ ...imageMeme, file: e.target.files })}
+                onChange={(e) => {
+                  setImageMeme({ ...imageMeme, file: e.target.files[0] });
+                }}
               />
               <p>사진을 업로드해주세요.</p>
             </StQuestionItem>
@@ -290,6 +293,8 @@ function UserUploadPage({ token }) {
                 console.log(wordMeme);
               } else {
                 console.log(imageMeme);
+                const formData = new FormData();
+                formData.append('file', imageMeme.file);
               }
             }}
             text="등록"

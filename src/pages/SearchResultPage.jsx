@@ -7,14 +7,18 @@ import { getMemeByCategory } from '../api/posts';
 function SearchResultPage() {
   let params = useParams();
 
-  useEffect(() => {
-    handleGetMemeByCategory();
-  }, []);
+  const [wordResults, setWordResults] = useState([]);
+  const [imgResults, setImgResults] = useState([]);
+  const [isWordClicked, setIsWordClicked] = useState(null);
 
   useEffect(() => {
-    console.log('파라미터 바뀜!');
+    if (params.type === '짤') {
+      setIsWordClicked(false);
+    } else if (params.type === '단어') {
+      setIsWordClicked(true);
+    }
     handleGetMemeByCategory();
-  }, [params]);
+  }, []);
 
   const handleGetMemeByCategory = async () => {
     const param = {
@@ -22,33 +26,17 @@ function SearchResultPage() {
       category: params.category,
     };
     const { data } = await getMemeByCategory(param);
-    setWordResults([...data.content]);
-  };
 
-  const [wordResults, setWordResults] = useState([]);
-  const [imgResults] = useState([
-    {
-      id: 0,
-      name: '어쩔어쩔티비',
-      url: require('../assets/img/sample.jpeg'),
-    },
-    {
-      id: 1,
-      name: '어쩔 티비',
-      url: require('../assets/img/sample.jpeg'),
-    },
-    {
-      id: 2,
-      name: '어쩔 시크릿쥬쥬 리미티드 에디션',
-      url: require('../assets/img/sample.jpeg'),
-    },
-    {
-      id: 3,
-      name: '어쩔 시크릿쥬쥬 리미티드 에디션',
-      url: require('../assets/img/sample.jpeg'),
-    },
-  ]);
-  const [isWordClicked, setIsWordClicked] = useState(true);
+    if (isWordClicked) setWordResults(data.content);
+    else {
+      setImgResults(
+        data.content.map((content, idx) => ({
+          title: data.content[idx].title,
+          url: require('../assets/img/sample.jpeg'),
+        }))
+      );
+    }
+  };
 
   return (
     <>
@@ -97,7 +85,7 @@ function SearchResultPage() {
                     <StImgResultItem key={result.id}>
                       <img src={result.url} alt="짤" />
                       <StImgTitleWrapper key={result.id}>
-                        <StImgTitle key={result.id}>{result.name}</StImgTitle>
+                        <StImgTitle key={result.id}>{result.title}</StImgTitle>
                       </StImgTitleWrapper>
                     </StImgResultItem>
                   </Link>
