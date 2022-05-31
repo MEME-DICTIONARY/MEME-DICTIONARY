@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import styles from 'assets/style/header.module.css';
 import { setLogout } from 'redux/action';
@@ -53,6 +53,10 @@ function Header({ isLogin, setUserLogout }) {
     }
   };
 
+  const onClickCategoryModal = (category) => {
+    navigator(`/search/용어/${category}`);
+  };
+
   return (
     <>
       <StHeadContainer>
@@ -102,7 +106,7 @@ function Header({ isLogin, setUserLogout }) {
           <div className={styles.categoryButton_container}>
             {categoryArray.map((category) => (
               <button className={styles.categoryButton_word} key={category}>
-                <Link to="/search">{category}</Link>
+                <Link to={`/search/단어/${category}`}>{category}</Link>
               </button>
             ))}
           </div>
@@ -111,16 +115,16 @@ function Header({ isLogin, setUserLogout }) {
           <hr />
           <div className={styles.categoryButton_container}>
             <button className={styles.categoryButton_img}>
-              <Link to="/search">TV</Link>
+              <Link to="/search/짤/TV">TV</Link>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search">영화</Link>
+              <Link to="/search/짤/영화">영화</Link>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search">커뮤니티</Link>
+              <Link to="/search/짤/커뮤니티">커뮤니티</Link>
             </button>
             <button className={styles.categoryButton_img}>
-              <Link to="/search">기타</Link>
+              <Link to="/search/짤/기타">기타</Link>
             </button>
           </div>
         </div>

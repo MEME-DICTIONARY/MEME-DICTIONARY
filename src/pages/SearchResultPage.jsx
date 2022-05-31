@@ -1,14 +1,31 @@
-import { React, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../component/Header';
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getMemeByCategory } from '../api/posts';
 
 function SearchResultPage() {
-  const [wordResults] = useState([
-    '어쩔티비',
-    '어쩔 시크릿쥬쥬 리미티드 에디션',
-    '어쩔 삼성비스포크',
-  ]);
+  let params = useParams();
+
+  useEffect(() => {
+    handleGetMemeByCategory();
+  }, []);
+
+  useEffect(() => {
+    console.log('파라미터 바뀜!');
+    handleGetMemeByCategory();
+  }, [params]);
+
+  const handleGetMemeByCategory = async () => {
+    const param = {
+      type: params.type,
+      category: params.category,
+    };
+    const { data } = await getMemeByCategory(param);
+    setWordResults([...data.content]);
+  };
+
+  const [wordResults, setWordResults] = useState([]);
   const [imgResults] = useState([
     {
       id: 0,
@@ -54,9 +71,21 @@ function SearchResultPage() {
         <StResultWrapper>
           {isWordClicked ? (
             <StWordResultList>
+              {wordResults.length === 0 && (
+                <div
+                  style={{
+                    display: 'flex',
+                    height: 'calc(100vh/2)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  검색 결과가 없습니다.
+                </div>
+              )}
               <Link to={'/detail/word'}>
                 {wordResults.map((result) => (
-                  <StWordItem key={result.id}>{result}</StWordItem>
+                  <StWordItem key={result.id}>{result.title}</StWordItem>
                 ))}
               </Link>
             </StWordResultList>

@@ -18,7 +18,7 @@ export default function Router() {
       <Route path="/main" element={<MainPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/search" element={<SearchResultPage />} />
+      <Route path="/search/:type/:category" element={<SearchResultPage />} />
       <Route path="/detail/:type" element={<DetailPage />} />
       <Route path="/mypage/upload" element={<MyPageupload />} />
       <Route path="/mypage/bookmark" element={<MyPagebookmark />} />
