@@ -53,10 +53,6 @@ function Header({ isLogin, setUserLogout }) {
     }
   };
 
-  const onClickCategoryModal = (category) => {
-    navigator(`/search/용어/${category}`);
-  };
-
   return (
     <>
       <StHeadContainer>
