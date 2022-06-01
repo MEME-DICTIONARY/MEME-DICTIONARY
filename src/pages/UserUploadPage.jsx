@@ -36,9 +36,9 @@ function UserUploadPage({ token }) {
   const typeOfMemeList = [
     {
       name: '밈_유형',
-      value: '신조어',
+      value: '단어',
       onClick: () => {
-        setTypeOfMeme('신조어');
+        setTypeOfMeme('단어');
       },
     },
     {
@@ -193,7 +193,7 @@ function UserUploadPage({ token }) {
               </StKeyWordWrapper>
             </StQuestionItem>
           </>
-        ) : typeOfMeme === '신조어' ? (
+        ) : typeOfMeme === '단어' ? (
           <>
             <StQuestionItem>
               <StQuestionTitle>

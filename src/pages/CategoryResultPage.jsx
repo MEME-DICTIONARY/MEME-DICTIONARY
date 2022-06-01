@@ -4,25 +4,50 @@ import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import { getMemeWithCategory } from '../api/posts';
 
-function SearchResultPage() {
+function CategoryResultPage() {
   let params = useParams();
 
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
-  const [isWordClicked, setIsWordClicked] = useState(false);
 
   useEffect(() => {
-    handleGetMemeByCategory();
+    //type만 파라미터로 넘겨준 경우
+    if (params.category === undefined) {
+      handleGetMemeWithType();
+    }
+    //type과 category 를 파라미터로 넘겨준 경우
+    else {
+      handleGetMemeWithCategory();
+    }
   }, []);
 
-  const handleGetMemeByCategory = async () => {
+  const handleGetMemeWithType = async () => {
+    const param = {
+      type: params.type,
+      category: '',
+    };
+    const { data } = await getMemeWithCategory(param);
+
+    if (params.type === '단어') {
+      setWordResults(data.content);
+    } else {
+      setImgResults(
+        data.content.map((_, idx) => ({
+          title: data.content[idx].title,
+          url: require('../assets/img/sample.jpeg'),
+        }))
+      );
+    }
+  };
+
+  const handleGetMemeWithCategory = async () => {
     const param = {
       type: params.type,
       category: params.category,
     };
     const { data } = await getMemeWithCategory(param);
 
-    if (isWordClicked) setWordResults(data.content);
+    if (params.type === '단어') setWordResults(data.content);
     else {
       setImgResults(
         data.content.map((_, idx) => ({
@@ -37,22 +62,8 @@ function SearchResultPage() {
     <>
       <Header />
       <StWrapper>
-        <StTypeNav>
-          <StNavList
-            isWordClicked={isWordClicked}
-            onClick={() => {
-              setIsWordClicked(true);
-            }}
-          >
-            용어
-          </StNavList>
-          <StNavList isWordClicked={!isWordClicked} onClick={() => setIsWordClicked(false)}>
-            짤
-          </StNavList>
-        </StTypeNav>
-
         <StResultWrapper>
-          {isWordClicked ? (
+          {params.type === '단어' ? (
             <StWordResultList>
               {wordResults.length === 0 && (
                 <div
@@ -94,7 +105,7 @@ function SearchResultPage() {
   );
 }
 
-export default SearchResultPage;
+export default CategoryResultPage;
 
 const StWrapper = styled.main`
   display: flex;
@@ -104,34 +115,10 @@ const StWrapper = styled.main`
   width: 100%;
 `;
 
-const StTypeNav = styled.nav`
-  display: flex;
-  margin: 85px 0 57px 51px;
-  color: #696868;
-`;
-
-const StNavList = styled.li`
-  font-size: 24px;
-  font-weight: 700;
-  list-style: none;
-  cursor: pointer;
-  color: ${(props) => props.isWordClicked && '#fff'};
-
-  &:first-child::after {
-    display: inline-block;
-    content: '';
-    width: 2px;
-    height: 20px;
-    background-color: #696868;
-    vertical-align: middle;
-    margin: 0 7px;
-  }
-`;
-
 const StResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 51px;
+  padding: 50px 51px;
 `;
 
 const StWordResultList = styled.ul`

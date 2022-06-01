@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function Header({ isLogin, setUserLogout }) {
+  const [input, setInput] = useState('');
   const [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
   const [logoutModalClose, logoutModal] = useState(styles.logModalHidden);
   const [loginModalClose, loginModal] = useState(styles.logModalHidden);
@@ -49,8 +50,11 @@ function Header({ isLogin, setUserLogout }) {
 
   const onEnterPress = (e) => {
     if (e.key === 'Enter') {
-      navigator('/search');
+      if (input !== '') navigator(`/search/result/${input}`);
     }
+  };
+  const onChangeSearchInput = (e) => {
+    setInput(e.target.value);
   };
 
   return (
@@ -76,12 +80,20 @@ function Header({ isLogin, setUserLogout }) {
         </Link>
         <StSearchWrapper>
           <StSearchConatiner>
-            <StSearchBox type="text" style={{ color: 'white' }} onKeyDown={onEnterPress} />
-            <Link to="/search">
-              <StSearchBtn>
-                <StSearchImg src={require('assets/img/detailPage/search.PNG')} alt="검색아이콘" />
-              </StSearchBtn>
-            </Link>
+            <StSearchBox
+              type="text"
+              style={{ color: 'white' }}
+              onKeyDown={onEnterPress}
+              onChange={onChangeSearchInput}
+              value={input || ''}
+            />
+            <StSearchBtn
+              onClick={() => {
+                input && navigator(`/search/result/${input}`);
+              }}
+            >
+              <StSearchImg src={require('assets/img/detailPage/search.PNG')} alt="검색아이콘" />
+            </StSearchBtn>
           </StSearchConatiner>
           <StPersonBtn onClick={handleLoginModal}>
             <StPersonImg src={require('assets/img/detailPage/person.PNG')} alt="사람아이콘" />
@@ -89,7 +101,7 @@ function Header({ isLogin, setUserLogout }) {
         </StSearchWrapper>
       </StHeadContainer>
 
-      <div className={categoryClose}>
+      <nav className={categoryClose}>
         <div
           className={styles.categoryModal_overlay}
           onClick={() => {
@@ -97,8 +109,11 @@ function Header({ isLogin, setUserLogout }) {
           }}
         ></div>
         <div className={styles.categoryModal_content}>
-          <h2 className={styles.category_title}>용어</h2>
-          <hr />
+          <StNavTitle>
+            <a href="/search/단어" className={styles.category_title}>
+              단어
+            </a>
+          </StNavTitle>
           <div className={styles.categoryButton_container}>
             {categoryArray.map((category) => (
               <button className={styles.categoryButton_word} key={category}>
@@ -107,8 +122,11 @@ function Header({ isLogin, setUserLogout }) {
             ))}
           </div>
           <br />
-          <h2 className={styles.category_title}>짤</h2>
-          <hr />
+          <StNavTitle>
+            <a href="/search/짤" className={styles.category_title}>
+              짤
+            </a>
+          </StNavTitle>
           <div className={styles.categoryButton_container}>
             <button className={styles.categoryButton_img}>
               <a href={'/search/짤/TV'}>TV</a>
@@ -124,7 +142,7 @@ function Header({ isLogin, setUserLogout }) {
             </button>
           </div>
         </div>
-      </div>
+      </nav>
 
       <div className={logoutModalClose}>
         <div
@@ -274,5 +292,9 @@ const StPersonBtn = styled.button`
 const StPersonImg = styled.img`
   height: 50px;
   width: 40px;
+`;
+const StNavTitle = styled.h2`
+  padding: 10px;
+  border-bottom: 1px solid #000;
 `;
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
