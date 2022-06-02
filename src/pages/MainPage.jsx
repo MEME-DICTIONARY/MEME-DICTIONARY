@@ -4,16 +4,15 @@ import Footer from '../component/Footer';
 import FirstContainer from '../component/mainpage/FirstContainer';
 import RankingContainer from '../component/mainpage/RankingContainer';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { isLoginState } from 'stores';
+// import { useRecoilState } from 'recoil';
+// import { isLoginState } from 'stores';
 
 export default function MainPage() {
-  const isLogin = useRecoilState(isLoginState);
+  // const isLogin = useRecoilState(isLoginState);
   const [wordRankingList, setWordRankingList] = useState([]);
   const [hashTagList, setHashTagList] = useState([]);
 
   useEffect(() => {
-    console.log(isLogin);
     setWordRankingList([
       {
         id: 1,
