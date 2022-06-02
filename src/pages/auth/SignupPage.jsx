@@ -1,7 +1,7 @@
-import { React, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { postSignup } from 'api/auth';
+import { postSignup, checkDuplicateId } from 'api/auth';
 
 import AccountSection from 'component/authpage/AccountSection';
 import BaseModal from 'component/base/BaseModal';
@@ -28,11 +28,26 @@ function SignupPage() {
 
   const handleSignIn = async () => {
     //로그인 정보 서버에 post
-    const { data } = await postSignup({
+    await postSignup({
       email: id,
       password: password,
     });
-    console.log(data);
+  };
+
+  const onClickCheckDuplicateButton = async () => {
+    const { data } = await checkDuplicateId(id);
+
+    if (data) {
+      setIsCheck(false);
+      setShowModal(true);
+      setModalContents('이미 존재하는 아이디입니다.');
+      setId('');
+      return;
+    } else {
+      setIsCheck(true);
+      setShowModal(true);
+      setModalContents('중복체크 완료');
+    }
   };
 
   const handleSignupButton = () => {
@@ -40,6 +55,7 @@ function SignupPage() {
       setShowModal(true);
       setModalContents('빈칸을 모두 채워주세요.');
     } else {
+      console.log('isCheck: ' + isCheck);
       if (!isCheck) {
         setShowModal(true);
         setModalContents('아이디 중복체크를 먼저 해주세요.');
@@ -81,15 +97,7 @@ function SignupPage() {
               minLength={5}
               maxLength={10}
             />
-            <OverLapCheckButton
-              onClick={() => {
-                setIsCheck(true);
-                setShowModal(true);
-                setModalContents('중복체크 완료');
-              }}
-            >
-              중복확인
-            </OverLapCheckButton>
+            <OverLapCheckButton onClick={onClickCheckDuplicateButton}>중복확인</OverLapCheckButton>
           </DataIdBox>
         </DataInputBox>
 

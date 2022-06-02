@@ -18,10 +18,6 @@ function LoginPage() {
   const setIsLogin = useSetRecoilState(isLoginState);
   const isLogin = useRecoilState(isLoginState)[0];
 
-  useEffect(() => {
-    console.log(isLogin);
-  }, [isLogin]);
-
   const navigate = useNavigate();
 
   const handleId = (e) => {
