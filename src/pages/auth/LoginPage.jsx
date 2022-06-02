@@ -1,25 +1,26 @@
-import { React, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { postLogin } from 'api/auth';
-import { setLogin } from 'redux/action';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { isLoginState, tokenState } from '../../stores';
 
 import AccountSection from 'component/authpage/AccountSection';
 import BaseButton from 'component/base/BaseButton';
 import BaseModal from 'component/base/BaseModal';
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserLogin: (token) => dispatch(setLogin(token)),
-  };
-};
-
-function LoginPage({ setUserLogin }) {
+function LoginPage() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
+  const setToken = useSetRecoilState(tokenState);
+  const setIsLogin = useSetRecoilState(isLoginState);
+  const isLogin = useRecoilState(isLoginState)[0];
+
+  useEffect(() => {
+    console.log(isLogin);
+  }, [isLogin]);
 
   const navigate = useNavigate();
 
@@ -37,7 +38,8 @@ function LoginPage({ setUserLogin }) {
       password: password,
     });
     if (response !== null) {
-      setUserLogin(response.data.token);
+      setIsLogin(true);
+      setToken(response.data.token);
       navigate('/main');
     } else {
       setShowModal(true);
@@ -177,4 +179,4 @@ const StSignupLink = styled.a`
   margin-bottom: 24px;
 `;
 
-export default connect((state) => state.token, mapDispatchToProps)(LoginPage);
+export default LoginPage;

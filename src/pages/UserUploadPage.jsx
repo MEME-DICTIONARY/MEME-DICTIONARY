@@ -1,22 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
 import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
 import { postUploadMeme, filterForbiddenWord } from '../api/upload';
-import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-function UserUploadPage({ token, isLogin }) {
-  useEffect(() => {
-    console.log('isLogin: ' + isLogin);
-  }, []);
+export default function UserUploadPage() {
   let navigator = useNavigate();
+  const token = useRecoilState(tokenState)[0];
+
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
     id: 0,
@@ -429,5 +425,3 @@ const StFilterWordWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
-export default connect(mapStateToProps, null)(UserUploadPage);

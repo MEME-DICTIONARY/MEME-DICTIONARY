@@ -1,23 +1,14 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
 import styles from 'assets/style/header.module.css';
-import { setLogout } from 'redux/action';
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isLoginState } from 'stores';
 
-const mapStateToProps = (state) => {
-  return {
-    isLogin: state.isLogin,
-  };
-};
+export default function Header() {
+  const isLogin = useRecoilState(isLoginState)[0];
+  const setIsLogin = useSetRecoilState(isLoginState);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserLogout: () => dispatch(setLogout()),
-  };
-};
-
-function Header({ isLogin, setUserLogout }) {
   const [input, setInput] = useState('');
   const [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
   const [logoutModalClose, logoutModal] = useState(styles.logModalHidden);
@@ -187,7 +178,7 @@ function Header({ isLogin, setUserLogout }) {
           <li
             className={styles.logModalList}
             onClick={() => {
-              setUserLogout();
+              setIsLogin(false);
               loginModal(styles.logModalHidden);
             }}
           >
@@ -297,4 +288,3 @@ const StNavTitle = styled.h2`
   padding: 10px;
   border-bottom: 1px solid #000;
 `;
-export default connect(mapStateToProps, mapDispatchToProps)(Header);

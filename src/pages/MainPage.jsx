@@ -4,14 +4,11 @@ import Footer from '../component/Footer';
 import FirstContainer from '../component/mainpage/FirstContainer';
 import RankingContainer from '../component/mainpage/RankingContainer';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { isLoginState } from 'stores';
 
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => {
-  return state;
-};
-
-function MainPage({ isLogin }) {
+export default function MainPage() {
+  const isLogin = useRecoilState(isLoginState);
   const [wordRankingList, setWordRankingList] = useState([]);
   const [hashTagList, setHashTagList] = useState([]);
 
@@ -44,5 +41,3 @@ function MainPage({ isLogin }) {
 const MainWrapper = styled.main`
   min-width: fit-content;
 `;
-
-export default connect(mapStateToProps, null)(MainPage);
