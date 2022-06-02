@@ -21,3 +21,13 @@ export const postUploadMeme = async (body, token) => {
     return null;
   }
 };
+export const filterForbiddenWord = async(word) => {
+  try{
+    const { data } = await API.get(
+      `/forbidden/exist?word=${word}`,
+    );
+    return { data };
+  }catch(err){
+    return null;
+  }
+}

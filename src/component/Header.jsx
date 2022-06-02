@@ -109,7 +109,7 @@ function Header({ isLogin, setUserLogout }) {
           }}
         ></div>
         <div className={styles.categoryModal_content}>
-          <StNavTitle>
+          <StNavTitle href="/search/단어">
             <a href="/search/단어" className={styles.category_title}>
               단어
             </a>

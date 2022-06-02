@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../component/Header';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
-import { getMemeWithCategory } from '../api/posts';
+import { getMemeWithKeyWord } from '../api/posts';
 
 function SearchResultPage() {
   let params = useParams();
@@ -12,25 +12,41 @@ function SearchResultPage() {
   const [isWordClicked, setIsWordClicked] = useState(false);
 
   useEffect(() => {
-    handleGetMemeByCategory();
+    handleGetMemeWithKeyword();
   }, []);
 
-  const handleGetMemeByCategory = async () => {
-    const param = {
-      type: params.type,
-      category: params.category,
-    };
-    const { data } = await getMemeWithCategory(param);
+  useEffect(() => {
+    //용어 탭을 처음 누르는 경우
+    console.log('용어처음');
+    initWordMeme();
+    console.log(wordResults);
+  }, [wordResults]);
 
-    if (isWordClicked) setWordResults(data.content);
-    else {
-      setImgResults(
-        data.content.map((_, idx) => ({
-          title: data.content[idx].title,
-          url: require('../assets/img/sample.jpeg'),
-        }))
-      );
+  const initWordMeme = async () => {
+    if (!wordResults.length) {
+      const param = {
+        keyword: params.keyword,
+        type: '단어', //처음엔 짤로 초기화
+      };
+      const { data } = await getMemeWithKeyWord(param);
+
+      setWordResults(data.content);
     }
+  };
+
+  const handleGetMemeWithKeyword = async () => {
+    const param = {
+      keyword: params.keyword,
+      type: '짤', //처음엔 짤로 초기화
+    };
+    const { data } = await getMemeWithKeyWord(param);
+
+    setImgResults(
+      data.content.map((_, idx) => ({
+        title: data.content[idx].title,
+        url: require('../assets/img/sample.jpeg'),
+      }))
+    );
   };
 
   return (
@@ -74,6 +90,19 @@ function SearchResultPage() {
             </StWordResultList>
           ) : (
             <StImgResultList>
+              {imgResults.length === 0 && (
+                <div
+                  style={{
+                    display: 'flex',
+                    width: '100%',
+                    height: 'calc(100vh/2)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  검색 결과가 없습니다.
+                </div>
+              )}
               {imgResults.map((result) => {
                 return (
                   <Link to={'/detail/image'}>

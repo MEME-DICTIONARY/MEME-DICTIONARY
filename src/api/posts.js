@@ -12,3 +12,13 @@ export const getMemeWithCategory = async (params) => {
     return null;
   }
 };
+export const getMemeWithKeyWord = async (params) => {
+  try {
+    const { data } = await API.get(
+      `${PREFIX_URL}/search?keyw=${params.keyword}&type=${params.type}`
+    );
+    return { data };
+  } catch (err) {
+    return null;
+  }
+}

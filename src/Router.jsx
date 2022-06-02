@@ -22,7 +22,7 @@ export default function Router() {
       <Route path="/search/result/:keyword" element={<SearchResultPage />} />
       <Route path="/search/:type" element={<CategoryResultPage />} />
       <Route path="/search/:type/:category" element={<CategoryResultPage />} />
-      <Route path="/detail/:type" element={<DetailPage />} />
+      <Route path="/detail/:type/:postId" element={<DetailPage />} />
       <Route path="/mypage/upload" element={<MyPageupload />} />
       <Route path="/mypage/bookmark" element={<MyPagebookmark />} />
       <Route path="/mypage/comment" element={<MyPagecomment />} />
