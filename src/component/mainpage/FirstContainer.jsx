@@ -1,13 +1,22 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 function FirstContainer({ hashTagList }) {
   const navigator = useNavigate();
+
+  const [input, setInput] = useState('');
+
   const onEnterPress = (e) => {
     if (e.key === 'Enter') {
-      navigator('/search');
+      if (input !== '') {
+        navigator(`/search/result/${input}`);
+      }
     }
+  };
+  const onChangeSearchInput = (e) => {
+    setInput(e.target.value);
   };
   return (
     <StWrapper>
@@ -15,12 +24,21 @@ function FirstContainer({ hashTagList }) {
         <StSearchBarInput
           type="text"
           id="search"
+          value={input || ''}
+          onChange={onChangeSearchInput}
           placeholder="키워드를 입력하여 밈을 검색해보세요!"
           onKeyDown={onEnterPress}
         />
-        <Link to="/search">
-          <AiOutlineSearch className="search__icon" size="50" color="#828282" />
-        </Link>
+        <StSearchIconWrapper>
+          <AiOutlineSearch
+            className="search__icon"
+            size="50"
+            color="#828282"
+            onClick={() => {
+              input && navigator(`/search/result/${input}`);
+            }}
+          />
+        </StSearchIconWrapper>
       </StSearchBar>
       <StHashTagList>
         {hashTagList.map((hashTag) => {
@@ -72,6 +90,12 @@ const StSearchBarInput = styled.input`
   }
   &::placeholder {
     letter-spacing: 0.7px;
+  }
+`;
+
+const StSearchIconWrapper = styled.div`
+  &:hover {
+    cursor: pointer;
   }
 `;
 

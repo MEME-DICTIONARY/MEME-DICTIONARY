@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 function UserUploadPage({ token }) {
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
+    id: 0,
     category: '',
     file: '',
     title: '',
@@ -21,6 +22,7 @@ function UserUploadPage({ token }) {
     keywords: [],
   });
   const [wordMeme, setWordMeme] = useState({
+    id: 0,
     word: '',
     meaning: '',
     example: '',
@@ -34,9 +36,9 @@ function UserUploadPage({ token }) {
   const typeOfMemeList = [
     {
       name: '밈_유형',
-      value: '신조어',
+      value: '단어',
       onClick: () => {
-        setTypeOfMeme('신조어');
+        setTypeOfMeme('단어');
       },
     },
     {
@@ -110,8 +112,9 @@ function UserUploadPage({ token }) {
               <input
                 type="file"
                 className="file"
-                defaultValue={imageMeme.file || null}
-                onChange={(e) => setImageMeme({ ...imageMeme, file: e.target.files })}
+                onChange={(e) => {
+                  setImageMeme({ ...imageMeme, file: e.target.files[0] });
+                }}
               />
               <p>사진을 업로드해주세요.</p>
             </StQuestionItem>
@@ -190,7 +193,7 @@ function UserUploadPage({ token }) {
               </StKeyWordWrapper>
             </StQuestionItem>
           </>
-        ) : typeOfMeme === '신조어' ? (
+        ) : typeOfMeme === '단어' ? (
           <>
             <StQuestionItem>
               <StQuestionTitle>
@@ -290,6 +293,8 @@ function UserUploadPage({ token }) {
                 console.log(wordMeme);
               } else {
                 console.log(imageMeme);
+                const formData = new FormData();
+                formData.append('file', imageMeme.file);
               }
             }}
             text="등록"

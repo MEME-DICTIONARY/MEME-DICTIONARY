@@ -51,14 +51,6 @@ html {
   height: 500px;
 }
 
-.category_title {
-  position: relative;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  top: 10px;
-  left: 20px;
-}
-
 .categoryButton_container {
   position: relative;
   left: 3px;
