@@ -28,16 +28,7 @@ function CategoryResultPage() {
     };
     const { data } = await getMemeWithCategory(param);
 
-    if (params.type === '단어') {
-      setWordResults(data.content);
-    } else {
-      setImgResults(
-        data.content.map((_, idx) => ({
-          title: data.content[idx].title,
-          url: require('../assets/img/sample.jpeg'),
-        }))
-      );
-    }
+    setResults(data);
   };
 
   const handleGetMemeWithCategory = async () => {
@@ -47,11 +38,22 @@ function CategoryResultPage() {
     };
     const { data } = await getMemeWithCategory(param);
 
-    if (params.type === '단어') setWordResults(data.content);
-    else {
+    setResults(data);
+  };
+
+  const setResults = (data) => {
+    if (params.type === '단어') {
+      setWordResults(
+        data.content.map((res) => ({
+          id: res.id,
+          title: res.title,
+        }))
+      );
+    } else {
       setImgResults(
-        data.content.map((_, idx) => ({
-          title: data.content[idx].title,
+        data.content.map((res) => ({
+          id: res.id,
+          title: res.title,
           url: require('../assets/img/sample.jpeg'),
         }))
       );
@@ -77,26 +79,36 @@ function CategoryResultPage() {
                   검색 결과가 없습니다.
                 </div>
               )}
-              <Link to={'/detail/word'}>
-                {wordResults.map((result) => (
-                  <StWordItem key={result.id}>{result.title}</StWordItem>
-                ))}
-              </Link>
+              {wordResults.map((result) => (
+                <Link to={`/detail/word/${result.id}`} key={result.id}>
+                  <StWordItem>{result.title}</StWordItem>
+                </Link>
+              ))}
             </StWordResultList>
           ) : (
             <StImgResultList>
-              {imgResults.map((result) => {
-                return (
-                  <Link to={'/detail/image'}>
-                    <StImgResultItem key={result.id}>
-                      <img src={result.url} alt="짤" />
-                      <StImgTitleWrapper key={result.id}>
-                        <StImgTitle key={result.id}>{result.title}</StImgTitle>
-                      </StImgTitleWrapper>
-                    </StImgResultItem>
-                  </Link>
-                );
-              })}
+              {imgResults.length === 0 && (
+                <div
+                  style={{
+                    display: 'flex',
+                    height: 'calc(100vh/2)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  검색 결과가 없습니다.
+                </div>
+              )}
+              {imgResults.map((result) => (
+                <Link to={`/detail/image/${result.id}`} key={result.id}>
+                  <StImgResultItem>
+                    <img src={result.url} alt="짤" />
+                    <StImgTitleWrapper>
+                      <StImgTitle>{result.title}</StImgTitle>
+                    </StImgTitleWrapper>
+                  </StImgResultItem>
+                </Link>
+              ))}
             </StImgResultList>
           )}
         </StResultWrapper>

@@ -5,11 +5,18 @@ import FirstContainer from '../component/mainpage/FirstContainer';
 import RankingContainer from '../component/mainpage/RankingContainer';
 import styled from 'styled-components';
 
-export default function MainPage() {
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+function MainPage({ isLogin }) {
   const [wordRankingList, setWordRankingList] = useState([]);
   const [hashTagList, setHashTagList] = useState([]);
 
   useEffect(() => {
+    console.log(isLogin);
     setWordRankingList([
       {
         id: 1,
@@ -37,3 +44,5 @@ export default function MainPage() {
 const MainWrapper = styled.main`
   min-width: fit-content;
 `;
+
+export default connect(mapStateToProps, null)(MainPage);
