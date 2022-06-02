@@ -25,7 +25,7 @@ export default function MainPage() {
       <Header />
       <MainWrapper>
         <FirstContainer hashTagList={hashTagList} />
-        <RankingContainer wordRankingList={wordRankingList} />
+        <RankingContainer wordRankingList={wordRankingList} onClick={fetchWordRankingList} />
         <Footer />
       </MainWrapper>
     </>

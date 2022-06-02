@@ -4,7 +4,7 @@ import icon_update from 'assets/img/icon_update.svg';
 import sampleImg from 'assets/img/sample.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-function RankingContainer({ wordRankingList }) {
+function RankingContainer({ wordRankingList, onClick }) {
   let navigate = useNavigate();
 
   const secondTitle = 'WORD RANKING';
@@ -24,7 +24,7 @@ function RankingContainer({ wordRankingList }) {
 
         <StRightSideOfSecondCont>
           <StUpdateButton>
-            <img src={icon_update} alt="업데이트" />
+            <img src={icon_update} alt="업데이트" onClick={onClick} />
             업데이트
           </StUpdateButton>
           <StWordRankingLists>
