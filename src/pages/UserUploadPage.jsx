@@ -4,7 +4,7 @@ import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
 import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
-import { postUploadMeme } from '../api/upload';
+import { postUploadMeme, filterForbiddenWord } from '../api/upload';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -30,6 +30,7 @@ function UserUploadPage({ token }) {
   });
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
   const onClickRadioInput = (e) => {
     setImageMeme({ ...imageMeme, category: e.target.value });
   };
@@ -75,9 +76,53 @@ function UserUploadPage({ token }) {
       description: wordMeme.meaning,
       example: wordMeme.example,
       keyw: wordMeme.keywords[0],
+      keyww: wordMeme.keywords[1],
+      keywww: wordMeme.keywords[2],
     };
-    console.log('token: ' + token);
-    postUploadMeme(body, token);
+    await postUploadMeme(body, token);
+  };
+
+  const onClickFilteringButton = async () => {
+    setIsClicked(true);
+
+    setShowModal(true);
+    setModalContents('등록할 수 있는 단어입니다.');
+
+    if (wordMeme.word) {
+      const { data } = await filterForbiddenWord(wordMeme.word);
+      //금지단어에 속한 단어라면 alert
+      if (data === true) {
+        setShowModal(true);
+        setModalContents('사용할 수 없는 금지 단어입니다!');
+        setWordMeme({ ...wordMeme, word: '' });
+        return;
+      }
+    }
+  };
+
+  const onClickUploadButton = () => {
+    if (typeOfMeme === '단어') {
+      if (
+        wordMeme.word === '' ||
+        wordMeme.meaning === '' ||
+        wordMeme.example === '' ||
+        wordMeme.keywords.length === 0
+      ) {
+        setShowModal(true);
+        setModalContents('빈 칸을 모두 채워주세요!');
+        return;
+      } else if (!isClicked) {
+        setShowModal(true);
+        setModalContents('단어 필터링 버튼을 클릭해주세요.');
+        return;
+      }
+      handlePostWordMeme();
+      console.log(wordMeme);
+    } else {
+      console.log(imageMeme);
+      const formData = new FormData();
+      formData.append('file', imageMeme.file);
+    }
   };
 
   return (
@@ -205,9 +250,14 @@ function UserUploadPage({ token }) {
                   type="text"
                   placeholder="단어를 입력해주세요."
                   value={wordMeme.word || ''}
-                  onChange={(e) => setWordMeme({ ...wordMeme, word: e.target.value })}
+                  onChange={(e) => {
+                    setIsClicked(false);
+                    setWordMeme({ ...wordMeme, word: e.target.value });
+                  }}
                 />
-                <StFilterButton type="button">필터링</StFilterButton>
+                <StFilterButton type="button" onClick={onClickFilteringButton}>
+                  필터링
+                </StFilterButton>
               </StFilterWordWrapper>
             </StQuestionItem>
             <StQuestionItem>
@@ -286,19 +336,7 @@ function UserUploadPage({ token }) {
           </>
         ) : null}
         {typeOfMeme !== null ? (
-          <BaseButton
-            onClick={() => {
-              if (typeOfMeme === '신조어') {
-                handlePostWordMeme();
-                console.log(wordMeme);
-              } else {
-                console.log(imageMeme);
-                const formData = new FormData();
-                formData.append('file', imageMeme.file);
-              }
-            }}
-            text="등록"
-          ></BaseButton>
+          <BaseButton onClick={onClickUploadButton} text="등록"></BaseButton>
         ) : null}
       </StQuestionList>
     </StWrapper>
