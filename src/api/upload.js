@@ -13,6 +13,8 @@ export const postUploadMeme = async (body, token) => {
         description: `${body.description}`,
         example: `${body.example}`,
         keyw: `${body.keyw}`,
+        keyww:`${body.keyww}`,
+        keywww:`${body.keywww}`,
       },
       (API.defaults.headers.common['Authorization'] = `Bearer ${token}`)
     );
