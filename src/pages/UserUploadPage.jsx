@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
@@ -6,12 +6,17 @@ import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
 import { postUploadMeme, filterForbiddenWord } from '../api/upload';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return state;
 };
 
-function UserUploadPage({ token }) {
+function UserUploadPage({ token, isLogin }) {
+  useEffect(() => {
+    console.log('isLogin: ' + isLogin);
+  }, []);
+  let navigator = useNavigate();
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
     id: 0,
@@ -118,10 +123,12 @@ function UserUploadPage({ token }) {
       }
       handlePostWordMeme();
       console.log(wordMeme);
+      navigator('/main');
     } else {
       console.log(imageMeme);
       const formData = new FormData();
       formData.append('file', imageMeme.file);
+      navigator('/main');
     }
   };
 
