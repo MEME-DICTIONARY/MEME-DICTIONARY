@@ -17,9 +17,7 @@ function SearchResultPage() {
 
   useEffect(() => {
     //용어 탭을 처음 누르는 경우
-
     initWordMeme();
-    /*console.log(wordResults);*/
   }, [wordResults]);
 
   const initWordMeme = async () => {
@@ -30,7 +28,12 @@ function SearchResultPage() {
       };
       const { data } = await getMemeWithKeyWord(param);
 
-      setWordResults(data.content);
+      setWordResults(
+        data.content.map((res) => ({
+          id: res.id,
+          title: res.title,
+        }))
+      );
     }
   };
 
@@ -42,8 +45,9 @@ function SearchResultPage() {
     const { data } = await getMemeWithKeyWord(param);
 
     setImgResults(
-      data.content.map((_, idx) => ({
-        title: data.content[idx].title,
+      data.content.map((res) => ({
+        id: res.id,
+        title: res.title,
         url: require('../assets/img/sample.jpeg'),
       }))
     );
@@ -82,11 +86,11 @@ function SearchResultPage() {
                   검색 결과가 없습니다.
                 </div>
               )}
-              <Link to={'/detail/word'}>
-                {wordResults.map((result) => (
+              {wordResults.map((result) => (
+                <Link to={`/detail/word/${result.id}`}>
                   <StWordItem key={result.id}>{result.title}</StWordItem>
-                ))}
-              </Link>
+                </Link>
+              ))}
             </StWordResultList>
           ) : (
             <StImgResultList>
@@ -105,7 +109,7 @@ function SearchResultPage() {
               )}
               {imgResults.map((result) => {
                 return (
-                  <Link to={'/detail/image'}>
+                  <Link to={`/detail/image/${result.id}`}>
                     <StImgResultItem key={result.id}>
                       <img src={result.url} alt="짤" />
                       <StImgTitleWrapper key={result.id}>

@@ -2,13 +2,21 @@ import styled, { css } from 'styled-components';
 import LeftSideContainer from './LeftSideContainer';
 import icon_update from 'assets/img/icon_update.svg';
 import sampleImg from 'assets/img/sample.jpeg';
+import { useNavigate } from 'react-router-dom';
 
-function RankingContainer({ wordRankingList }) {
+function RankingContainer({ wordRankingList, onClick }) {
+  let navigate = useNavigate();
+
   const secondTitle = 'WORD RANKING';
   const thirdTitle = 'HOT MEME TOP 10';
   const secondDescription =
     '사용자들에게 가장 인기있는 단어 밈 순위입니다. 업데이트 버튼을 클릭하면 실시간 좋아요 수에 따라 순위가 변경됩니다.';
   const thirdDescription = '인기 급상승 밈 TOP 10 밈과사전이 직접 추천해드립니다.';
+
+  const onClickRankingItem = (postId) => {
+    navigate(`/detail/word/${postId}`);
+  };
+
   return (
     <>
       <StContainer section="second">
@@ -16,15 +24,17 @@ function RankingContainer({ wordRankingList }) {
 
         <StRightSideOfSecondCont>
           <StUpdateButton>
-            <img src={icon_update} alt="업데이트" />
+            <img src={icon_update} alt="업데이트" onClick={onClick} />
             업데이트
           </StUpdateButton>
           <StWordRankingLists>
-            {wordRankingList.map((wordInfo) => {
+            {wordRankingList.map((wordInfo, idx) => {
               return (
                 <FlexBox key={wordInfo.id}>
-                  <span>{wordInfo.id}</span>
-                  <StWordRankingList key={wordInfo}>{wordInfo.word}</StWordRankingList>
+                  <span>{idx + 1}</span>
+                  <StWordRankingList key={wordInfo} onClick={() => onClickRankingItem(wordInfo.id)}>
+                    {wordInfo.title}
+                  </StWordRankingList>
                 </FlexBox>
               );
             })}
