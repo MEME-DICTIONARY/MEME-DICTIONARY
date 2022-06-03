@@ -1,5 +1,11 @@
 import Header from 'component/Header';
 import styled from 'styled-components';
+import { getMyPageComment } from '../../api/mypage';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return state;
+};
 
 function MyPagecomment() {
   return (
@@ -128,3 +134,4 @@ const StCommentTime = styled.p`
   left: 50px;
 `;
 export default MyPagecomment;
+connect(mapStateToProps, null)(MyPagecomment);

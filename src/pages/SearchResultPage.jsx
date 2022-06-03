@@ -17,9 +17,9 @@ function SearchResultPage() {
 
   useEffect(() => {
     //용어 탭을 처음 누르는 경우
-    console.log('용어처음');
+
     initWordMeme();
-    console.log(wordResults);
+    /*console.log(wordResults);*/
   }, [wordResults]);
 
   const initWordMeme = async () => {

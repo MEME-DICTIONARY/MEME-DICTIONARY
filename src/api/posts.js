@@ -21,4 +21,32 @@ export const getMemeWithKeyWord = async (params) => {
   } catch (err) {
     return null;
   }
-}
+};
+
+export const getDetailContent = async (id) => {
+  try {
+    const { data } = await API.get(`${PREFIX_URL}/${id}`);
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
+
+export const postDetailLikes = async (id) => {
+  try {
+    const { data } = await API.post(`${PREFIX_URL}/${id}/likes`);
+
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
+
+export const postDetailBookMark = async (id) => {
+  try {
+    const { data } = await API.post(`${PREFIX_URL}/${id}/bookmark`);
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};

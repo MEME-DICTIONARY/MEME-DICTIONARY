@@ -1,41 +1,64 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
+import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
+import { ReactComponent as Report } from 'assets/img/detailPage/report.svg';
 
 function DetailPage() {
   const [imghashtag] = useState(['#무야호', '#무한도전']);
-  const [wordhashtag] = useState(['#어쩔티비', '#저쩔티비']);
-  const [wordLike, addWordLike] = useState(0);
-  const [wordWarning, addWordWarning] = useState(0);
+
+  const [wordLike, addWordLike] = useState(null);
+  const [wordWarning, addWordWarning] = useState(null);
+  const [wordBookMark, addWordBookMark] = useState(null);
+  const [detailInfo, setDetailInfo] = useState(null);
 
   let params = useParams();
+
+  const handleDetailPage = async () => {
+    const { data } = await getDetailContent(params.postId);
+    setDetailInfo(data);
+    addWordLike(data.likes);
+    addWordBookMark(data.bookmark_cnt);
+    console.log(data);
+  };
+
+  const handleLikeButton = async () => {
+    const { data } = await postDetailLikes(params.postId);
+    console.log(data);
+  };
+
+  const handleBookMarkButton = async () => {
+    const { data } = await postDetailBookMark(params.postId);
+    console.log(data);
+  };
+  useEffect(() => {
+    handleDetailPage();
+    handleBookMarkButton();
+  }, []);
 
   return (
     <>
       <Header />
 
-      {params.type === 'word' ? (
+      {detailInfo && params.type === 'word' ? (
         <StWordWrapper>
-          <StTitle>어쩔티비</StTitle>
+          <StTitle>{detailInfo.title}</StTitle>
 
           <StWordInfo>
             <StWordInfoWrapper>
               <StWordMeaning>뜻</StWordMeaning>
-              <StWordContent>
-                줄바뀌니?? 어쩌라고, 어쩔건데, 안물어봤는데 등의 의미. 상대방이 귀찮게 하거나
-                대답하기 곤란한 질문을 했을 경우에 하는 말로, 상대방을 도발하는 의미
-              </StWordContent>
+              <StWordContent>{detailInfo.description}</StWordContent>
             </StWordInfoWrapper>
             <StExampleWrapper>
               <StWordExample>예문</StWordExample>
-              <StWordContent>"야 너 못생김" "어쩔티비"</StWordContent>
+              <StWordContent>{detailInfo.example}</StWordContent>
             </StExampleWrapper>
           </StWordInfo>
 
           <StHashtagWrapper>
-            <StHashTag>{wordhashtag[0]}</StHashTag>
-            <StHashTag>{wordhashtag[1]}</StHashTag>
+            <StHashTag>{detailInfo.keyw}</StHashTag>
+            <StHashTag>{detailInfo.keyww}</StHashTag>
           </StHashtagWrapper>
 
           <StButtonWrapper>
@@ -45,19 +68,21 @@ function DetailPage() {
                 alt="좋아요"
                 onClick={() => {
                   addWordLike(wordLike + 1);
+                  handleLikeButton();
                 }}
               ></StButtonImg>
               {wordLike}
             </StBottomBtn>
 
             <StBottomBtn>
-              <StButtonImg
-                src={require('assets/img/detailPage/report.png')}
-                alt="신고"
+              <Report
+                width="10"
+                height="10"
                 onClick={() => {
                   addWordWarning(wordWarning + 1);
                 }}
-              ></StButtonImg>
+              />
+
               {wordWarning}
             </StBottomBtn>
 
@@ -65,7 +90,12 @@ function DetailPage() {
               <StBookMarkImg
                 src={require('assets/img/detailPage/bookmark.png')}
                 alt="북마크"
+                onClick={() => {
+                  addWordBookMark(wordBookMark + 1);
+                  handleLikeButton();
+                }}
               ></StBookMarkImg>
+              {wordBookMark}
             </StBottomBtn>
           </StButtonWrapper>
           <StReplyWrapper>

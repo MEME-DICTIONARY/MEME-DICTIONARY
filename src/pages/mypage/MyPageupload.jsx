@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from 'assets/style/MyPage.module.css';
 import Header from 'component/Header';
 import styled from 'styled-components';
+import { getMyPageUpload } from '../../api/mypage';
+import { Link, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
 
 function MyPageupload() {
+  let params = useParams();
+  const token = useRecoilState(tokenState)[0];
   let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
   let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
 
@@ -16,6 +22,23 @@ function MyPageupload() {
     contentChange([styles.MyPage_Hidden, styles.MyPage_Img_Container]);
     btnChange([styles.MyPage_Word_Btn_Unclick, styles.MyPage_Img_Btn]);
   }
+
+  const [wordResults, setWordResults] = useState([]);
+  const [imgResults, setImgResults] = useState([]);
+
+  useEffect(() => {
+    handleUploadMeme();
+  });
+
+  const handleUploadMeme = async () => {
+    console.log(token);
+    const { data } = await getMyPageUpload(token, '단어');
+
+    console.log(data);
+
+    setWordResults(data);
+    console.log(wordResults);
+  };
 
   return (
     <>
@@ -51,8 +74,14 @@ function MyPageupload() {
             </button>
           </StBtnContainer>
           <div className={content[0]}>
-            <StWordTitle>어쩔티비</StWordTitle>
-            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
+            {wordResults.map((result) => (
+              <Link to={'/detail/word/'}>
+                <StWordItem key={result.file_id}>
+                  {result.title}
+                  {result.description}
+                </StWordItem>
+              </Link>
+            ))}
             <hr />
             <StWordTitle>어쩔티비</StWordTitle>
             <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
@@ -60,6 +89,7 @@ function MyPageupload() {
             <StWordTitle>어쩔티비</StWordTitle>
             <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
           </div>
+
           <div className={content[1]}>
             <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
             <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
@@ -73,6 +103,7 @@ function MyPageupload() {
     </>
   );
 }
+
 const StMyPageWrapper = styled.div`
   position: relative;
   display: grid;
@@ -124,6 +155,13 @@ const StBtnContainer = styled.div`
   position: absolute;
   top: 70px;
   left: 300px;
+`;
+
+const StWordItem = styled.li`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
 `;
 
 const StWordTitle = styled.h2`
