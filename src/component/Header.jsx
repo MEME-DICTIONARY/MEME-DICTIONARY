@@ -3,12 +3,13 @@ import styles from 'assets/style/header.module.css';
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState, useResetRecoilState } from 'recoil';
-import { isLoginState, tokenState } from 'stores';
+import { isLoginState, tokenState, passwordState } from 'stores';
 
 export default function Header() {
   const isLogin = useRecoilState(isLoginState)[0];
   const setIsLogin = useSetRecoilState(isLoginState);
   const resetToken = useResetRecoilState(tokenState);
+  const resetPassword = useResetRecoilState(passwordState);
 
   const [input, setInput] = useState('');
   const [categoryClose, categoryOpen] = useState(styles.categoryModalHidden);
@@ -180,7 +181,8 @@ export default function Header() {
             className={styles.logModalList}
             onClick={() => {
               setIsLogin(false);
-              resetToken('');
+              resetPassword();
+              resetToken();
               loginModal(styles.logModalHidden);
             }}
           >

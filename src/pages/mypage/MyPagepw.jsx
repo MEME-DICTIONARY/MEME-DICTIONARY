@@ -1,48 +1,92 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { passwordState } from 'stores';
 import Header from 'component/Header';
 import BaseModal from 'component/base/BaseModal';
 import styled from 'styled-components';
+import { postChangePassword } from '../../api/mypage';
+import { useNavigate } from 'react-router-dom';
 
 function MyPagepw() {
+  let navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
+  const [oldPW, setOldPW] = useState('');
   const [newPW, setnewPW] = useState('');
   const [verifyNewPW, setVerifyNewPw] = useState('');
+  const currentPW = useRecoilState(passwordState)[0];
+  const setNewPassword = useSetRecoilState(passwordState);
+
+  const [isVerified, setIsVerified] = useState(false);
 
   function quitModalOpen() {
     setShowModal(true);
     setModalContents('정말 탈퇴하시겠습니까?');
   }
 
-  function pwChangeModalOpen() {
-    if (newPW.length < 5) {
+  const checkPassword = () => {
+    if (oldPW === '' || newPW === '' || verifyNewPW === '') {
       setShowModal(true);
-      setModalContents('비밀번호는 5글자 이상이어야 합니다.');
-    } else if (newPW.length >= 5 && newPW === verifyNewPW) {
-      setShowModal(true);
-      setModalContents('정말 변경하시겠습니까?');
-    } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
-      setShowModal(true);
-      setModalContents('비밀번호가 일치하지 않습니다');
+      setIsVerified(false);
+      setModalContents('빈 칸을 모두 입력해주세요.');
+    } else {
+      if (oldPW !== currentPW) {
+        console.log(currentPW);
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('현재 비밀번호와 일치하지 않습니다.');
+      } else if (newPW === oldPW) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('기존 비밀번호와 같습니다.');
+      } else if (newPW.length < 5) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('비밀번호는 5글자 이상이어야 합니다.');
+      } else if (newPW.length >= 5 && newPW === verifyNewPW) {
+        setShowModal(true);
+        setIsVerified(true);
+        setModalContents('정말 변경하시겠습니까?');
+      } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('비밀번호가 일치하지 않습니다');
+      }
     }
-  }
+  };
 
-  const handleNewPassword = (e) => {
-    setnewPW(e.target.value);
+  const handleChangePassword = async () => {
+    const res = await postChangePassword({ oldPassword: oldPW, newPassword: newPW });
+    if (res) {
+      setNewPassword(newPW);
+      navigate('/mypage/upload');
+    }
   };
 
   return (
     <>
       <Header />
-      <BaseModal
-        hidden={!showModal}
-        content={modalContents}
-        hideModal={() => {
-          setShowModal(false);
-        }}
-        withdrawal={newPW === verifyNewPW && true}
-      />
+
+      {isVerified ? (
+        <BaseModal
+          hidden={!showModal}
+          content={modalContents}
+          hideModal={() => {
+            setShowModal(false);
+          }}
+          check={newPW === verifyNewPW}
+          onClickYes={handleChangePassword}
+        />
+      ) : (
+        <BaseModal
+          hidden={!showModal}
+          content={modalContents}
+          hideModal={() => {
+            setShowModal(false);
+          }}
+        />
+      )}
+
       <StMyPageWrapper>
         <StMyPageListWrapper>
           <StMyPageList>
@@ -65,17 +109,37 @@ function MyPagepw() {
         </StMyPageListWrapper>
 
         <StPwContainer>
-          <StMyPagePw>현재 비밀번호</StMyPagePw>
-          <StPwInput type="text"></StPwInput>
-          <StMyPagePw>비밀번호 수정</StMyPagePw>
-          <StPwInput type="text" value={newPW} onChange={handleNewPassword} />
-          <StMyPagePw>비밀번호 확인</StMyPagePw>
+          <h3>현재 비밀번호</h3>
+          <StPwInput
+            type="text"
+            value={oldPW}
+            onChange={(e) => {
+              setOldPW(e.target.value);
+            }}
+          ></StPwInput>
+          <h3>비밀번호 수정</h3>
+          <StPwInput
+            type="text"
+            value={newPW}
+            onChange={(e) => {
+              setnewPW(e.target.value);
+            }}
+          />
+          <h3>비밀번호 확인</h3>
           <StPwInput
             type="text"
             value={verifyNewPW}
-            onChange={(e) => setVerifyNewPw(e.target.value)}
+            onChange={(e) => {
+              setVerifyNewPw(e.target.value);
+            }}
           />
-          <StChangeBtn onClick={pwChangeModalOpen}>변경</StChangeBtn>
+          <StChangeBtn
+            onClick={() => {
+              checkPassword();
+            }}
+          >
+            변경
+          </StChangeBtn>
           <StMyPageDelete onClick={quitModalOpen}>회원탈퇴</StMyPageDelete>
         </StPwContainer>
       </StMyPageWrapper>
@@ -137,15 +201,14 @@ const StPwContainer = styled.div`
   left: 10%;
   height: 500px;
   width: 1200px;
-`;
-
-const StMyPagePw = styled.h3`
-  width: 90%;
-  position: relative;
-  left: 70px;
-  top: 70px;
-  color: white;
-  margin-bottom: 10px;
+  & > h3 {
+    width: 90%;
+    position: relative;
+    left: 70px;
+    top: 70px;
+    color: white;
+    margin-bottom: 10px;
+  }
 `;
 const StPwInput = styled.input`
   position: relative;
