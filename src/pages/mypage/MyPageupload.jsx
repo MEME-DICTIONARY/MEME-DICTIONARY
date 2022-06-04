@@ -34,8 +34,8 @@ function MyPageupload() {
       type: 'word',
       page: 0,
     };
-    const data = await getMyPageUpload(param, token);
-    data && setWordResults(data);
+    const { data } = await getMyPageUpload(param, token);
+    data && setWordResults(data.content);
   };
 
   return (
@@ -58,29 +58,27 @@ function MyPageupload() {
             </StMyPageListChild>
           </StMyPageList>
           <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/pw"> p/w 수정</StMyPageNonSelectLink>
+            <StMyPageNonSelectLink href="/mypage/pw"> 비밀번호 수정</StMyPageNonSelectLink>
           </StMyPageList>
         </StMyPageListWrapper>
         <div>
           <StBtnContainer>
             <button className={btn[0]} onClick={changeToWord}>
-              {' '}
               용어
             </button>
             <button className={btn[1]} onClick={changeToImg}>
-              짤{' '}
+              짤
             </button>
           </StBtnContainer>
           <div className={content[0]}>
-            {wordResults?.map((result) => (
+            {wordResults.map((result) => (
               <Link to={`/detail/word/${result.id}`}>
                 <StWordItem key={result.id}>
-                  {result.title}
-                  {result.description}
+                  <StWordTitle>{result.title}</StWordTitle>
+                  <StWordContent>{result.description}</StWordContent>
                 </StWordItem>
               </Link>
             ))}
-            <hr />
           </div>
 
           <div className={content[1]}>
@@ -93,31 +91,28 @@ function MyPageupload() {
 }
 
 const StMyPageWrapper = styled.div`
-  position: relative;
   display: grid;
   grid-template-columns: 150px 1fr;
   z-index: 1;
-  height: 100%;
-  top: 10%;
+  width: 100%;
 `;
 const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid white;
-  top: 10px;
+  border-right: 1px solid #fff;
   width: 190px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-  height: 100vh;
 `;
 
 const StMyPageList = styled.li`
-  position: relative;
-  top: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #232332;
   font-size: large;
   list-style: none;
-  padding-bottom: 130px;
-  padding-left: 30%;
+  padding: 100px 10px 0 10px;
 `;
 
 const StMyPageLink = styled.a`
@@ -132,24 +127,21 @@ const StMyPageNonSelectLink = styled.a`
 const StMyPageListChild = styled.ul`
   background-color: #232332;
   list-style: none;
-  position: relative;
-  left: -25px;
   padding-top: 10px;
   text-align: center;
   line-height: 25px;
 `;
 const StBtnContainer = styled.div`
-  width: 100px;
-  position: absolute;
-  top: 70px;
-  left: 300px;
+  padding: 85px 0 0 150px;
 `;
 
 const StWordItem = styled.li`
-  width: 100%;
-  height: 80px;
+  width: 80%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fff;
 `;
 
 const StWordTitle = styled.h2`
@@ -163,8 +155,8 @@ const StWordContent = styled.p`
   color: white;
   margin-bottom: 10px;
   text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  /* overflow: hidden; */
+  /* white-space: nowrap; */
 `;
 
 const StMyPageImg = styled.img`

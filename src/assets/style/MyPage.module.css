@@ -36,11 +36,11 @@
 }
 
 .MyPage_Img_Container {
-  position: relative;
-  left: 150px;
-  top: 150px;
-  height: 500px;
-  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 50px 0 0 150px;
 }
 
 .MyPage_Hidden {
@@ -48,9 +48,9 @@
 }
 
 .MyPage_Word_Container {
-  position: relative;
-  left: 150px;
-  top: 150px;
-  height: 500px;
-  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 50px 0 0 150px;
 }
