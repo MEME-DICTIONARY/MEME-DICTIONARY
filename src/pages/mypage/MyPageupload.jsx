@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styles from 'assets/style/MyPage.module.css';
 import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageUpload } from '../../api/mypage';
@@ -9,33 +8,34 @@ import { tokenState } from 'stores';
 
 function MyPageupload() {
   const token = useRecoilState(tokenState)[0];
-  let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
-  let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
 
-  function changeToWord() {
-    contentChange([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
-    btnChange([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
-  }
-
-  function changeToImg() {
-    contentChange([styles.MyPage_Hidden, styles.MyPage_Img_Container]);
-    btnChange([styles.MyPage_Word_Btn_Unclick, styles.MyPage_Img_Btn]);
-  }
-
+  const [isWordClicked, setIsWordClicked] = useState(true);
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
   useEffect(() => {
-    handleUploadMeme();
+    let param = {};
+    if (!isWordClicked) {
+      param = {
+        type: 'image',
+        page: 0,
+      };
+    } else {
+      param = {
+        type: 'word',
+        page: 0,
+      };
+    }
+    handleUploadMeme(param);
   }, []);
 
-  const handleUploadMeme = async () => {
-    const param = {
-      type: 'word',
-      page: 0,
-    };
-    const { data } = await getMyPageUpload(param, token);
-    data && setWordResults(data.content);
+  const handleUploadMeme = async (parameter) => {
+    const { data } = await getMyPageUpload(parameter, token);
+    if (parameter.type === 'word') {
+      setWordResults(data.content);
+    } else {
+      setImgResults(data.content);
+    }
   };
 
   return (
@@ -44,7 +44,7 @@ function MyPageupload() {
       <StMyPageWrapper>
         <StMyPageListWrapper>
           <StMyPageList>
-            <StMyPageLink href="/mypage/upload"> 등록한글 </StMyPageLink>
+            <StMyPageLink href="/mypage/upload"> 등록한 글 </StMyPageLink>
           </StMyPageList>
           <StMyPageList>
             <StMyPageNonSelectLink href="/mypage/bookmark"> 나의 활동 </StMyPageNonSelectLink>
@@ -61,30 +61,45 @@ function MyPageupload() {
             <StMyPageNonSelectLink href="/mypage/pw"> 비밀번호 수정</StMyPageNonSelectLink>
           </StMyPageList>
         </StMyPageListWrapper>
-        <div>
-          <StBtnContainer>
-            <button className={btn[0]} onClick={changeToWord}>
+        <StMemeInfoWrapper>
+          <StTypeNav>
+            <StNavList
+              isWordClicked={isWordClicked}
+              onClick={() => {
+                setIsWordClicked(true);
+              }}
+            >
               용어
-            </button>
-            <button className={btn[1]} onClick={changeToImg}>
+            </StNavList>
+            <StNavList isWordClicked={!isWordClicked} onClick={() => setIsWordClicked(false)}>
               짤
-            </button>
-          </StBtnContainer>
-          <div className={content[0]}>
-            {wordResults.map((result) => (
-              <Link to={`/detail/word/${result.id}`}>
-                <StWordItem key={result.id}>
-                  <StWordTitle>{result.title}</StWordTitle>
-                  <StWordContent>{result.description}</StWordContent>
-                </StWordItem>
-              </Link>
-            ))}
-          </div>
-
-          <div className={content[1]}>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
-          </div>
-        </div>
+            </StNavList>
+          </StTypeNav>
+          {isWordClicked ? (
+            <StMyPageWordWrapper>
+              {!wordResults.length && <div>등록한 MEME이 없습니다!</div>}
+              {wordResults.map((result) => (
+                <Link to={`/detail/word/${result.id}`} key={result.id}>
+                  <StWordItem>
+                    <StWordTitle>{result.title}</StWordTitle>
+                    <StWordContent>{result.description}</StWordContent>
+                  </StWordItem>
+                </Link>
+              ))}
+            </StMyPageWordWrapper>
+          ) : (
+            <>
+              {!imgResults.length && <div>등록한 MEME이 없습니다!</div>}
+              {imgResults.map((result) => (
+                <StMyPageImgWrapper
+                  key={result.id}
+                  src={require('assets/img/detailPage/무야호.png')}
+                  alt="짤"
+                ></StMyPageImgWrapper>
+              ))}
+            </>
+          )}
+        </StMemeInfoWrapper>
       </StMyPageWrapper>
     </>
   );
@@ -131,12 +146,41 @@ const StMyPageListChild = styled.ul`
   text-align: center;
   line-height: 25px;
 `;
-const StBtnContainer = styled.div`
-  padding: 85px 0 0 150px;
+
+const StTypeNav = styled.nav`
+  display: flex;
+  margin: 85px 0 57px 51px;
+  color: #696868;
+`;
+const StNavList = styled.li`
+  font-size: 24px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+  color: ${(props) => props.isWordClicked && '#fff'};
+
+  &:first-child::after {
+    display: inline-block;
+    content: '';
+    width: 2px;
+    height: 20px;
+    background-color: #696868;
+    vertical-align: middle;
+    margin: 0 7px;
+  }
+`;
+
+const StMemeInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 50px 30px 100px;
+`;
+const StMyPageWordWrapper = styled.div`
+  margin-left: 50px;
 `;
 
 const StWordItem = styled.li`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -152,16 +196,17 @@ const StWordTitle = styled.h2`
   margin-top: 30px;
 `;
 const StWordContent = styled.p`
+  width: 900px;
   color: white;
   margin-bottom: 10px;
+
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
 `;
 
-const StMyPageImg = styled.img`
-  padding-right: 50px;
-  padding-bottom: 30px;
+const StMyPageImgWrapper = styled.img`
+  margin-left: 50px;
   width: 300px;
   height: 225px;
 `;
