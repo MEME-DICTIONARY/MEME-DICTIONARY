@@ -37,3 +37,17 @@ export const getMyPageComment = async (token) => {
     return null;
   }
 };
+
+export const postChangePassword = async (body) => {
+  try {
+    const { data } = await API.get(
+      `${PREFIX_URL}/change-pwd`,{
+        oldPassword:body.oldPassword,
+        newPassword:body.newPassword,
+      }
+    );
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
