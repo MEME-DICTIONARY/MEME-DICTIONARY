@@ -3,12 +3,11 @@ import styles from 'assets/style/MyPage.module.css';
 import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageUpload } from '../../api/mypage';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { tokenState } from 'stores';
 
 function MyPageupload() {
-  let params = useParams();
   const token = useRecoilState(tokenState)[0];
   let [btn, btnChange] = useState([styles.MyPage_Word_Btn, styles.MyPage_Img_Btn_Unclick]);
   let [content, contentChange] = useState([styles.MyPage_Word_Container, styles.MyPage_Hidden]);
@@ -28,16 +27,15 @@ function MyPageupload() {
 
   useEffect(() => {
     handleUploadMeme();
-  });
+  }, []);
 
   const handleUploadMeme = async () => {
-    console.log(token);
-    const { data } = await getMyPageUpload(token, '단어');
-
-    console.log(data);
-
-    setWordResults(data);
-    console.log(wordResults);
+    const param = {
+      type: 'word',
+      page: 0,
+    };
+    const data = await getMyPageUpload(param, token);
+    data && setWordResults(data);
   };
 
   return (
@@ -74,28 +72,18 @@ function MyPageupload() {
             </button>
           </StBtnContainer>
           <div className={content[0]}>
-            {wordResults.map((result) => (
-              <Link to={'/detail/word/'}>
-                <StWordItem key={result.file_id}>
+            {wordResults?.map((result) => (
+              <Link to={`/detail/word/${result.id}`}>
+                <StWordItem key={result.id}>
                   {result.title}
                   {result.description}
                 </StWordItem>
               </Link>
             ))}
             <hr />
-            <StWordTitle>어쩔티비</StWordTitle>
-            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
-            <hr />
-            <StWordTitle>어쩔티비</StWordTitle>
-            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
           </div>
 
           <div className={content[1]}>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
-            <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
             <StMyPageImg src={require('assets/img/detailPage/무야호.png')} alt="짤"></StMyPageImg>
           </div>
         </div>
