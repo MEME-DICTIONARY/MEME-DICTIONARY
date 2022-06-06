@@ -77,8 +77,8 @@ export default function UserUploadPage() {
       description: wordMeme.meaning,
       example: wordMeme.example,
       keyw: wordMeme.keywords[0],
-      keyww: wordMeme.keywords[1],
-      keywww: wordMeme.keywords[2],
+      keyww: wordMeme.keywords[1] === undefined ? null : wordMeme.keywords[1],
+      keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
     };
     await postUploadMeme(body, token);
   };
@@ -118,7 +118,7 @@ export default function UserUploadPage() {
         return;
       }
       handlePostWordMeme();
-      navigator('/main');
+      // navigator('/main');
     } else {
       const formData = new FormData();
       formData.append('file', imageMeme.file);

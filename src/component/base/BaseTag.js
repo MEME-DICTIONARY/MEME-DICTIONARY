@@ -11,7 +11,7 @@ function BaseTag(props) {
 }
 
 const Tag = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   display: flex;
   gap: 2px;
   width: fit-content;

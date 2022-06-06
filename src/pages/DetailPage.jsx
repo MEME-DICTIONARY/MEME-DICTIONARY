@@ -7,21 +7,13 @@ import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
 
 function DetailPage() {
-  const [imghashtag] = useState(['#무야호', '#무한도전']);
-
-  const [wordLike, addWordLike] = useState(null);
-  const [wordWarning, addWordWarning] = useState(null);
-  const [wordBookMark, addWordBookMark] = useState(null);
-  const [detailInfo, setDetailInfo] = useState(null);
-
   let params = useParams();
+
+  const [detailInfo, setDetailInfo] = useState();
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
-    console.log(data);
     setDetailInfo(data);
-    addWordLike(data.likes);
-    addWordBookMark(data.bookmark_cnt);
   };
 
   const onClickLikeButton = async () => {
@@ -40,7 +32,7 @@ function DetailPage() {
     <>
       <Header />
 
-      {detailInfo && params.type === 'word' ? (
+      {detailInfo && params.type === 'word' && (
         <StWordWrapper>
           <StTitle>{detailInfo.title}</StTitle>
 
@@ -67,11 +59,11 @@ function DetailPage() {
                 src={require('assets/img/detailPage/like.png')}
                 alt="좋아요"
                 onClick={() => {
-                  addWordLike(wordLike + 1);
+                  setDetailInfo({ ...detailInfo, likes: detailInfo.likes + 1 });
                   onClickLikeButton();
                 }}
               ></StButtonImg>
-              {wordLike}
+              {detailInfo.likes}
             </StBottomBtn>
 
             <StBottomBtn>
@@ -81,11 +73,9 @@ function DetailPage() {
                 width="30"
                 height="30"
                 onClick={() => {
-                  addWordWarning(wordWarning + 1);
+                  setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
                 }}
               />
-
-              {wordWarning}
             </StBottomBtn>
 
             <StBottomBtn>
@@ -93,16 +83,15 @@ function DetailPage() {
                 src={require('assets/img/detailPage/bookmark.png')}
                 alt="북마크"
                 onClick={() => {
-                  addWordBookMark(wordBookMark + 1);
                   onClickBookMarkButton();
                 }}
               ></StBookMarkImg>
-              {wordBookMark}
             </StBottomBtn>
           </StButtonWrapper>
           <Comment />
         </StWordWrapper>
-      ) : (
+      )}
+      {detailInfo && params.type === 'image' && (
         <>
           <StImgWrapper>
             <StTitle>무야호</StTitle>
@@ -112,38 +101,42 @@ function DetailPage() {
               의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
             </StImgContent>
             <StHashtagWrapper>
-              <StHashTag>{imghashtag[0]}</StHashTag>
-              <StHashTag>{imghashtag[1]}</StHashTag>
+              <StHashTag>{detailInfo.keyw}</StHashTag>
+              {detailInfo.keyww && <StHashTag>{detailInfo.keyww}</StHashTag>}
+              {detailInfo.keywww && <StHashTag>{detailInfo.keywww}</StHashTag>}
             </StHashtagWrapper>
             <StButtonWrapper>
               <StBottomBtn
                 onClick={() => {
-                  addWordLike(wordLike + 1);
+                  setDetailInfo({ ...detailInfo, likes: detailInfo.likes + 1 });
                 }}
               >
                 <StButtonImg
                   src={require('assets/img/detailPage/like.png')}
                   alt="좋아요"
                 ></StButtonImg>
-                {wordLike}
+                {detailInfo.likes}
               </StBottomBtn>
 
-              <StBottomBtn
-                onClick={() => {
-                  addWordWarning(wordWarning + 1);
-                }}
-              >
-                <StButtonImg
-                  src={require('assets/img/detailPage/report.png')}
-                  alt="신고"
-                ></StButtonImg>
-                {wordWarning}
+              <StBottomBtn>
+                <img
+                  src={icReport}
+                  alt="신고하기"
+                  width="30"
+                  height="30"
+                  onClick={() => {
+                    setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
+                  }}
+                />
               </StBottomBtn>
 
               <StBottomBtn>
                 <StBookMarkImg
                   src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
+                  onClick={() => {
+                    onClickBookMarkButton();
+                  }}
                 ></StBookMarkImg>
               </StBottomBtn>
             </StButtonWrapper>
