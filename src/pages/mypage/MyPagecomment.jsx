@@ -2,6 +2,7 @@ import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageComment } from '../../api/mypage';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return state;
@@ -13,24 +14,23 @@ function MyPagecomment() {
       <Header />
       <StMyPageWrapper>
         <StMyPageListWrapper>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/upload"> 등록한글 </StMyPageNonSelectLink>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageLink href="/mypage/bookmark"> 나의 활동 </StMyPageLink>
-            <StMyPageListChild>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/bookmark"> 북마크</StMyPageNonSelectLink>
-              </li>
-              <li>
-                <StMyPageLink href="/mypage/comment"> 댓글</StMyPageLink>
-              </li>
-            </StMyPageListChild>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/pw"> p/w 수정</StMyPageNonSelectLink>
-          </StMyPageList>
+          <Link to="/mypage/upload">
+            <StLinkNav>등록한글 </StLinkNav>
+          </Link>
+          <StMyActivityWrapper isClicked={true}>
+            <div>나의 활동</div>
+            <Link to="/mypage/bookmark">
+              <StLinkNav>북마크</StLinkNav>
+            </Link>
+            <Link to="/mypage/comment">
+              <StLinkNav isClicked={true}> 댓글</StLinkNav>
+            </Link>
+          </StMyActivityWrapper>
+          <Link to="/mypage/pw">
+            <StLinkNav>비밀번호 수정</StLinkNav>
+          </Link>
         </StMyPageListWrapper>
+
         <StCommentWrapper>
           <StCommentTitle>
             <strong>무야호 페이지</strong>에 남긴 댓글
@@ -61,43 +61,29 @@ const StMyPageWrapper = styled.div`
   height: 100%;
   top: 10%;
 `;
+const StMyActivityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  & > div {
+    color: #828282;
+    font-weight: bold;
+    color: ${({ isClicked }) => isClicked && '#fff'};
+  }
+`;
 const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid white;
-  top: 10px;
   width: 190px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-  height: 100vh;
+  padding-top: 150px;
+  align-items: center;
+  gap: 50px;
 `;
-
-const StMyPageList = styled.li`
-  position: relative;
-  top: 130px;
-  background-color: #232332;
-  font-size: large;
-  list-style: none;
-  padding-bottom: 130px;
-  padding-left: 30%;
-`;
-
-const StMyPageLink = styled.a`
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-`;
-const StMyPageNonSelectLink = styled.a`
-  text-decoration: none;
-  color: gray;
-`;
-const StMyPageListChild = styled.ul`
-  background-color: #232332;
-  list-style: none;
-  position: relative;
-  left: -25px;
-  padding-top: 10px;
-  text-align: center;
-  line-height: 25px;
+const StLinkNav = styled.div`
+  color: #828282;
+  color: ${({ isClicked }) => isClicked && '#fff'};
 `;
 const StCommentWrapper = styled.div`
   position: relative;
