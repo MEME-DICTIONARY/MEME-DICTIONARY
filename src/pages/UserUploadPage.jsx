@@ -118,10 +118,8 @@ export default function UserUploadPage() {
         return;
       }
       handlePostWordMeme();
-      console.log(wordMeme);
       navigator('/main');
     } else {
-      console.log(imageMeme);
       const formData = new FormData();
       formData.append('file', imageMeme.file);
       navigator('/main');

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
 import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
-import { ReactComponent as Report } from 'assets/img/detailPage/report.svg';
+import { default as icReport } from '../assets/img/icon_report.svg';
+import Comment from '../component/detailpage/Comment';
 
 function DetailPage() {
   const [imghashtag] = useState(['#무야호', '#무한도전']);
@@ -17,24 +18,22 @@ function DetailPage() {
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
+    console.log(data);
     setDetailInfo(data);
     addWordLike(data.likes);
     addWordBookMark(data.bookmark_cnt);
-    console.log(data);
   };
 
-  const handleLikeButton = async () => {
-    const { data } = await postDetailLikes(params.postId);
-    console.log(data);
+  const onClickLikeButton = async () => {
+    await postDetailLikes(params.postId);
   };
 
-  const handleBookMarkButton = async () => {
-    const { data } = await postDetailBookMark(params.postId);
-    console.log(data);
+  const onClickBookMarkButton = async () => {
+    await postDetailBookMark(params.postId);
   };
+
   useEffect(() => {
     handleDetailPage();
-    handleBookMarkButton();
   }, []);
 
   return (
@@ -58,7 +57,8 @@ function DetailPage() {
 
           <StHashtagWrapper>
             <StHashTag>{detailInfo.keyw}</StHashTag>
-            <StHashTag>{detailInfo.keyww}</StHashTag>
+            {detailInfo.keyww && <StHashTag>{detailInfo.keyww}</StHashTag>}
+            {detailInfo.keywww && <StHashTag>{detailInfo.keywww}</StHashTag>}
           </StHashtagWrapper>
 
           <StButtonWrapper>
@@ -68,16 +68,18 @@ function DetailPage() {
                 alt="좋아요"
                 onClick={() => {
                   addWordLike(wordLike + 1);
-                  handleLikeButton();
+                  onClickLikeButton();
                 }}
               ></StButtonImg>
               {wordLike}
             </StBottomBtn>
 
             <StBottomBtn>
-              <Report
-                width="10"
-                height="10"
+              <img
+                src={icReport}
+                alt="신고하기"
+                width="30"
+                height="30"
                 onClick={() => {
                   addWordWarning(wordWarning + 1);
                 }}
@@ -92,17 +94,13 @@ function DetailPage() {
                 alt="북마크"
                 onClick={() => {
                   addWordBookMark(wordBookMark + 1);
-                  handleLikeButton();
+                  onClickBookMarkButton();
                 }}
               ></StBookMarkImg>
               {wordBookMark}
             </StBottomBtn>
           </StButtonWrapper>
-          <StReplyWrapper>
-            <StCommentTitle>댓글 3개</StCommentTitle>
-            <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
-            <StCommentBtn>등록</StCommentBtn>
-          </StReplyWrapper>
+          <Comment />
         </StWordWrapper>
       ) : (
         <>
@@ -151,11 +149,7 @@ function DetailPage() {
             </StButtonWrapper>
           </StImgWrapper>
 
-          <StReplyWrapper>
-            <StCommentTitle>댓글 3개</StCommentTitle>
-            <StComment type="text" placeholder="로그인 후 이용 가능합니다."></StComment>
-            <StCommentBtn>등록</StCommentBtn>
-          </StReplyWrapper>
+          <Comment />
         </>
       )}
     </>
@@ -172,13 +166,9 @@ const StWordWrapper = styled.div`
 const StWordInfo = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
-
-const StWordInfoWrapper = styled.div`
-  display: flex;
-  align-content: space-between;
-`;
-
 const StTitle = styled.h1`
   color: white;
   text-align: center;
@@ -186,20 +176,21 @@ const StTitle = styled.h1`
   font-size: 45px;
   margin: 50px;
 `;
+const FlexGap40 = styled.div`
+  display: flex;
+  gap: 40px;
+`;
+const StWordInfoWrapper = styled(FlexGap40)``;
+const StExampleWrapper = styled(FlexGap40)``;
 
 const CommonH2 = styled.h2`
   font-size: 30px;
   font-weight: bold;
-  padding-right: 40px;
   color: white;
 `;
 
 const StWordMeaning = styled(CommonH2)``;
 const StWordExample = styled(CommonH2)``;
-
-const StExampleWrapper = styled.div`
-  display: flex;
-`;
 
 const StWordContent = styled.p`
   font-size: 30px;
@@ -208,6 +199,8 @@ const StWordContent = styled.p`
   width: 900px;
   margin-bottom: 0;
   margin-top: -5px;
+  letter-spacing: 1px;
+  line-height: 30px;
 `;
 
 const StHashtagWrapper = styled.div`
@@ -237,7 +230,9 @@ const StButtonWrapper = styled.div`
   margin: 0 6px 19px 0;
 `;
 const StBottomBtn = styled.button`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70px;
   height: 40px;
   border-radius: 75px;
@@ -274,37 +269,5 @@ const StImgContent = styled.p`
   font-size: 25px;
   margin-bottom: 110px;
   color: white;
-`;
-
-const StReplyWrapper = styled.div`
-  border-top: 1px solid white;
-  padding: 20px;
-  width: 97%;
-  display: flex;
-  justify-content: space-evenly;
-`;
-
-const StCommentTitle = styled.h3`
-  color: white;
-  position: relative;
-  left: 50px;
-  top: 10px;
-`;
-
-const StComment = styled.input`
-  position: relative;
-  padding-left: 10px;
-  left: -60px;
-  height: 30px;
-  width: 800px;
-  border-radius: 30px;
-`;
-
-const StCommentBtn = styled.button`
-  position: relative;
-  padding-bottom: 20px;
-  height: 20px;
-  right: 270px;
-  top: 5px;
 `;
 export default DetailPage;
