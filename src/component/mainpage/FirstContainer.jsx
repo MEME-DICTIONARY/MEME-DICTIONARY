@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { default as icSearch } from '../../assets/img/icon_search.svg';
 
 function FirstContainer({ hashTagList }) {
   const navigator = useNavigate();
@@ -30,10 +31,9 @@ function FirstContainer({ hashTagList }) {
           onKeyDown={onEnterPress}
         />
         <StSearchIconWrapper>
-          <AiOutlineSearch
-            className="search__icon"
-            size="50"
-            color="#828282"
+          <img
+            src={icSearch}
+            alt="검색"
             onClick={() => {
               input && navigator(`/search/result/${input}`);
             }}
@@ -94,6 +94,9 @@ const StSearchBarInput = styled.input`
 `;
 
 const StSearchIconWrapper = styled.div`
+  & > img {
+    padding-right: 30px;
+  }
   &:hover {
     cursor: pointer;
   }

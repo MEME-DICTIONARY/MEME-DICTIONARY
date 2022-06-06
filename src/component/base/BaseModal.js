@@ -9,9 +9,9 @@ function BaseModal(props) {
           <ModalContent>
             <p>{props.content}</p>
             <span onClick={props.hideModal}>X</span>
-            {props.withdrawal && (
+            {props.check && (
               <div className="withdrawal__check">
-                <a href="/main">예</a>
+                <p onClick={props.onClickYes}>예</p>
                 <p>아니오</p>
               </div>
             )}

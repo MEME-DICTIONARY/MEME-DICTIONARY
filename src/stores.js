@@ -14,3 +14,9 @@ export const tokenState = atom({
   default:'',
   effects_UNSTABLE:[persistAtom],
 })
+
+export const passwordState = atom({
+  key:'password',
+  default:'',
+  effects_UNSTABLE:[persistAtom],
+})

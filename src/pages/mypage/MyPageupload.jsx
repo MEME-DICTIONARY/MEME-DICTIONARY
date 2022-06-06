@@ -43,24 +43,23 @@ function MyPageupload() {
       <Header />
       <StMyPageWrapper>
         <StMyPageListWrapper>
-          <StMyPageList>
-            <StMyPageLink href="/mypage/upload"> 등록한 글 </StMyPageLink>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/bookmark"> 나의 활동 </StMyPageNonSelectLink>
-            <StMyPageListChild>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/bookmark"> 북마크</StMyPageNonSelectLink>
-              </li>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/comment"> 댓글</StMyPageNonSelectLink>
-              </li>
-            </StMyPageListChild>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/pw"> 비밀번호 수정</StMyPageNonSelectLink>
-          </StMyPageList>
+          <Link to="/mypage/upload">
+            <StLinkNav isClicked={true}>등록한글 </StLinkNav>
+          </Link>
+          <StMyActivityWrapper>
+            <div>나의 활동</div>
+            <Link to="/mypage/bookmark">
+              <StLinkNav>북마크</StLinkNav>
+            </Link>
+            <Link to="/mypage/comment">
+              <StLinkNav> 댓글</StLinkNav>
+            </Link>
+          </StMyActivityWrapper>
+          <Link to="/mypage/pw">
+            <StLinkNav>비밀번호 수정</StLinkNav>
+          </Link>
         </StMyPageListWrapper>
+
         <StMemeInfoWrapper>
           <StTypeNav>
             <StNavList
@@ -111,40 +110,28 @@ const StMyPageWrapper = styled.div`
   z-index: 1;
   width: 100%;
 `;
+const StMyActivityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  & > div {
+    color: #828282;
+    font-weight: bold;
+  }
+`;
 const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #fff;
   width: 190px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-`;
-
-const StMyPageList = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding-top: 150px;
   align-items: center;
-  background-color: #232332;
-  font-size: large;
-  list-style: none;
-  padding: 100px 10px 0 10px;
+  gap: 50px;
 `;
-
-const StMyPageLink = styled.a`
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-`;
-const StMyPageNonSelectLink = styled.a`
-  text-decoration: none;
-  color: gray;
-`;
-const StMyPageListChild = styled.ul`
-  background-color: #232332;
-  list-style: none;
-  padding-top: 10px;
-  text-align: center;
-  line-height: 25px;
+const StLinkNav = styled.div`
+  color: #828282;
+  color: ${({ isClicked }) => isClicked && '#fff'};
 `;
 
 const StTypeNav = styled.nav`

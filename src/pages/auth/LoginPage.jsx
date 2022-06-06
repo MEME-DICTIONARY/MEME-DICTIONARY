@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { postLogin } from 'api/auth';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { isLoginState, tokenState } from '../../stores';
+import { useSetRecoilState } from 'recoil';
+import { isLoginState, tokenState, passwordState } from '../../stores';
 
 import AccountSection from 'component/authpage/AccountSection';
 import BaseButton from 'component/base/BaseButton';
@@ -16,7 +16,7 @@ function LoginPage() {
   const [modalContents, setModalContents] = useState('');
   const setToken = useSetRecoilState(tokenState);
   const setIsLogin = useSetRecoilState(isLoginState);
-  const isLogin = useRecoilState(isLoginState)[0];
+  const setUserPassword = useSetRecoilState(passwordState);
 
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ function LoginPage() {
     });
     if (response !== null) {
       setIsLogin(true);
+      setUserPassword(password);
       setToken(response.data.token);
       navigate('/main');
     } else {
