@@ -40,8 +40,8 @@ export const getMyPageComment = async (token) => {
 
 export const postChangePassword = async (body) => {
   try {
-    const { data } = await API.get(
-      `${PREFIX_URL}/change-pwd`,{
+    const { data } = await API.post(
+      `${PREFIX_URL}/chage-pwd`,{
         oldPassword:body.oldPassword,
         newPassword:body.newPassword,
       }

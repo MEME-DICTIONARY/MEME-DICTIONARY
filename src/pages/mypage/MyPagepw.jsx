@@ -31,7 +31,6 @@ function MyPagepw() {
       setModalContents('빈 칸을 모두 입력해주세요.');
     } else {
       if (oldPW !== currentPW) {
-        console.log(currentPW);
         setShowModal(true);
         setIsVerified(false);
         setModalContents('현재 비밀번호와 일치하지 않습니다.');
