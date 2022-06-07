@@ -23,8 +23,12 @@ function DetailPage() {
     postComment(e.target.value);
   };
 
+  const onReset = () => {
+    postComment('');
+  };
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
+
     setDetailInfo(data);
     addWordLike(data.likes);
     addWordBookMark(data.bookmark_cnt);
@@ -35,6 +39,7 @@ function DetailPage() {
         created_date: res.created_date,
       }))
     );
+
     console.log(data);
   };
 
@@ -47,6 +52,7 @@ function DetailPage() {
     const { data } = await postDetailComment(token, params.postId, {
       content: postedComment,
     });
+    handleDetailPage();
     console.log(data);
   };
 
@@ -116,7 +122,7 @@ function DetailPage() {
             </StBottomBtn>
           </StButtonWrapper>
           <StReplyWrapper>
-            <StCommentTitle>댓글 3개</StCommentTitle>
+            <StCommentTitle>댓글 {comment.length}</StCommentTitle>
             <StComment
               type="text"
               placeholder="  로그인 후 이용 가능합니다."
@@ -126,17 +132,19 @@ function DetailPage() {
             <StCommentBtn
               onClick={() => {
                 handleCommentButton();
+                onReset();
               }}
             >
               등록
             </StCommentBtn>
           </StReplyWrapper>
           <StCommentWrapper>
-            {comment.map((result) => (
+            {comment.map((result, index) => (
               <StCommentWrapper>
-                <StCommentID>{result.id}</StCommentID>
+                <StCommentID>익명 {index}</StCommentID>
                 <StCommentContent>{result.content}</StCommentContent>
                 <StCommentDate>{result.created_date}</StCommentDate>
+                <hr></hr>
               </StCommentWrapper>
             ))}
           </StCommentWrapper>
@@ -356,8 +364,11 @@ const StCommentID = styled.div`
 const StCommentContent = styled.div`
   color: white;
   padding-bottom: 10px;
+  font-size: small;
 `;
 const StCommentDate = styled.div`
   color: white;
+
+  font-size: x-small;
 `;
 export default DetailPage;

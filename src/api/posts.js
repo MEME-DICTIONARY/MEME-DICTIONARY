@@ -45,7 +45,7 @@ export const postDetailLikes = async (id) => {
 export const postDetailComment = async (token, id, body) => {
   try {
     const { data } = await API.post(
-      `${PREFIX_URL}/${id}/comments`,
+      `${PREFIX_URL}/${id}/comment`,
       { content: `${body.content}` },
       (API.defaults.headers.common['Authorization'] = `Bearer ${token}`)
     );

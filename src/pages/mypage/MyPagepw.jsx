@@ -1,82 +1,157 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { passwordState } from 'stores';
 import Header from 'component/Header';
 import BaseModal from 'component/base/BaseModal';
 import styled from 'styled-components';
+import { postChangePassword } from '../../api/mypage';
+import { useNavigate, Link } from 'react-router-dom';
+import { postExit } from '../../api/exit';
+import { tokenState } from 'stores';
 
 function MyPagepw() {
+  const token = useRecoilState(tokenState)[0];
+  let navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
+  const [oldPW, setOldPW] = useState('');
   const [newPW, setnewPW] = useState('');
   const [verifyNewPW, setVerifyNewPw] = useState('');
+  const currentPW = useRecoilState(passwordState)[0];
+  const setNewPassword = useSetRecoilState(passwordState);
+
+  const [isVerified, setIsVerified] = useState(false);
 
   function quitModalOpen() {
     setShowModal(true);
     setModalContents('정말 탈퇴하시겠습니까?');
   }
 
-  function pwChangeModalOpen() {
-    if (newPW.length < 5) {
+  const checkPassword = () => {
+    if (oldPW === '' || newPW === '' || verifyNewPW === '') {
       setShowModal(true);
-      setModalContents('비밀번호는 5글자 이상이어야 합니다.');
-    } else if (newPW.length >= 5 && newPW === verifyNewPW) {
-      setShowModal(true);
-      setModalContents('정말 변경하시겠습니까?');
-    } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
-      setShowModal(true);
-      setModalContents('비밀번호가 일치하지 않습니다');
+      setIsVerified(false);
+      setModalContents('빈 칸을 모두 입력해주세요.');
+    } else {
+      if (oldPW !== currentPW) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('현재 비밀번호와 일치하지 않습니다.');
+      } else if (newPW === oldPW) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('기존 비밀번호와 같습니다.');
+      } else if (newPW.length < 5) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('비밀번호는 5글자 이상이어야 합니다.');
+      } else if (newPW.length >= 5 && newPW === verifyNewPW) {
+        setShowModal(true);
+        setIsVerified(true);
+        setModalContents('정말 변경하시겠습니까?');
+      } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
+        setShowModal(true);
+        setIsVerified(false);
+        setModalContents('비밀번호가 일치하지 않습니다');
+      }
     }
-  }
-
-  const handleNewPassword = (e) => {
-    setnewPW(e.target.value);
   };
 
+  const handleChangePassword = async () => {
+    const res = await postChangePassword({ oldPassword: oldPW, newPassword: newPW });
+    if (res) {
+      setNewPassword(newPW);
+      navigate('/mypage/upload');
+    }
+  };
+
+  const handleUserExit = async () => {
+    const { data } = await postExit(token);
+    console.log(data);
+  };
   return (
     <>
       <Header />
-      <BaseModal
-        hidden={!showModal}
-        content={modalContents}
-        hideModal={() => {
-          setShowModal(false);
-        }}
-        withdrawal={newPW === verifyNewPW && true}
-      />
+
+      {isVerified ? (
+        <BaseModal
+          hidden={!showModal}
+          content={modalContents}
+          hideModal={() => {
+            setShowModal(false);
+          }}
+          check={newPW === verifyNewPW}
+          onClickYes={handleChangePassword}
+        />
+      ) : (
+        <BaseModal
+          hidden={!showModal}
+          content={modalContents}
+          hideModal={() => {
+            setShowModal(false);
+          }}
+        />
+      )}
+
       <StMyPageWrapper>
         <StMyPageListWrapper>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/upload"> 등록한글 </StMyPageNonSelectLink>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/bookmark"> 나의 활동 </StMyPageNonSelectLink>
-            <StMyPageListChild>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/bookmark"> 북마크</StMyPageNonSelectLink>
-              </li>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/comment"> 댓글</StMyPageNonSelectLink>
-              </li>
-            </StMyPageListChild>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageLink href="/mypage/pw"> p/w 수정</StMyPageLink>
-          </StMyPageList>
+          <Link to="/mypage/upload">
+            <StLinkNav>등록한글 </StLinkNav>
+          </Link>
+          <StMyActivityWrapper>
+            <div>나의 활동</div>
+            <Link to="/mypage/bookmark">
+              <StLinkNav>북마크</StLinkNav>
+            </Link>
+            <Link to="/mypage/comment">
+              <StLinkNav> 댓글</StLinkNav>
+            </Link>
+          </StMyActivityWrapper>
+          <Link to="/mypage/pw">
+            <StLinkNav isClicked={true}>비밀번호 수정</StLinkNav>
+          </Link>
         </StMyPageListWrapper>
 
         <StPwContainer>
-          <StMyPagePw>현재 비밀번호</StMyPagePw>
-          <StPwInput type="text"></StPwInput>
-          <StMyPagePw>비밀번호 수정</StMyPagePw>
-          <StPwInput type="text" value={newPW} onChange={handleNewPassword} />
-          <StMyPagePw>비밀번호 확인</StMyPagePw>
+          <h3>현재 비밀번호</h3>
+          <StPwInput
+            type="text"
+            value={oldPW}
+            onChange={(e) => {
+              setOldPW(e.target.value);
+            }}
+          ></StPwInput>
+          <h3>비밀번호 수정</h3>
+          <StPwInput
+            type="text"
+            value={newPW}
+            onChange={(e) => {
+              setnewPW(e.target.value);
+            }}
+          />
+          <h3>비밀번호 확인</h3>
           <StPwInput
             type="text"
             value={verifyNewPW}
-            onChange={(e) => setVerifyNewPw(e.target.value)}
+            onChange={(e) => {
+              setVerifyNewPw(e.target.value);
+            }}
           />
-          <StChangeBtn onClick={pwChangeModalOpen}>변경</StChangeBtn>
-          <StMyPageDelete onClick={quitModalOpen}>회원탈퇴</StMyPageDelete>
+          <StChangeBtn
+            onClick={() => {
+              checkPassword();
+            }}
+          >
+            변경
+          </StChangeBtn>
+          <StMyPageDelete
+            onClick={() => {
+              quitModalOpen();
+              handleUserExit();
+            }}
+          >
+            회원탈퇴
+          </StMyPageDelete>
         </StPwContainer>
       </StMyPageWrapper>
     </>
@@ -92,43 +167,29 @@ const StMyPageWrapper = styled.div`
   top: 10%;
 `;
 
+const StMyActivityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  & > div {
+    color: #828282;
+    font-weight: bold;
+    color: ${({ isClicked }) => isClicked && '#fff'};
+  }
+`;
 const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid white;
-  top: 10px;
   width: 190px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-  height: 100vh;
+  padding-top: 150px;
+  align-items: center;
+  gap: 50px;
 `;
-
-const StMyPageList = styled.li`
-  position: relative;
-  top: 130px;
-  background-color: #232332;
-  font-size: large;
-  list-style: none;
-  padding-bottom: 130px;
-  padding-left: 30%;
-`;
-
-const StMyPageLink = styled.a`
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-`;
-const StMyPageNonSelectLink = styled.a`
-  text-decoration: none;
-  color: gray;
-`;
-const StMyPageListChild = styled.ul`
-  background-color: #232332;
-  list-style: none;
-  position: relative;
-  left: -25px;
-  padding-top: 10px;
-  text-align: center;
-  line-height: 25px;
+const StLinkNav = styled.div`
+  color: #828282;
+  color: ${({ isClicked }) => isClicked && '#fff'};
 `;
 
 const StPwContainer = styled.div`
@@ -137,15 +198,14 @@ const StPwContainer = styled.div`
   left: 10%;
   height: 500px;
   width: 1200px;
-`;
-
-const StMyPagePw = styled.h3`
-  width: 90%;
-  position: relative;
-  left: 70px;
-  top: 70px;
-  color: white;
-  margin-bottom: 10px;
+  & > h3 {
+    width: 90%;
+    position: relative;
+    left: 70px;
+    top: 70px;
+    color: white;
+    margin-bottom: 10px;
+  }
 `;
 const StPwInput = styled.input`
   position: relative;

@@ -1,33 +1,28 @@
 import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageComment } from '../../api/mypage';
-import { connect } from 'react-redux';
-import { useRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 import { tokenState } from 'stores';
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import React, { useState, useEffect } from 'react';
 
 function MyPagecomment() {
+  const token = useRecoilState(tokenState)[0];
   const [commentResults, setCommentResults] = useState([]);
 
   useEffect(() => {
-    handleComment();
-  });
+    let param = {};
+    param = {
+      page: 0,
+    };
+    handleUploadComment(param);
+  }, []);
 
-  const token = useRecoilState(tokenState)[0];
+  const handleUploadComment = async (parameter) => {
+    console.log(token);
+    const { data } = await getMyPageComment(parameter, token);
 
-  const handleComment = async () => {
-    const { data } = await getMyPageComment(token);
-    setResults(data);
-  };
-
-  const setResults = (data) => {
-    setCommentResults(
-      data.content.map((res) => ({
-        title: res.title,
-        content: res.content,
-        created_date: res.created_date,
-      }))
-    );
+    setCommentResults(data.content);
   };
 
   return (
@@ -35,40 +30,32 @@ function MyPagecomment() {
       <Header />
       <StMyPageWrapper>
         <StMyPageListWrapper>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/upload"> 등록한글 </StMyPageNonSelectLink>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageLink href="/mypage/bookmark"> 나의 활동 </StMyPageLink>
-            <StMyPageListChild>
-              <li>
-                <StMyPageNonSelectLink href="/mypage/bookmark"> 북마크</StMyPageNonSelectLink>
-              </li>
-              <li>
-                <StMyPageLink href="/mypage/comment"> 댓글</StMyPageLink>
-              </li>
-            </StMyPageListChild>
-          </StMyPageList>
-          <StMyPageList>
-            <StMyPageNonSelectLink href="/mypage/pw"> p/w 수정</StMyPageNonSelectLink>
-          </StMyPageList>
+          <Link to="/mypage/upload">
+            <StLinkNav>등록한글 </StLinkNav>
+          </Link>
+          <StMyActivityWrapper isClicked={true}>
+            <div>나의 활동</div>
+            <Link to="/mypage/bookmark">
+              <StLinkNav>북마크</StLinkNav>
+            </Link>
+            <Link to="/mypage/comment">
+              <StLinkNav isClicked={true}> 댓글</StLinkNav>
+            </Link>
+          </StMyActivityWrapper>
+          <Link to="/mypage/pw">
+            <StLinkNav>비밀번호 수정</StLinkNav>
+          </Link>
         </StMyPageListWrapper>
+
         <StCommentWrapper>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
+          {!commentResults.length && <div>등록한 댓글이 없습니다.</div>}
+          {commentResults.map((result) => (
+            <StCommentItem>
+              <StCommentTitle>{result.title} 페이지에 달린 댓글</StCommentTitle>
+              <StCommentContent>{result.content}</StCommentContent>
+              <StCommentTime>{result.created_date}</StCommentTime>
+            </StCommentItem>
+          ))}
         </StCommentWrapper>
       </StMyPageWrapper>
     </>
@@ -76,58 +63,43 @@ function MyPagecomment() {
 }
 
 const StMyPageWrapper = styled.div`
-  position: relative;
   display: grid;
   grid-template-columns: 150px 1fr;
   z-index: 1;
-  height: 100%;
-  top: 10%;
+  width: 100%;
+`;
+const StMyActivityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  & > div {
+    color: #828282;
+    font-weight: bold;
+    color: ${({ isClicked }) => isClicked && '#fff'};
+  }
 `;
 const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid white;
-  top: 10px;
   width: 190px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
-  height: 100vh;
+  padding-top: 150px;
+  align-items: center;
+  gap: 50px;
 `;
-
-const StMyPageList = styled.li`
-  position: relative;
-  top: 130px;
-  background-color: #232332;
-  font-size: large;
-  list-style: none;
-  padding-bottom: 130px;
-  padding-left: 30%;
-`;
-
-const StMyPageLink = styled.a`
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-`;
-const StMyPageNonSelectLink = styled.a`
-  text-decoration: none;
-  color: gray;
-`;
-const StMyPageListChild = styled.ul`
-  background-color: #232332;
-  list-style: none;
-  position: relative;
-  left: -25px;
-  padding-top: 10px;
-  text-align: center;
-  line-height: 25px;
+const StLinkNav = styled.div`
+  color: #828282;
+  color: ${({ isClicked }) => isClicked && '#fff'};
 `;
 const StCommentWrapper = styled.div`
-  position: relative;
-  left: 150px;
-  top: 150px;
-  height: 500px;
-  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 50px 30px 100px;
+  margin-top: 70px;
 `;
+
+const StCommentItem = styled.div``;
 
 const StCommentTitle = styled.p`
   margin-bottom: 10px;
@@ -140,7 +112,7 @@ const StCommentTitle = styled.p`
   height: 30px;
 `;
 const StCommentContent = styled.p`
-  margin-bottom: 0;
+  margin-bottom: 10px;
   width: 90%;
   color: white;
   position: relative;
@@ -156,4 +128,3 @@ const StCommentTime = styled.p`
   left: 50px;
 `;
 export default MyPagecomment;
-connect(mapStateToProps, null)(MyPagecomment);
