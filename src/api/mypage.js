@@ -2,10 +2,10 @@ import { API } from './index';
 
 const PREFIX_URL = '/mypage';
 
-export const getMyPageUpload = async (token, type) => {
+export const getMyPageUpload = async (token, params) => {
   try {
     const { data } = await API.get(
-      `${PREFIX_URL}/posts?type=${type}`,
+      `${PREFIX_URL}/posts?type=${params.type}`,
       (API.defaults.headers.common['Authorization'] = `Bearer ${token}`)
     );
     return { data };

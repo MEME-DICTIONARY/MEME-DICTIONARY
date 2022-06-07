@@ -31,15 +31,33 @@ function MyPageupload() {
   });
 
   const handleUploadMeme = async () => {
-    console.log(token);
-    const { data } = await getMyPageUpload(token, '단어');
-
-    console.log(data);
-
-    setWordResults(data);
-    console.log(wordResults);
+    const param = {
+      type: params.type,
+    };
+    const { data } = await getMyPageUpload(token, param);
+    setResults(data);
   };
 
+  const setResults = (data) => {
+    if (params.type === 'word') {
+      setWordResults(
+        data.content.map((res) => ({
+          file_id: res.file_id,
+          title: res.title,
+          description: res.description,
+        }))
+      );
+    } else {
+      setImgResults(
+        data.content.map((res) => ({
+          file_id: res.file_id,
+          title: res.title,
+          description: res.description,
+          url: require('assets/img/detailPage/무야호.png'),
+        }))
+      );
+    }
+  };
   return (
     <>
       <Header />
@@ -74,20 +92,27 @@ function MyPageupload() {
             </button>
           </StBtnContainer>
           <div className={content[0]}>
+            {wordResults.length === 0 && (
+              <div
+                style={{
+                  display: 'flex',
+                  height: 'calc(100vh/2)',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  color: 'white',
+                }}
+              >
+                업로드한 게시물이 없습니다.
+              </div>
+            )}
             {wordResults.map((result) => (
-              <Link to={'/detail/word/'}>
-                <StWordItem key={result.file_id}>
-                  {result.title}
-                  {result.description}
+              <Link to={`/detail/word/${result.file_id}`} key={result.file_id}>
+                <StWordItem>
+                  <StWordTitle>{result.title}</StWordTitle>
+                  <StWordContent>{result.description}</StWordContent>
                 </StWordItem>
               </Link>
             ))}
-            <hr />
-            <StWordTitle>어쩔티비</StWordTitle>
-            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
-            <hr />
-            <StWordTitle>어쩔티비</StWordTitle>
-            <StWordContent>"어쩌라고 티비나봐"의 줄임말</StWordContent>
           </div>
 
           <div className={content[1]}>

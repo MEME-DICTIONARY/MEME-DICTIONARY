@@ -2,24 +2,39 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
-import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
-import { ReactComponent as Report } from 'assets/img/detailPage/report.svg';
+import { getDetailContent, postDetailComment, postDetailLikes } from '../api/posts';
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
 
 function DetailPage() {
+  const token = useRecoilState(tokenState)[0];
   const [imghashtag] = useState(['#무야호', '#무한도전']);
 
   const [wordLike, addWordLike] = useState(null);
   const [wordWarning, addWordWarning] = useState(null);
   const [wordBookMark, addWordBookMark] = useState(null);
   const [detailInfo, setDetailInfo] = useState(null);
+  const [comment, setComment] = useState([]);
+  const [postedComment, postComment] = useState('');
 
   let params = useParams();
+
+  const handleComment = (e) => {
+    postComment(e.target.value);
+  };
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
     setDetailInfo(data);
     addWordLike(data.likes);
     addWordBookMark(data.bookmark_cnt);
+    setComment(
+      data.comments.map((res) => ({
+        id: res.id,
+        content: res.content,
+        created_date: res.created_date,
+      }))
+    );
     console.log(data);
   };
 
@@ -28,13 +43,15 @@ function DetailPage() {
     console.log(data);
   };
 
-  const handleBookMarkButton = async () => {
-    const { data } = await postDetailBookMark(params.postId);
+  const handleCommentButton = async () => {
+    const { data } = await postDetailComment(token, params.postId, {
+      content: postedComment,
+    });
     console.log(data);
   };
+
   useEffect(() => {
     handleDetailPage();
-    handleBookMarkButton();
   }, []);
 
   return (
@@ -74,15 +91,15 @@ function DetailPage() {
               {wordLike}
             </StBottomBtn>
 
-            <StBottomBtn>
-              <Report
-                width="10"
-                height="10"
-                onClick={() => {
-                  addWordWarning(wordWarning + 1);
-                }}
-              />
-
+            <StBottomBtn
+              onClick={() => {
+                addWordWarning(wordWarning + 1);
+              }}
+            >
+              <StButtonImg
+                src={require('assets/img/detailPage/report.png')}
+                alt="신고"
+              ></StButtonImg>
               {wordWarning}
             </StBottomBtn>
 
@@ -100,9 +117,29 @@ function DetailPage() {
           </StButtonWrapper>
           <StReplyWrapper>
             <StCommentTitle>댓글 3개</StCommentTitle>
-            <StComment type="text" placeholder="  로그인 후 이용 가능합니다."></StComment>
-            <StCommentBtn>등록</StCommentBtn>
+            <StComment
+              type="text"
+              placeholder="  로그인 후 이용 가능합니다."
+              value={postedComment}
+              onChange={handleComment}
+            />
+            <StCommentBtn
+              onClick={() => {
+                handleCommentButton();
+              }}
+            >
+              등록
+            </StCommentBtn>
           </StReplyWrapper>
+          <StCommentWrapper>
+            {comment.map((result) => (
+              <StCommentWrapper>
+                <StCommentID>{result.id}</StCommentID>
+                <StCommentContent>{result.content}</StCommentContent>
+                <StCommentDate>{result.created_date}</StCommentDate>
+              </StCommentWrapper>
+            ))}
+          </StCommentWrapper>
         </StWordWrapper>
       ) : (
         <>
@@ -250,7 +287,7 @@ const StButtonImg = styled.img`
 `;
 
 const StBookMarkImg = styled.img`
-  margin-bottom: -5px;
+  margin-bottom: -7px;
   width: 30px;
   height: 30px;
 `;
@@ -306,5 +343,21 @@ const StCommentBtn = styled.button`
   height: 20px;
   right: 270px;
   top: 5px;
+`;
+
+const StCommentWrapper = styled.div`
+  width: 900px;
+`;
+
+const StCommentID = styled.div`
+  color: white;
+  padding-bottom: 10px;
+`;
+const StCommentContent = styled.div`
+  color: white;
+  padding-bottom: 10px;
+`;
+const StCommentDate = styled.div`
+  color: white;
 `;
 export default DetailPage;

@@ -2,12 +2,34 @@ import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageComment } from '../../api/mypage';
 import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => {
-  return state;
-};
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
+import { useEffect, useState } from 'react';
 
 function MyPagecomment() {
+  const [commentResults, setCommentResults] = useState([]);
+
+  useEffect(() => {
+    handleComment();
+  });
+
+  const token = useRecoilState(tokenState)[0];
+
+  const handleComment = async () => {
+    const { data } = await getMyPageComment(token);
+    setResults(data);
+  };
+
+  const setResults = (data) => {
+    setCommentResults(
+      data.content.map((res) => ({
+        title: res.title,
+        content: res.content,
+        created_date: res.created_date,
+      }))
+    );
+  };
+
   return (
     <>
       <Header />
