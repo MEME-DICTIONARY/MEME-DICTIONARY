@@ -52,7 +52,7 @@ function FirstContainer({ hashTagList }) {
 //첫 번째 컨테이너
 const StWrapper = styled.div`
   background-color: #232332;
-  height: 820px;
+  height: 720px;
   padding: 0 175px;
   display: flex;
   flex-direction: column;

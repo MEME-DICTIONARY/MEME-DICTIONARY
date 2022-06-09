@@ -22,9 +22,10 @@ export default function ImageCarousel() {
   );
 }
 const StImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   & > img {
-    width: 500px;
-    height: 300px;
+    height: 400px;
     object-fit: cover;
   }
 `;

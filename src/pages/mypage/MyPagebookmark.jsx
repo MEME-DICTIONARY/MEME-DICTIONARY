@@ -121,6 +121,7 @@ const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   width: 190px;
+  height: 100vh;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
   padding-top: 150px;
   align-items: center;

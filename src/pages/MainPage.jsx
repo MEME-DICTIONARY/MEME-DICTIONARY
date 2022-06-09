@@ -12,7 +12,7 @@ export default function MainPage() {
 
   useEffect(() => {
     fetchWordRankingList();
-    setHashTagList(['#어쩔티비', '#관짝춤', '#신기방기뿡뿡방기']);
+    setHashTagList(['#라고할뻔', '#무~야호', '#신기방기뿡뿡방기']);
   }, []);
 
   const fetchWordRankingList = async () => {
