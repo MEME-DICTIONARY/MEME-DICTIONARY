@@ -91,7 +91,6 @@ const StSearchBarInput = styled.input`
   &::placeholder {
     color: #828282;
     letter-spacing: 1.5px;
-    /* font-weight: 700; */
   }
 `;
 
