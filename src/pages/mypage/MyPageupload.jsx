@@ -76,7 +76,7 @@ function MyPageupload() {
           </StTypeNav>
           {isWordClicked ? (
             <StMyPageWordWrapper>
-              {!wordResults.length && <div>등록한 MEME이 없습니다!</div>}
+              {!wordResults.length && <p>등록한 단어 MEME이 없습니다!</p>}
               {wordResults.map((result) => (
                 <Link to={`/detail/word/${result.id}`} key={result.id}>
                   <StWordItem>
@@ -87,8 +87,8 @@ function MyPageupload() {
               ))}
             </StMyPageWordWrapper>
           ) : (
-            <>
-              {!imgResults.length && <div>등록한 MEME이 없습니다!</div>}
+            <StMyPageWordWrapper>
+              {!imgResults.length && <p>등록한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
                 <StMyPageImgWrapper
                   key={result.id}
@@ -96,7 +96,7 @@ function MyPageupload() {
                   alt="짤"
                 ></StMyPageImgWrapper>
               ))}
-            </>
+            </StMyPageWordWrapper>
           )}
         </StMemeInfoWrapper>
       </StMyPageWrapper>
@@ -162,7 +162,16 @@ const StMemeInfoWrapper = styled.div`
   margin: 0 50px 30px 100px;
 `;
 const StMyPageWordWrapper = styled.div`
-  margin-left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 70px 0 0 50px;
+  text-align: center;
+  & > p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+  }
 `;
 
 const StWordItem = styled.li`

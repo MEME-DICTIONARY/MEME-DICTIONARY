@@ -45,7 +45,9 @@ function RankingContainer({ wordRankingList, onClick }) {
       <StContainer section="third">
         <LeftSideContainer title={thirdTitle} description={thirdDescription} />
 
-        <ImageCarousel />
+        <StImageCarousel>
+          <ImageCarousel />
+        </StImageCarousel>
       </StContainer>
     </>
   );
@@ -110,14 +112,11 @@ const StUpdateButton = styled.button`
   align-items: center;
   background: none;
   border: none;
-  color: #828282;
+  color: #3f2a2a;
 `;
 
-// const StRightSideOfThirdContainer = styled.article`
-//   background-color: #232332;
-//   & img {
-//     width: 514px;
-//   }
-// `;
+const StImageCarousel = styled.div`
+  width: 514px;
+`;
 
 export default RankingContainer;
