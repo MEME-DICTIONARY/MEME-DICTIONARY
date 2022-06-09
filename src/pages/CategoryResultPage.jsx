@@ -10,25 +10,6 @@ function CategoryResultPage() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
-  const setResults = (data) => {
-    if (params.type === '단어') {
-      setWordResults(
-        data.content.map((res) => ({
-          id: res.id,
-          title: res.title,
-        }))
-      );
-    } else {
-      setImgResults(
-        data.content.map((res) => ({
-          id: res.id,
-          title: res.title,
-          url: require('../assets/img/sample.jpeg'),
-        }))
-      );
-    }
-  };
-
   useEffect(() => {
     //type만 파라미터로 넘겨준 경우
     if (params.category === undefined) {
@@ -39,8 +20,22 @@ function CategoryResultPage() {
             category: '',
           };
           const { data } = await getMemeWithCategory(param);
-
-          setResults(data);
+          if (params.type === '단어') {
+            setWordResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+              }))
+            );
+          } else {
+            setImgResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+                url: require('../assets/img/sample.jpeg'),
+              }))
+            );
+          }
         } catch (err) {
           return null;
         }
@@ -56,15 +51,29 @@ function CategoryResultPage() {
             category: params.category,
           };
           const { data } = await getMemeWithCategory(param);
-
-          setResults(data);
+          if (params.type === '단어') {
+            setWordResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+              }))
+            );
+          } else {
+            setImgResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+                url: require('../assets/img/sample.jpeg'),
+              }))
+            );
+          }
         } catch (err) {
           return null;
         }
       }
       handleGetMemeWithCategory();
     }
-  }, [params.category, params.type, setResults]);
+  }, [params.category, params.type, wordResults, imgResults]);
 
   return (
     <>

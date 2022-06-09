@@ -12,46 +12,44 @@ function SearchResultPage() {
   const [isWordClicked, setIsWordClicked] = useState(false);
 
   useEffect(() => {
-    handleGetMemeWithKeyword();
-  }, []);
-
-  useEffect(() => {
-    //용어 탭을 처음 누르는 경우
-    initWordMeme();
-  }, [wordResults]);
-
-  const initWordMeme = async () => {
-    if (!wordResults.length) {
+    async function handleGetMemeWithKeyword() {
       const param = {
         keyword: params.keyword,
-        type: '단어', //처음엔 짤로 초기화
+        type: '짤', //처음엔 짤로 초기화
       };
       const { data } = await getMemeWithKeyWord(param);
 
-      setWordResults(
+      setImgResults(
         data.content.map((res) => ({
           id: res.id,
           title: res.title,
+          url: require('../assets/img/sample.jpeg'),
         }))
       );
     }
-  };
+    handleGetMemeWithKeyword();
+  }, [params.keyword]);
 
-  const handleGetMemeWithKeyword = async () => {
-    const param = {
-      keyword: params.keyword,
-      type: '짤', //처음엔 짤로 초기화
-    };
-    const { data } = await getMemeWithKeyWord(param);
+  useEffect(() => {
+    //용어 탭을 처음 누르는 경우
+    async function initWordMeme() {
+      if (!wordResults.length) {
+        const param = {
+          keyword: params.keyword,
+          type: '단어', //처음엔 짤로 초기화
+        };
+        const { data } = await getMemeWithKeyWord(param);
 
-    setImgResults(
-      data.content.map((res) => ({
-        id: res.id,
-        title: res.title,
-        url: require('../assets/img/sample.jpeg'),
-      }))
-    );
-  };
+        setWordResults(
+          data.content.map((res) => ({
+            id: res.id,
+            title: res.title,
+          }))
+        );
+      }
+    }
+    initWordMeme();
+  }, [params.keyword, wordResults]);
 
   return (
     <>

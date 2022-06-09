@@ -28,11 +28,6 @@ function DetailPage() {
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
 
-  const handleDetailPage = async () => {
-    const { data } = await getDetailContent(params.postId);
-    setDetailInfo(data);
-  };
-
   const onClickLikeButton = async () => {
     await postDetailLikes(params.postId);
   };
@@ -68,8 +63,12 @@ function DetailPage() {
   };
 
   useEffect(() => {
+    async function handleDetailPage() {
+      const { data } = await getDetailContent(params.postId);
+      setDetailInfo(data);
+    }
     handleDetailPage();
-  }, []);
+  }, [detailInfo, params.postId]);
 
   return (
     <>

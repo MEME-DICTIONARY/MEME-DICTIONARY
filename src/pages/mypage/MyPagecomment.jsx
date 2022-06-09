@@ -15,14 +15,13 @@ function MyPagecomment() {
     param = {
       page: 0,
     };
+    async function handleUploadComment() {
+      const { data } = await getMyPageComment(param, token);
+
+      setCommentResults(data.content);
+    }
     handleUploadComment(param);
-  }, []);
-
-  const handleUploadComment = async (parameter) => {
-    const { data } = await getMyPageComment(parameter, token);
-
-    setCommentResults(data.content);
-  };
+  }, [token]);
 
   return (
     <>
@@ -52,7 +51,7 @@ function MyPagecomment() {
             <StCommentItem>
               <StCommentTitle>{result.title} 페이지에 달린 댓글</StCommentTitle>
               <StCommentContent>{result.content}</StCommentContent>
-              <StCommentTime>{result.created_date}</StCommentTime>
+              <StCommentTime>{result.created_date.replace('T', ' ')}</StCommentTime>
             </StCommentItem>
           ))}
         </StCommentWrapper>
@@ -105,11 +104,16 @@ const StCommentWrapper = styled.div`
   }
 `;
 
-const StCommentItem = styled.div``;
+const StCommentItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 const StCommentTitle = styled.p`
-  margin-bottom: 10px;
-  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   text-align: center;
   border-radius: 30px;
@@ -118,7 +122,6 @@ const StCommentTitle = styled.p`
   height: 30px;
 `;
 const StCommentContent = styled.p`
-  margin-bottom: 10px;
   margin-left: 20px;
   display: flex;
   justify-content: left;
@@ -133,5 +136,6 @@ const StCommentTime = styled.p`
   width: 90%;
   display: flex;
   justify-content: left;
+  align-items: center;
 `;
 export default MyPagecomment;
