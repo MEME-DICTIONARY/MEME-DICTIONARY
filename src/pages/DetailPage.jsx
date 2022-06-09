@@ -15,19 +15,28 @@ import {
 import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
 import { useRecoilState } from 'recoil';
-import { tokenState } from 'stores';
-import BaseModal from 'component/base/BaseModal';
+import { isLoginState, tokenState } from 'stores';
+import { getMyPageBookmark } from 'api/mypage';
 
 function DetailPage() {
   let navigate = useNavigate();
   let params = useParams();
+
   const token = useRecoilState(tokenState)[0];
+  const isLogin = useRecoilState(isLoginState)[0];
   const [detailInfo, setDetailInfo] = useState();
+  const [showModal, setShowModal] = useState(false);
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
+
     console.log(data);
     setDetailInfo(data);
+  };
+
+  const handleBookMark = async (parameter) => {
+    const res = await getMyPageBookmark(parameter, token);
+    console.log(res);
   };
 
   const onClickLikeButton = async () => {
@@ -35,7 +44,7 @@ function DetailPage() {
   };
 
   const onClickBookMarkButton = async () => {
-    await postDetailBookMark(params.postId);
+    await postDetailBookMark(token, params.postId);
   };
 
   const onClickReportButton = async () => {
@@ -64,6 +73,7 @@ function DetailPage() {
 
   useEffect(() => {
     handleDetailPage();
+    handleBookMark(params.type, token);
   }, []);
 
   return (
@@ -103,7 +113,6 @@ function DetailPage() {
               ></StButtonImg>
               {detailInfo.likes}
             </StBottomBtn>
-
             <StBottomBtn>
               <img
                 src={icReport}
@@ -119,15 +128,19 @@ function DetailPage() {
               {detailInfo.report}
             </StBottomBtn>
 
-            <StBottomBtn>
-              <StBookMarkImg
-                src={require('assets/img/detailPage/bookmark.png')}
-                alt="북마크"
-                onClick={() => {
-                  onClickBookMarkButton();
-                }}
-              ></StBookMarkImg>
-            </StBottomBtn>
+            {isLogin ? (
+              <StBottomBtn>
+                <StBookMarkImg
+                  src={require('assets/img/detailPage/bookmark.png')}
+                  alt="북마크"
+                  onClick={() => {
+                    setDetailInfo({ ...detailInfo, bookmark_cnt: detailInfo.bookmark_cnt + 1 });
+                    onClickBookMarkButton();
+                  }}
+                ></StBookMarkImg>
+                {detailInfo.bookmark_cnt}
+              </StBottomBtn>
+            ) : null}
           </StButtonWrapper>
           <Comment
             commentInfo={detailInfo && detailInfo.comments}

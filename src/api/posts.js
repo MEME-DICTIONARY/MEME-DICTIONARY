@@ -56,9 +56,10 @@ export const postDetailComment = async (token, id, body) => {
   }
 };
 
-export const postDetailBookMark = async (id) => {
+export const postDetailBookMark = async (token, id) => {
   try {
     const { data } = await API.post(`${PREFIX_URL}/${id}/bookmark`);
+    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return { data };
   } catch (err) {
     return null;
