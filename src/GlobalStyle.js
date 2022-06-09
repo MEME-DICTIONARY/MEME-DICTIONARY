@@ -23,8 +23,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
   input {
-    -webkit-appearance: none;
-    -webkit-border-radius: 0;
     &::placeholder{
             font-family: "Noto Sans KR", sans-serif;
         }

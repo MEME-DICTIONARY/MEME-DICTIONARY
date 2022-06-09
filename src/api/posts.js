@@ -64,3 +64,12 @@ export const postDetailBookMark = async (id) => {
     return null;
   }
 };
+
+export const postForbiddenWord = async (word) => {
+  try {
+    const { data } = await API.post('/forbidden', { word: word });
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};

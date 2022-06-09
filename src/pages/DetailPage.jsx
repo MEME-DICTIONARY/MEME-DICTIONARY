@@ -2,58 +2,27 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
-import { getDetailContent, postDetailComment, postDetailLikes } from '../api/posts';
-import { useRecoilState } from 'recoil';
-import { tokenState } from 'stores';
+import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
+import { default as icReport } from '../assets/img/icon_report.svg';
+import Comment from '../component/detailpage/Comment';
 
 function DetailPage() {
-  const token = useRecoilState(tokenState)[0];
-  const [imghashtag] = useState(['#무야호', '#무한도전']);
-
-  const [wordLike, addWordLike] = useState(null);
-  const [wordWarning, addWordWarning] = useState(null);
-  const [wordBookMark, addWordBookMark] = useState(null);
-  const [detailInfo, setDetailInfo] = useState(null);
-  const [comment, setComment] = useState([]);
-  const [postedComment, postComment] = useState('');
-
   let params = useParams();
 
-  const handleComment = (e) => {
-    postComment(e.target.value);
-  };
+  const [detailInfo, setDetailInfo] = useState();
 
-  const onReset = () => {
-    postComment('');
-  };
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
 
     setDetailInfo(data);
-    addWordLike(data.likes);
-    addWordBookMark(data.bookmark_cnt);
-    setComment(
-      data.comments.map((res) => ({
-        id: res.id,
-        content: res.content,
-        created_date: res.created_date,
-      }))
-    );
-
-    console.log(data);
   };
 
-  const handleLikeButton = async () => {
-    const { data } = await postDetailLikes(params.postId);
-    console.log(data);
+  const onClickLikeButton = async () => {
+    await postDetailLikes(params.postId);
   };
 
-  const handleCommentButton = async () => {
-    const { data } = await postDetailComment(token, params.postId, {
-      content: postedComment,
-    });
-    handleDetailPage();
-    console.log(data);
+  const onClickBookMarkButton = async () => {
+    await postDetailBookMark(params.postId);
   };
 
   useEffect(() => {
@@ -64,7 +33,7 @@ function DetailPage() {
     <>
       <Header />
 
-      {detailInfo && params.type === 'word' ? (
+      {detailInfo && params.type === 'word' && (
         <StWordWrapper>
           <StTitle>{detailInfo.title}</StTitle>
 
@@ -81,7 +50,8 @@ function DetailPage() {
 
           <StHashtagWrapper>
             <StHashTag>{detailInfo.keyw}</StHashTag>
-            <StHashTag>{detailInfo.keyww}</StHashTag>
+            {detailInfo.keyww && <StHashTag>{detailInfo.keyww}</StHashTag>}
+            {detailInfo.keywww && <StHashTag>{detailInfo.keywww}</StHashTag>}
           </StHashtagWrapper>
 
           <StButtonWrapper>
@@ -90,23 +60,23 @@ function DetailPage() {
                 src={require('assets/img/detailPage/like.png')}
                 alt="좋아요"
                 onClick={() => {
-                  addWordLike(wordLike + 1);
-                  handleLikeButton();
+                  setDetailInfo({ ...detailInfo, likes: detailInfo.likes + 1 });
+                  onClickLikeButton();
                 }}
               ></StButtonImg>
-              {wordLike}
+              {detailInfo.likes}
             </StBottomBtn>
 
-            <StBottomBtn
-              onClick={() => {
-                addWordWarning(wordWarning + 1);
-              }}
-            >
-              <StButtonImg
-                src={require('assets/img/detailPage/report.png')}
-                alt="신고"
-              ></StButtonImg>
-              {wordWarning}
+            <StBottomBtn>
+              <img
+                src={icReport}
+                alt="신고하기"
+                width="30"
+                height="30"
+                onClick={() => {
+                  setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
+                }}
+              />
             </StBottomBtn>
 
             <StBottomBtn>
@@ -114,42 +84,15 @@ function DetailPage() {
                 src={require('assets/img/detailPage/bookmark.png')}
                 alt="북마크"
                 onClick={() => {
-                  addWordBookMark(wordBookMark + 1);
-                  handleLikeButton();
+                  onClickBookMarkButton();
                 }}
               ></StBookMarkImg>
-              {wordBookMark}
             </StBottomBtn>
           </StButtonWrapper>
-          <StReplyWrapper>
-            <StCommentTitle>댓글 {comment.length}</StCommentTitle>
-            <StComment
-              type="text"
-              placeholder="  로그인 후 이용 가능합니다."
-              value={postedComment}
-              onChange={handleComment}
-            />
-            <StCommentBtn
-              onClick={() => {
-                handleCommentButton();
-                onReset();
-              }}
-            >
-              등록
-            </StCommentBtn>
-          </StReplyWrapper>
-          <StCommentWrapper>
-            {comment.map((result, index) => (
-              <StCommentWrapper>
-                <StCommentID>익명 {index}</StCommentID>
-                <StCommentContent>{result.content}</StCommentContent>
-                <StCommentDate>{result.created_date}</StCommentDate>
-                <hr></hr>
-              </StCommentWrapper>
-            ))}
-          </StCommentWrapper>
+          <Comment />
         </StWordWrapper>
-      ) : (
+      )}
+      {detailInfo && params.type === 'image' && (
         <>
           <StImgWrapper>
             <StTitle>무야호</StTitle>
@@ -159,48 +102,48 @@ function DetailPage() {
               의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
             </StImgContent>
             <StHashtagWrapper>
-              <StHashTag>{imghashtag[0]}</StHashTag>
-              <StHashTag>{imghashtag[1]}</StHashTag>
+              <StHashTag>{detailInfo.keyw}</StHashTag>
+              {detailInfo.keyww && <StHashTag>{detailInfo.keyww}</StHashTag>}
+              {detailInfo.keywww && <StHashTag>{detailInfo.keywww}</StHashTag>}
             </StHashtagWrapper>
             <StButtonWrapper>
               <StBottomBtn
                 onClick={() => {
-                  addWordLike(wordLike + 1);
+                  setDetailInfo({ ...detailInfo, likes: detailInfo.likes + 1 });
                 }}
               >
                 <StButtonImg
                   src={require('assets/img/detailPage/like.png')}
                   alt="좋아요"
                 ></StButtonImg>
-                {wordLike}
+                {detailInfo.likes}
               </StBottomBtn>
 
-              <StBottomBtn
-                onClick={() => {
-                  addWordWarning(wordWarning + 1);
-                }}
-              >
-                <StButtonImg
-                  src={require('assets/img/detailPage/report.png')}
-                  alt="신고"
-                ></StButtonImg>
-                {wordWarning}
+              <StBottomBtn>
+                <img
+                  src={icReport}
+                  alt="신고하기"
+                  width="30"
+                  height="30"
+                  onClick={() => {
+                    setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
+                  }}
+                />
               </StBottomBtn>
 
               <StBottomBtn>
                 <StBookMarkImg
                   src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
+                  onClick={() => {
+                    onClickBookMarkButton();
+                  }}
                 ></StBookMarkImg>
               </StBottomBtn>
             </StButtonWrapper>
           </StImgWrapper>
 
-          <StReplyWrapper>
-            <StCommentTitle>댓글 3개</StCommentTitle>
-            <StComment type="text" placeholder="로그인 후 이용 가능합니다."></StComment>
-            <StCommentBtn>등록</StCommentBtn>
-          </StReplyWrapper>
+          <Comment />
         </>
       )}
     </>
@@ -217,13 +160,9 @@ const StWordWrapper = styled.div`
 const StWordInfo = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
-
-const StWordInfoWrapper = styled.div`
-  display: flex;
-  align-content: space-between;
-`;
-
 const StTitle = styled.h1`
   color: white;
   text-align: center;
@@ -231,20 +170,21 @@ const StTitle = styled.h1`
   font-size: 45px;
   margin: 50px;
 `;
+const FlexGap40 = styled.div`
+  display: flex;
+  gap: 40px;
+`;
+const StWordInfoWrapper = styled(FlexGap40)``;
+const StExampleWrapper = styled(FlexGap40)``;
 
 const CommonH2 = styled.h2`
   font-size: 30px;
   font-weight: bold;
-  padding-right: 40px;
   color: white;
 `;
 
 const StWordMeaning = styled(CommonH2)``;
 const StWordExample = styled(CommonH2)``;
-
-const StExampleWrapper = styled.div`
-  display: flex;
-`;
 
 const StWordContent = styled.p`
   font-size: 30px;
@@ -253,6 +193,8 @@ const StWordContent = styled.p`
   width: 900px;
   margin-bottom: 0;
   margin-top: -5px;
+  letter-spacing: 1px;
+  line-height: 30px;
 `;
 
 const StHashtagWrapper = styled.div`
@@ -282,7 +224,9 @@ const StButtonWrapper = styled.div`
   margin: 0 6px 19px 0;
 `;
 const StBottomBtn = styled.button`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70px;
   height: 40px;
   border-radius: 75px;
@@ -319,56 +263,5 @@ const StImgContent = styled.p`
   font-size: 25px;
   margin-bottom: 110px;
   color: white;
-`;
-
-const StReplyWrapper = styled.div`
-  border-top: 1px solid white;
-  padding: 20px;
-  width: 97%;
-  display: flex;
-  justify-content: space-evenly;
-`;
-
-const StCommentTitle = styled.h3`
-  color: white;
-  position: relative;
-  left: 50px;
-  top: 10px;
-`;
-
-const StComment = styled.input`
-  position: relative;
-  padding-left: 10px;
-  left: -60px;
-  height: 30px;
-  width: 800px;
-  border-radius: 30px;
-`;
-
-const StCommentBtn = styled.button`
-  position: relative;
-  padding-bottom: 20px;
-  height: 20px;
-  right: 270px;
-  top: 5px;
-`;
-
-const StCommentWrapper = styled.div`
-  width: 900px;
-`;
-
-const StCommentID = styled.div`
-  color: white;
-  padding-bottom: 10px;
-`;
-const StCommentContent = styled.div`
-  color: white;
-  padding-bottom: 10px;
-  font-size: small;
-`;
-const StCommentDate = styled.div`
-  color: white;
-
-  font-size: x-small;
 `;
 export default DetailPage;

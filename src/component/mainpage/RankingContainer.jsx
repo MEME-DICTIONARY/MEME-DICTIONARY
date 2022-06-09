@@ -1,17 +1,17 @@
 import styled, { css } from 'styled-components';
 import LeftSideContainer from './LeftSideContainer';
 import icon_update from 'assets/img/icon_update.svg';
-import sampleImg from 'assets/img/sample.jpeg';
 import { useNavigate } from 'react-router-dom';
+import ImageCarousel from './ImageCarousel';
 
 function RankingContainer({ wordRankingList, onClick }) {
   let navigate = useNavigate();
 
   const secondTitle = 'WORD RANKING';
-  const thirdTitle = 'HOT MEME TOP 10';
+  const thirdTitle = 'HOT MEME TOP 5';
   const secondDescription =
     '사용자들에게 가장 인기있는 단어 밈 순위입니다. 업데이트 버튼을 클릭하면 실시간 좋아요 수에 따라 순위가 변경됩니다.';
-  const thirdDescription = '인기 급상승 밈 TOP 10 밈과사전이 직접 추천해드립니다.';
+  const thirdDescription = '인기 급상승 밈 TOP 5 밈과사전이 직접 추천해드립니다.';
 
   const onClickRankingItem = (postId) => {
     navigate(`/detail/word/${postId}`);
@@ -45,9 +45,7 @@ function RankingContainer({ wordRankingList, onClick }) {
       <StContainer section="third">
         <LeftSideContainer title={thirdTitle} description={thirdDescription} />
 
-        <StRightSideOfThirdContainer>
-          <img src={sampleImg} alt="이미지 슬라이더" />
-        </StRightSideOfThirdContainer>
+        <ImageCarousel />
       </StContainer>
     </>
   );
@@ -115,11 +113,11 @@ const StUpdateButton = styled.button`
   color: #828282;
 `;
 
-const StRightSideOfThirdContainer = styled.article`
-  background-color: #232332;
-  & > img {
-    width: 514px;
-  }
-`;
+// const StRightSideOfThirdContainer = styled.article`
+//   background-color: #232332;
+//   & img {
+//     width: 514px;
+//   }
+// `;
 
 export default RankingContainer;
