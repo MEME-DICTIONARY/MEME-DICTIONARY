@@ -68,7 +68,7 @@ function CategoryResultPage() {
           {params.type === '단어' ? (
             <StWordResultList>
               {wordResults.length === 0 && (
-                <div
+                <p
                   style={{
                     display: 'flex',
                     height: 'calc(100vh/2)',
@@ -77,7 +77,7 @@ function CategoryResultPage() {
                   }}
                 >
                   검색 결과가 없습니다.
-                </div>
+                </p>
               )}
               {wordResults.map((result) => (
                 <Link to={`/detail/word/${result.id}`} key={result.id}>
@@ -88,7 +88,7 @@ function CategoryResultPage() {
           ) : (
             <StImgResultList>
               {imgResults.length === 0 && (
-                <div
+                <p
                   style={{
                     display: 'flex',
                     height: 'calc(100vh/2)',
@@ -97,7 +97,7 @@ function CategoryResultPage() {
                   }}
                 >
                   검색 결과가 없습니다.
-                </div>
+                </p>
               )}
               {imgResults.map((result) => (
                 <Link to={`/detail/image/${result.id}`} key={result.id}>
@@ -130,14 +130,19 @@ const StWrapper = styled.main`
 const StResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 50px 51px;
 `;
 
 const StWordResultList = styled.ul`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+  & > p {
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 const StWordItem = styled.li`
   width: 100%;
@@ -157,6 +162,12 @@ const StImgResultList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 30px 105px;
+  width: 100%;
+  text-align: center;
+  & > p {
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 
 const StImgResultItem = styled.li`

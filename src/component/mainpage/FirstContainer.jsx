@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { default as icSearch } from '../../assets/img/icon_search.svg';
 
 function FirstContainer({ hashTagList }) {

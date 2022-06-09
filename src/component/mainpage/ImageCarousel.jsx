@@ -12,7 +12,7 @@ export default function ImageCarousel() {
   return (
     <Carousel>
       {images.map((image) => (
-        <Carousel.Item interval={3000}>
+        <Carousel.Item interval={2000}>
           <StImageWrapper>
             <img src={image} alt="hot meme" />
           </StImageWrapper>
