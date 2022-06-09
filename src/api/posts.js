@@ -46,7 +46,7 @@ export const postDetailComment = async (token, id, body) => {
   try {
     const { data } = await API.post(
       `${PREFIX_URL}/${id}/comment`,
-      { content: `${body.content}` },
+      { content: body },
       (API.defaults.headers.common['Authorization'] = `Bearer ${token}`)
     );
 
@@ -68,6 +68,24 @@ export const postDetailBookMark = async (id) => {
 export const postForbiddenWord = async (word) => {
   try {
     const { data } = await API.post('/forbidden', { word: word });
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
+
+export const postDetailReport = async (id) => {
+  try {
+    const { data } = await API.post(`${PREFIX_URL}/${id}/report`);
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
+
+export const postDelete = async (id) => {
+  try {
+    const { data } = await API.post(`${PREFIX_URL}/delete/${id}`);
     return { data };
   } catch (err) {
     return null;

@@ -96,7 +96,7 @@ const StCommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 50px 30px 100px;
-  margin-top: 230px;
+  margin-top: 100px;
   text-align: center;
   & > p {
     color: #fff;
@@ -119,18 +119,19 @@ const StCommentTitle = styled.p`
 `;
 const StCommentContent = styled.p`
   margin-bottom: 10px;
-  width: 90%;
+  margin-left: 20px;
+  display: flex;
+  justify-content: left;
   color: white;
-  position: relative;
-  left: 50px;
 `;
 
 const StCommentTime = styled.p`
   margin-bottom: 50px;
+  margin-left: 20px;
   font-size: small;
   color: gray;
   width: 90%;
-  position: relative;
-  left: 50px;
+  display: flex;
+  justify-content: left;
 `;
 export default MyPagecomment;

@@ -2,18 +2,25 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
-import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
+import {
+  getDetailContent,
+  postDetailBookMark,
+  postDetailLikes,
+  postDetailComment,
+} from '../api/posts';
 import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
 
 function DetailPage() {
   let params = useParams();
-
+  const token = useRecoilState(tokenState)[0];
   const [detailInfo, setDetailInfo] = useState();
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
-
+    console.log(data);
     setDetailInfo(data);
   };
 
@@ -24,7 +31,10 @@ function DetailPage() {
   const onClickBookMarkButton = async () => {
     await postDetailBookMark(params.postId);
   };
-
+  const postComment = async (input) => {
+    await postDetailComment(token, params.postId, input);
+    window.location.reload();
+  };
   useEffect(() => {
     handleDetailPage();
   }, []);
@@ -89,7 +99,10 @@ function DetailPage() {
               ></StBookMarkImg>
             </StBottomBtn>
           </StButtonWrapper>
-          <Comment />
+          <Comment
+            commentInfo={detailInfo && detailInfo.comments}
+            postComment={(input) => postComment(input)}
+          />
         </StWordWrapper>
       )}
       {detailInfo && params.type === 'image' && (
@@ -143,7 +156,7 @@ function DetailPage() {
             </StButtonWrapper>
           </StImgWrapper>
 
-          <Comment />
+          <Comment commentInfo={detailInfo.comment} postComment={(input) => postComment(input)} />
         </>
       )}
     </>
