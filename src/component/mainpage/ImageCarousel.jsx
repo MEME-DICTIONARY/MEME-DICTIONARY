@@ -27,5 +27,7 @@ const StImageWrapper = styled.div`
   & > img {
     height: 400px;
     object-fit: cover;
+    border-radius: 10px;
+    overflow: hidden;
   }
 `;
