@@ -83,9 +83,10 @@ export const postDetailReport = async (id) => {
   }
 };
 
-export const postDelete = async (id) => {
+export const postDelete = async (id, token) => {
   try {
     const { data } = await API.post(`${PREFIX_URL}/delete/${id}`);
+    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return { data };
   } catch (err) {
     return null;
