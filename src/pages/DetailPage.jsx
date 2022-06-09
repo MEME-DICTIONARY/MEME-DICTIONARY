@@ -13,6 +13,7 @@ function DetailPage() {
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
+
     setDetailInfo(data);
   };
 
@@ -238,7 +239,7 @@ const StButtonImg = styled.img`
 `;
 
 const StBookMarkImg = styled.img`
-  margin-bottom: -5px;
+  margin-bottom: -7px;
   width: 30px;
   height: 30px;
 `;

@@ -1,14 +1,30 @@
 import Header from 'component/Header';
 import styled from 'styled-components';
 import { getMyPageComment } from '../../api/mypage';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-const mapStateToProps = (state) => {
-  return state;
-};
+import { tokenState } from 'stores';
+import { useRecoilState } from 'recoil';
+import React, { useState, useEffect } from 'react';
 
 function MyPagecomment() {
+  const token = useRecoilState(tokenState)[0];
+  const [commentResults, setCommentResults] = useState([]);
+
+  useEffect(() => {
+    let param = {};
+    param = {
+      page: 0,
+    };
+    handleUploadComment(param);
+  }, []);
+
+  const handleUploadComment = async (parameter) => {
+    console.log(token);
+    const { data } = await getMyPageComment(parameter, token);
+
+    setCommentResults(data.content);
+  };
+
   return (
     <>
       <Header />
@@ -32,21 +48,14 @@ function MyPagecomment() {
         </StMyPageListWrapper>
 
         <StCommentWrapper>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
-          <StCommentTitle>
-            <strong>무야호 페이지</strong>에 남긴 댓글
-          </StCommentTitle>
-          <StCommentContent>무야호 제가 자주 쓰죠 허허;</StCommentContent>
-          <StCommentTime>22/03/28 11:29</StCommentTime>
+          {!commentResults.length && <div>등록한 댓글이 없습니다.</div>}
+          {commentResults.map((result) => (
+            <StCommentItem>
+              <StCommentTitle>{result.title} 페이지에 달린 댓글</StCommentTitle>
+              <StCommentContent>{result.content}</StCommentContent>
+              <StCommentTime>{result.created_date}</StCommentTime>
+            </StCommentItem>
+          ))}
         </StCommentWrapper>
       </StMyPageWrapper>
     </>
@@ -54,12 +63,10 @@ function MyPagecomment() {
 }
 
 const StMyPageWrapper = styled.div`
-  position: relative;
   display: grid;
   grid-template-columns: 150px 1fr;
   z-index: 1;
-  height: 100%;
-  top: 10%;
+  width: 100%;
 `;
 const StMyActivityWrapper = styled.div`
   display: flex;
@@ -86,12 +93,13 @@ const StLinkNav = styled.div`
   color: ${({ isClicked }) => isClicked && '#fff'};
 `;
 const StCommentWrapper = styled.div`
-  position: relative;
-  left: 150px;
-  top: 150px;
-  height: 500px;
-  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 50px 30px 100px;
+  margin-top: 70px;
 `;
+
+const StCommentItem = styled.div``;
 
 const StCommentTitle = styled.p`
   margin-bottom: 10px;
@@ -104,7 +112,7 @@ const StCommentTitle = styled.p`
   height: 30px;
 `;
 const StCommentContent = styled.p`
-  margin-bottom: 0;
+  margin-bottom: 10px;
   width: 90%;
   color: white;
   position: relative;
@@ -120,4 +128,3 @@ const StCommentTime = styled.p`
   left: 50px;
 `;
 export default MyPagecomment;
-connect(mapStateToProps, null)(MyPagecomment);

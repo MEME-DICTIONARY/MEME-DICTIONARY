@@ -145,7 +145,6 @@ const StNavList = styled.li`
   list-style: none;
   cursor: pointer;
   color: ${(props) => props.isWordClicked && '#fff'};
-
   &:first-child::after {
     display: inline-block;
     content: '';
@@ -186,7 +185,6 @@ const StWordContent = styled.p`
   width: 900px;
   color: white;
   margin-bottom: 10px;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

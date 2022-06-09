@@ -6,8 +6,11 @@ import BaseModal from 'component/base/BaseModal';
 import styled from 'styled-components';
 import { postChangePassword } from '../../api/mypage';
 import { useNavigate, Link } from 'react-router-dom';
+import { postExit } from '../../api/exit';
+import { tokenState } from 'stores';
 
 function MyPagepw() {
+  const token = useRecoilState(tokenState)[0];
   let navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
@@ -62,6 +65,10 @@ function MyPagepw() {
     }
   };
 
+  const handleUserExit = async () => {
+    const { data } = await postExit(token);
+    console.log(data);
+  };
   return (
     <>
       <Header />
@@ -137,7 +144,14 @@ function MyPagepw() {
           >
             변경
           </StChangeBtn>
-          <StMyPageDelete onClick={quitModalOpen}>회원탈퇴</StMyPageDelete>
+          <StMyPageDelete
+            onClick={() => {
+              quitModalOpen();
+              handleUserExit();
+            }}
+          >
+            회원탈퇴
+          </StMyPageDelete>
         </StPwContainer>
       </StMyPageWrapper>
     </>
