@@ -1,17 +1,27 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function Comment(props) {
+export default function Comment({ commentInfo, postComment }) {
+  const [input, setInput] = useState('');
   return (
     <StWrapper>
       <StCommentHeader>
         <h2>댓글</h2>
-        <input type="text" placeholder="로그인 후 이용 가능합니다."></input>
-        <button>등록</button>
+        <input
+          type="text"
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="로그인 후 이용 가능합니다."
+        ></input>
+        <button onClick={() => postComment(input)}> 등록</button>
       </StCommentHeader>
       <StCommentWrapper>
-        <h2>익명1</h2>
-        <p>props.comment map 돌려서 해당 id의 replyContent</p>
-        <span>props.comment.map 돌려서 해당 id의 createdAt</span>
+        {commentInfo.map((comment, index) => (
+          <>
+            <h2>익명 {index + 1}</h2>
+            <p>{comment.content} </p>
+            <span>{comment.date}</span>
+          </>
+        ))}
       </StCommentWrapper>
     </StWrapper>
   );

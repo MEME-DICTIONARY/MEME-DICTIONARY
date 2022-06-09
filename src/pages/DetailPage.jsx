@@ -2,13 +2,20 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
-import { getDetailContent, postDetailBookMark, postDetailLikes } from '../api/posts';
+import {
+  getDetailContent,
+  postDetailBookMark,
+  postDetailLikes,
+  postDetailComment,
+} from '../api/posts';
 import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
+import { useRecoilState } from 'recoil';
+import { tokenState } from 'stores';
 
 function DetailPage() {
   let params = useParams();
-
+  const token = useRecoilState(tokenState)[0];
   const [detailInfo, setDetailInfo] = useState();
 
   const handleDetailPage = async () => {
@@ -24,7 +31,9 @@ function DetailPage() {
   const onClickBookMarkButton = async () => {
     await postDetailBookMark(params.postId);
   };
-
+  const postDetailComment = async (input) => {
+    await postDetailComment(token, params.postId, input);
+  };
   useEffect(() => {
     handleDetailPage();
   }, []);
@@ -89,7 +98,10 @@ function DetailPage() {
               ></StBookMarkImg>
             </StBottomBtn>
           </StButtonWrapper>
-          <Comment />
+          <Comment
+            commentInfo={detailInfo.comment}
+            postComment={(input) => postDetailComment(input)}
+          />
         </StWordWrapper>
       )}
       {detailInfo && params.type === 'image' && (
