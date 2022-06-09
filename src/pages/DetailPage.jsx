@@ -20,7 +20,7 @@ function DetailPage() {
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
-
+    console.log(data);
     setDetailInfo(data);
   };
 
@@ -31,8 +31,9 @@ function DetailPage() {
   const onClickBookMarkButton = async () => {
     await postDetailBookMark(params.postId);
   };
-  const postDetailComment = async (input) => {
+  const postComment = async (input) => {
     await postDetailComment(token, params.postId, input);
+    window.location.reload();
   };
   useEffect(() => {
     handleDetailPage();
@@ -99,8 +100,8 @@ function DetailPage() {
             </StBottomBtn>
           </StButtonWrapper>
           <Comment
-            commentInfo={detailInfo.comment}
-            postComment={(input) => postDetailComment(input)}
+            commentInfo={detailInfo && detailInfo.comments}
+            postComment={(input) => postComment(input)}
           />
         </StWordWrapper>
       )}
@@ -155,7 +156,7 @@ function DetailPage() {
             </StButtonWrapper>
           </StImgWrapper>
 
-          <Comment />
+          <Comment commentInfo={detailInfo.comment} postComment={(input) => postComment(input)} />
         </>
       )}
     </>
