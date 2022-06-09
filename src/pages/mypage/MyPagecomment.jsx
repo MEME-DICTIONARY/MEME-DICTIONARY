@@ -19,7 +19,6 @@ function MyPagecomment() {
   }, []);
 
   const handleUploadComment = async (parameter) => {
-    console.log(token);
     const { data } = await getMyPageComment(parameter, token);
 
     setCommentResults(data.content);
@@ -48,7 +47,7 @@ function MyPagecomment() {
         </StMyPageListWrapper>
 
         <StCommentWrapper>
-          {!commentResults.length && <div>등록한 댓글이 없습니다.</div>}
+          {commentResults.length === 0 && <p>등록한 댓글이 없습니다.</p>}
           {commentResults.map((result) => (
             <StCommentItem>
               <StCommentTitle>{result.title} 페이지에 달린 댓글</StCommentTitle>
@@ -96,7 +95,13 @@ const StCommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 50px 30px 100px;
-  margin-top: 70px;
+  margin-top: 230px;
+  text-align: center;
+  & > p {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 
 const StCommentItem = styled.div``;
