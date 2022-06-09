@@ -38,7 +38,6 @@ function LoginPage() {
       setUserPassword(password);
       setToken(response.data.token);
       navigate('/main');
-      console.log(response.data.token);
     } else {
       setShowModal(true);
       setModalContents('가입되지 않은 정보입니다.');

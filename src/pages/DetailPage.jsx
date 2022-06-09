@@ -20,7 +20,6 @@ function DetailPage() {
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
-    console.log(data);
     setDetailInfo(data);
   };
 

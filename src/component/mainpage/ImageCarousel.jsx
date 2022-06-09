@@ -11,8 +11,8 @@ export default function ImageCarousel() {
   ];
   return (
     <Carousel>
-      {images.map((image) => (
-        <Carousel.Item interval={2000}>
+      {images.map((image, idx) => (
+        <Carousel.Item interval={2000} key={idx}>
           <StImageWrapper>
             <img src={image} alt="hot meme" />
           </StImageWrapper>

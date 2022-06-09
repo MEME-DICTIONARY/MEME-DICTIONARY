@@ -55,7 +55,6 @@ function SignupPage() {
       setShowModal(true);
       setModalContents('빈칸을 모두 채워주세요.');
     } else {
-      console.log('isCheck: ' + isCheck);
       if (!isCheck) {
         setShowModal(true);
         setModalContents('아이디 중복체크를 먼저 해주세요.');

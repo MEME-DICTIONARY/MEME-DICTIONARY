@@ -66,8 +66,7 @@ function MyPagepw() {
   };
 
   const handleUserExit = async () => {
-    const { data } = await postExit(token);
-    console.log(data);
+    await postExit(token);
   };
   return (
     <>
