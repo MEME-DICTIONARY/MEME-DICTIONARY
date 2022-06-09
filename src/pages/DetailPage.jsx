@@ -2,22 +2,28 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../component/Header';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import {
   getDetailContent,
   postDetailBookMark,
   postDetailLikes,
   postDetailComment,
+  postDetailReport,
+  postDelete,
+  postForbiddenWord,
 } from '../api/posts';
 import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
 import { useRecoilState } from 'recoil';
-import { tokenState } from 'stores';
+import { tokenState, isLoginState } from 'stores';
 import BaseModal from '../component/base/BaseModal';
 
 function DetailPage() {
+  let navigate = useNavigate();
   let params = useParams();
 
   const token = useRecoilState(tokenState)[0];
+  const isLogin = useRecoilState(isLoginState)[0];
   const [detailInfo, setDetailInfo] = useState();
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
@@ -34,10 +40,33 @@ function DetailPage() {
   const onClickBookMarkButton = async () => {
     await postDetailBookMark(params.postId);
   };
-  const postComment = async (input) => {
-    await postDetailComment(token, params.postId, input);
-    window.location.reload();
+
+  const onClickReportButton = async () => {
+    await postDetailReport(params.postId);
   };
+
+  const handleDelete = async () => {
+    await postDelete(params.postId, token);
+  };
+
+  const handleForbiddenWord = async (word) => {
+    await postForbiddenWord(word);
+  };
+  const postComment = async (input) => {
+    if (input) {
+      await postDetailComment(token, params.postId, input);
+      window.location.reload();
+    }
+  };
+
+  const handleReport = async () => {
+    if (detailInfo.report >= 2) {
+      handleDelete();
+      handleForbiddenWord(detailInfo.title);
+      navigate('/main');
+    }
+  };
+
   useEffect(() => {
     handleDetailPage();
   }, []);
@@ -94,8 +123,11 @@ function DetailPage() {
                 height="30"
                 onClick={() => {
                   setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
+                  onClickReportButton();
+                  handleReport();
                 }}
               />
+              {detailInfo.report}
             </StBottomBtn>
 
             <StBottomBtn>
@@ -111,10 +143,13 @@ function DetailPage() {
           <Comment
             commentInfo={detailInfo && detailInfo.comments}
             postComment={(input) => {
-              setShowModal(true);
-              setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              if (!isLogin) {
+                setShowModal(true);
+                setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              }
               postComment(input);
             }}
+            placeholder={isLogin ? '댓글을 작성해주세요!' : '로그인 후 댓글 이용이 가능합니다.'}
           />
         </StWordWrapper>
       )}
@@ -172,8 +207,10 @@ function DetailPage() {
           <Comment
             commentInfo={detailInfo && detailInfo.comment}
             postComment={(input) => {
-              setShowModal(true);
-              setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              if (!isLogin) {
+                setShowModal(true);
+                setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              }
               postComment(input);
             }}
           />

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function Comment(props) {
   const [input, setInput] = useState('');
-  const { commentInfo, postComment } = props;
+  const { commentInfo, postComment, placeholder } = props;
 
   return (
     <StWrapper>
@@ -12,7 +12,7 @@ export default function Comment(props) {
         <input
           type="text"
           onChange={(e) => setInput(e.target.value)}
-          placeholder="로그인 후 이용 가능합니다."
+          placeholder={placeholder}
         ></input>
         <button type="button" onClick={() => postComment(input)}>
           등록
@@ -23,7 +23,7 @@ export default function Comment(props) {
           <>
             <StCommentID>익명 {index + 1}</StCommentID>
             <StCommentContent>{comment.content} </StCommentContent>
-            <StCommentDate>{comment.created_date}</StCommentDate>
+            <StCommentDate>{comment.created_date.replace('T', ' ')}</StCommentDate>
             <hr></hr>
           </>
         ))}
@@ -87,4 +87,5 @@ const StCommentContent = styled.div`
 const StCommentDate = styled.div`
   color: white;
   font-size: x-small;
+  letter-spacing: 0.5px;
 `;
