@@ -12,11 +12,15 @@ import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
 import { useRecoilState } from 'recoil';
 import { tokenState } from 'stores';
+import BaseModal from '../component/base/BaseModal';
 
 function DetailPage() {
   let params = useParams();
+
   const token = useRecoilState(tokenState)[0];
   const [detailInfo, setDetailInfo] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [modalContents, setModalContents] = useState('');
 
   const handleDetailPage = async () => {
     const { data } = await getDetailContent(params.postId);
@@ -41,7 +45,13 @@ function DetailPage() {
   return (
     <>
       <Header />
-
+      <BaseModal
+        hidden={!showModal}
+        content={modalContents}
+        hideModal={() => {
+          setShowModal(false);
+        }}
+      />
       {detailInfo && params.type === 'word' && (
         <StWordWrapper>
           <StTitle>{detailInfo.title}</StTitle>
@@ -100,7 +110,11 @@ function DetailPage() {
           </StButtonWrapper>
           <Comment
             commentInfo={detailInfo && detailInfo.comments}
-            postComment={(input) => postComment(input)}
+            postComment={(input) => {
+              setShowModal(true);
+              setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              postComment(input);
+            }}
           />
         </StWordWrapper>
       )}
@@ -155,7 +169,14 @@ function DetailPage() {
             </StButtonWrapper>
           </StImgWrapper>
 
-          <Comment commentInfo={detailInfo.comment} postComment={(input) => postComment(input)} />
+          <Comment
+            commentInfo={detailInfo && detailInfo.comment}
+            postComment={(input) => {
+              setShowModal(true);
+              setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              postComment(input);
+            }}
+          />
         </>
       )}
     </>

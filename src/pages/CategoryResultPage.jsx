@@ -10,37 +10,6 @@ function CategoryResultPage() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
-  useEffect(() => {
-    //type만 파라미터로 넘겨준 경우
-    if (params.category === undefined) {
-      handleGetMemeWithType();
-    }
-    //type과 category 를 파라미터로 넘겨준 경우
-    else {
-      handleGetMemeWithCategory();
-    }
-  }, []);
-
-  const handleGetMemeWithType = async () => {
-    const param = {
-      type: params.type,
-      category: '',
-    };
-    const { data } = await getMemeWithCategory(param);
-
-    setResults(data);
-  };
-
-  const handleGetMemeWithCategory = async () => {
-    const param = {
-      type: params.type,
-      category: params.category,
-    };
-    const { data } = await getMemeWithCategory(param);
-
-    setResults(data);
-  };
-
   const setResults = (data) => {
     if (params.type === '단어') {
       setWordResults(
@@ -59,6 +28,43 @@ function CategoryResultPage() {
       );
     }
   };
+
+  useEffect(() => {
+    //type만 파라미터로 넘겨준 경우
+    if (params.category === undefined) {
+      async function handleGetMemeWithType() {
+        try {
+          const param = {
+            type: params.type,
+            category: '',
+          };
+          const { data } = await getMemeWithCategory(param);
+
+          setResults(data);
+        } catch (err) {
+          return null;
+        }
+      }
+      handleGetMemeWithType();
+    }
+    //type과 category 를 파라미터로 넘겨준 경우
+    else {
+      async function handleGetMemeWithCategory() {
+        try {
+          const param = {
+            type: params.type,
+            category: params.category,
+          };
+          const { data } = await getMemeWithCategory(param);
+
+          setResults(data);
+        } catch (err) {
+          return null;
+        }
+      }
+      handleGetMemeWithCategory();
+    }
+  }, [params.category, params.type, setResults]);
 
   return (
     <>

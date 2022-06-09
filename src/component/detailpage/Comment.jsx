@@ -14,7 +14,9 @@ export default function Comment(props) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="로그인 후 이용 가능합니다."
         ></input>
-        <button onClick={() => postComment(input)}> 등록</button>
+        <button type="button" onClick={() => postComment(input)}>
+          등록
+        </button>
       </StCommentHeader>
       <StCommentWrapper>
         {commentInfo?.map((comment, index) => (
@@ -41,13 +43,17 @@ const StWrapper = styled.div`
 `;
 const StCommentHeader = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 90%;
   gap: 10px;
+
   & > h2 {
     color: #fff;
+    width: 30px;
   }
   & > input {
-    width: 930px;
+    width: 90%;
     height: 50px;
     border-radius: 30px;
     padding: 0 20px;

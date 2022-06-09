@@ -83,12 +83,15 @@ const StSearchBarInput = styled.input`
   border-radius: 30px;
   text-align: center;
   font-size: 18px;
+  font-weight: bold;
 
   &:focus {
     background: none;
   }
   &::placeholder {
-    letter-spacing: 0.7px;
+    color: #828282;
+    letter-spacing: 1.5px;
+    /* font-weight: 700; */
   }
 `;
 
