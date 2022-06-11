@@ -16,14 +16,17 @@ function SearchResultPage() {
       const param = {
         keyword: params.keyword,
         type: '짤', //처음엔 짤로 초기화
+        page: 0,
       };
       const { data } = await getMemeWithKeyWord(param);
+
+      console.log(data);
 
       setImgResults(
         data.content.map((res) => ({
           id: res.id,
           title: res.title,
-          url: require('../assets/img/sample.jpeg'),
+          url: res.image,
         }))
       );
     }
@@ -37,6 +40,7 @@ function SearchResultPage() {
         const param = {
           keyword: params.keyword,
           type: '단어', //처음엔 짤로 초기화
+          page: 0,
         };
         const { data } = await getMemeWithKeyWord(param);
 
