@@ -135,7 +135,6 @@ const StLoginInfo = styled(FlexColumnWrapper)`
   }
 `;
 const StLoginTitle = styled.strong`
-  color: #fff;
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
