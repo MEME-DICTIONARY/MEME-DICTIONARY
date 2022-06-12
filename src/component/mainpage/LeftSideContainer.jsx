@@ -45,8 +45,8 @@ const StRankingWrapper = styled.div`
 
 const StDesc = styled.div`
   margin-top: 42px;
-  width: 380px;
-  color: #bdbdbd;
+  width: 370px;
+  color: #fff;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 1.3px;

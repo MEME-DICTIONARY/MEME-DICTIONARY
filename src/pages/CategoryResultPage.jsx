@@ -13,52 +13,67 @@ function CategoryResultPage() {
   useEffect(() => {
     //type만 파라미터로 넘겨준 경우
     if (params.category === undefined) {
+      async function handleGetMemeWithType() {
+        try {
+          const param = {
+            type: params.type,
+            category: '',
+          };
+          const { data } = await getMemeWithCategory(param);
+          if (params.type === '단어') {
+            setWordResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+              }))
+            );
+          } else {
+            setImgResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+                url: require('../assets/img/sample.jpeg'),
+              }))
+            );
+          }
+        } catch (err) {
+          return null;
+        }
+      }
       handleGetMemeWithType();
     }
     //type과 category 를 파라미터로 넘겨준 경우
     else {
+      async function handleGetMemeWithCategory() {
+        try {
+          const param = {
+            type: params.type,
+            category: params.category,
+          };
+          const { data } = await getMemeWithCategory(param);
+          if (params.type === '단어') {
+            setWordResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+              }))
+            );
+          } else {
+            setImgResults(
+              data.content.map((res) => ({
+                id: res.id,
+                title: res.title,
+                url: require('../assets/img/sample.jpeg'),
+              }))
+            );
+          }
+        } catch (err) {
+          return null;
+        }
+      }
       handleGetMemeWithCategory();
     }
-  }, []);
-
-  const handleGetMemeWithType = async () => {
-    const param = {
-      type: params.type,
-      category: '',
-    };
-    const { data } = await getMemeWithCategory(param);
-
-    setResults(data);
-  };
-
-  const handleGetMemeWithCategory = async () => {
-    const param = {
-      type: params.type,
-      category: params.category,
-    };
-    const { data } = await getMemeWithCategory(param);
-
-    setResults(data);
-  };
-
-  const setResults = (data) => {
-    if (params.type === '단어') {
-      setWordResults(
-        data.content.map((res) => ({
-          id: res.id,
-          title: res.title,
-        }))
-      );
-    } else {
-      setImgResults(
-        data.content.map((res) => ({
-          id: res.id,
-          title: res.title,
-          url: require('../assets/img/sample.jpeg'),
-        }))
-      );
-    }
-  };
+  }, [params.category, params.type, wordResults, imgResults]);
 
   return (
     <>
@@ -68,7 +83,7 @@ function CategoryResultPage() {
           {params.type === '단어' ? (
             <StWordResultList>
               {wordResults.length === 0 && (
-                <div
+                <p
                   style={{
                     display: 'flex',
                     height: 'calc(100vh/2)',
@@ -77,7 +92,7 @@ function CategoryResultPage() {
                   }}
                 >
                   검색 결과가 없습니다.
-                </div>
+                </p>
               )}
               {wordResults.map((result) => (
                 <Link to={`/detail/word/${result.id}`} key={result.id}>
@@ -88,7 +103,7 @@ function CategoryResultPage() {
           ) : (
             <StImgResultList>
               {imgResults.length === 0 && (
-                <div
+                <p
                   style={{
                     display: 'flex',
                     height: 'calc(100vh/2)',
@@ -97,7 +112,7 @@ function CategoryResultPage() {
                   }}
                 >
                   검색 결과가 없습니다.
-                </div>
+                </p>
               )}
               {imgResults.map((result) => (
                 <Link to={`/detail/image/${result.id}`} key={result.id}>
@@ -130,14 +145,19 @@ const StWrapper = styled.main`
 const StResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 50px 51px;
 `;
 
 const StWordResultList = styled.ul`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+  & > p {
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 const StWordItem = styled.li`
   width: 100%;
@@ -157,6 +177,12 @@ const StImgResultList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 30px 105px;
+  width: 100%;
+  text-align: center;
+  & > p {
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 
 const StImgResultItem = styled.li`

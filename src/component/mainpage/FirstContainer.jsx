@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { default as icSearch } from '../../assets/img/icon_search.svg';
 
 function FirstContainer({ hashTagList }) {
@@ -52,7 +51,7 @@ function FirstContainer({ hashTagList }) {
 //첫 번째 컨테이너
 const StWrapper = styled.div`
   background-color: #232332;
-  height: 820px;
+  height: 720px;
   padding: 0 175px;
   display: flex;
   flex-direction: column;
@@ -84,12 +83,15 @@ const StSearchBarInput = styled.input`
   border-radius: 30px;
   text-align: center;
   font-size: 18px;
+  font-weight: bold;
 
   &:focus {
     background: none;
   }
   &::placeholder {
-    letter-spacing: 0.7px;
+    color: #828282;
+    letter-spacing: 1.5px;
+    /* font-weight: 700; */
   }
 `;
 

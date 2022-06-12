@@ -58,18 +58,15 @@ export default function Header() {
             categoryOpen(styles.categoryModal);
           }}
         >
-          {' '}
           <StHamburgerImg
             src={require('assets/img/detailPage/hamburger.PNG')}
             alt="햄버거 아이콘"
-          />{' '}
+          />
         </StHamburgerBtn>
         <Link to="/main">
-          <StCircleWrapper>
-            <StCircle1></StCircle1>
-            <StCircle2></StCircle2>
-            <StCircle3></StCircle3>
-          </StCircleWrapper>
+          <StCircle1></StCircle1>
+          <StCircle2></StCircle2>
+          <StCircle3></StCircle3>
         </Link>
         <StSearchWrapper>
           <StSearchConatiner>
@@ -198,13 +195,14 @@ const StHeadContainer = styled.div`
   width: 100%;
   height: 102px;
   display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  justify-content: center;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 `;
 
 const StHamburgerBtn = styled.button`
-  margin-left: 50px;
+  position: absolute;
+  left: 50px;
   width: 37px;
   height: 35px;
   border: none;
@@ -215,12 +213,6 @@ const StHamburgerImg = styled.img`
   width: 37px;
   height: 35px;
   background-size: cover;
-`;
-
-const StCircleWrapper = styled.a`
-  display: flex;
-  width: fit-content;
-  margin-left: 290px;
 `;
 
 const StCircle1 = styled.div`
@@ -246,13 +238,16 @@ const StCircle3 = styled.div`
   border-radius: 75px;
 `;
 const StSearchWrapper = styled.article`
-  position: relative;
   display: flex;
-  width: fit-content;
-  align-items: center;
+
+  position: absolute;
+  right: 50px;
 `;
 const StSearchConatiner = styled.div`
   display: inline-block;
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
 `;
 const StSearchBox = styled.input`
   background-color: #232332;
@@ -278,9 +273,7 @@ const StSearchImg = styled.img`
 `;
 
 const StPersonBtn = styled.button`
-  position: relative;
-  right: 25px;
-  width: fit-content;
+  /* position: absolute; */
   border: none;
   background-color: inherit;
 `;

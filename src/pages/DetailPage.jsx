@@ -15,29 +15,19 @@ import {
 import { default as icReport } from '../assets/img/icon_report.svg';
 import Comment from '../component/detailpage/Comment';
 import { useRecoilState } from 'recoil';
-import { isLoginState, tokenState } from 'stores';
 import { getMyPageBookmark } from 'api/mypage';
+import { tokenState, isLoginState } from 'stores';
+import BaseModal from '../component/base/BaseModal';
 
 function DetailPage() {
   let navigate = useNavigate();
   let params = useParams();
-
   const token = useRecoilState(tokenState)[0];
   const isLogin = useRecoilState(isLoginState)[0];
   const [detailInfo, setDetailInfo] = useState();
+  const [bookMark, setBookMark] = useState();
   const [showModal, setShowModal] = useState(false);
-
-  const handleDetailPage = async () => {
-    const { data } = await getDetailContent(params.postId);
-
-    console.log(data);
-    setDetailInfo(data);
-  };
-
-  const handleBookMark = async (parameter) => {
-    const res = await getMyPageBookmark(parameter, token);
-    console.log(res);
-  };
+  const [modalContents, setModalContents] = useState('');
 
   const onClickLikeButton = async () => {
     await postDetailLikes(params.postId);
@@ -59,8 +49,10 @@ function DetailPage() {
     await postForbiddenWord(word);
   };
   const postComment = async (input) => {
-    await postDetailComment(token, params.postId, input);
-    window.location.reload();
+    if (input) {
+      await postDetailComment(token, params.postId, input);
+      window.location.reload();
+    }
   };
 
   const handleReport = async () => {
@@ -70,16 +62,45 @@ function DetailPage() {
       navigate('/main');
     }
   };
+  const compareBookMark = () => {
+    bookMark.titlecontent.map((result) => {
+      if (result === detailInfo.title) {
+        setShowModal(true);
+        setModalContents('이미 북마크 된 게시물입니다');
+        return null;
+      } else {
+        setShowModal(true);
+        setModalContents('북마크 되었습니다');
+        return null;
+      }
+    });
+  };
 
   useEffect(() => {
+    async function handleDetailPage() {
+      const { data } = await getDetailContent(params.postId);
+      setDetailInfo(data);
+    }
     handleDetailPage();
-    handleBookMark(params.type, token);
-  }, []);
+  }, [detailInfo, params.postId]);
 
+  useEffect(() => {
+    async function handleBookMark() {
+      const { data } = await getMyPageBookmark(params.type, token);
+      setBookMark(data.content);
+    }
+    handleBookMark();
+  }, [bookMark, params.type, token]);
   return (
     <>
       <Header />
-
+      <BaseModal
+        hidden={!showModal}
+        content={modalContents}
+        hideModal={() => {
+          setShowModal(false);
+        }}
+      />
       {detailInfo && params.type === 'word' && (
         <StWordWrapper>
           <StTitle>{detailInfo.title}</StTitle>
@@ -136,15 +157,22 @@ function DetailPage() {
                   onClick={() => {
                     setDetailInfo({ ...detailInfo, bookmark_cnt: detailInfo.bookmark_cnt + 1 });
                     onClickBookMarkButton();
+                    compareBookMark();
                   }}
                 ></StBookMarkImg>
-                {detailInfo.bookmark_cnt}
               </StBottomBtn>
             ) : null}
           </StButtonWrapper>
           <Comment
             commentInfo={detailInfo && detailInfo.comments}
-            postComment={(input) => postComment(input)}
+            postComment={(input) => {
+              if (!isLogin) {
+                setShowModal(true);
+                setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              }
+              postComment(input);
+            }}
+            placeholder={isLogin ? '댓글을 작성해주세요!' : '로그인 후 댓글 이용이 가능합니다.'}
           />
         </StWordWrapper>
       )}
@@ -192,14 +220,23 @@ function DetailPage() {
                   src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
                   onClick={() => {
-                    onClickBookMarkButton();
+                    compareBookMark();
                   }}
                 ></StBookMarkImg>
               </StBottomBtn>
             </StButtonWrapper>
           </StImgWrapper>
 
-          <Comment commentInfo={detailInfo.comment} postComment={(input) => postComment(input)} />
+          <Comment
+            commentInfo={detailInfo && detailInfo.comment}
+            postComment={(input) => {
+              if (!isLogin) {
+                setShowModal(true);
+                setModalContents('로그인 후 댓글 이용이 가능합니다.');
+              }
+              postComment(input);
+            }}
+          />
         </>
       )}
     </>

@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function Comment(props) {
   const [input, setInput] = useState('');
-  const { commentInfo, postComment } = props;
-
-  useEffect(() => {
-    console.log(props.commentInfo);
-  }, []);
+  const { commentInfo, postComment, placeholder } = props;
 
   return (
     <StWrapper>
@@ -16,16 +12,18 @@ export default function Comment(props) {
         <input
           type="text"
           onChange={(e) => setInput(e.target.value)}
-          placeholder="로그인 후 이용 가능합니다."
+          placeholder={placeholder}
         ></input>
-        <button onClick={() => postComment(input)}> 등록</button>
+        <button type="button" onClick={() => postComment(input)}>
+          등록
+        </button>
       </StCommentHeader>
       <StCommentWrapper>
         {commentInfo?.map((comment, index) => (
           <>
             <StCommentID>익명 {index + 1}</StCommentID>
             <StCommentContent>{comment.content} </StCommentContent>
-            <StCommentDate>{comment.created_date}</StCommentDate>
+            <StCommentDate>{comment.created_date.replace('T', ' ')}</StCommentDate>
             <hr></hr>
           </>
         ))}
@@ -45,13 +43,17 @@ const StWrapper = styled.div`
 `;
 const StCommentHeader = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 90%;
   gap: 10px;
+
   & > h2 {
     color: #fff;
+    width: 30px;
   }
   & > input {
-    width: 930px;
+    width: 90%;
     height: 50px;
     border-radius: 30px;
     padding: 0 20px;
@@ -85,4 +87,5 @@ const StCommentContent = styled.div`
 const StCommentDate = styled.div`
   color: white;
   font-size: x-small;
+  letter-spacing: 0.5px;
 `;

@@ -26,17 +26,18 @@ function MyPagebookmark() {
         page: 0,
       };
     }
-    handleUploadMeme(param);
-  }, []);
-
-  const handleUploadMeme = async (parameter) => {
-    const { data } = await getMyPageBookmark(parameter, token);
-    if (parameter.type === 'word') {
-      setWordResults(data.content);
-    } else {
-      setImgResults(data.content);
+    async function handleUploadMeme() {
+      const { data } = await getMyPageBookmark(param, token);
+      console.log(data);
+      if (param.type === 'word') {
+        setWordResults(data.content);
+      } else {
+        setImgResults(data.content);
+      }
     }
-  };
+    handleUploadMeme(param);
+  }, [isWordClicked, token]);
+
   return (
     <>
       <Header />
@@ -121,6 +122,7 @@ const StMyPageListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   width: 190px;
+  height: 100vh;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
   padding-top: 150px;
   align-items: center;

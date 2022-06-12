@@ -25,7 +25,7 @@ function RankingContainer({ wordRankingList, onClick }) {
         <StRightSideOfSecondCont>
           <StUpdateButton>
             <img src={icon_update} alt="업데이트" onClick={onClick} />
-            업데이트
+            <p>업데이트</p>
           </StUpdateButton>
           <StWordRankingLists>
             {wordRankingList.map((wordInfo, idx) => {
@@ -75,7 +75,6 @@ const StContainer = styled.div`
 
   align-items: center;
   justify-content: space-around;
-  padding-top: 41px;
 `;
 
 const StRightSideOfSecondCont = styled.div``;
@@ -112,11 +111,14 @@ const StUpdateButton = styled.button`
   align-items: center;
   background: none;
   border: none;
-  color: #3f2a2a;
+
+  & > p {
+    color: #bdbdbd;
+  }
 `;
 
 const StImageCarousel = styled.div`
-  width: 514px;
+  width: 714px;
 `;
 
 export default RankingContainer;

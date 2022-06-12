@@ -11,8 +11,8 @@ export default function ImageCarousel() {
   ];
   return (
     <Carousel>
-      {images.map((image) => (
-        <Carousel.Item interval={3000}>
+      {images.map((image, idx) => (
+        <Carousel.Item interval={2000} key={idx}>
           <StImageWrapper>
             <img src={image} alt="hot meme" />
           </StImageWrapper>
@@ -22,9 +22,12 @@ export default function ImageCarousel() {
   );
 }
 const StImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   & > img {
-    width: 500px;
-    height: 300px;
+    height: 400px;
     object-fit: cover;
+    border-radius: 10px;
+    overflow: hidden;
   }
 `;
