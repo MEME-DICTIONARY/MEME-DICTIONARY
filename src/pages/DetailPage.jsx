@@ -17,6 +17,7 @@ import Comment from '../component/detailpage/Comment';
 import { useRecoilState } from 'recoil';
 import { tokenState, isLoginState } from 'stores';
 import BaseModal from '../component/base/BaseModal';
+import { getMyPageBookmark } from '../api/mypage';
 
 function DetailPage() {
   let navigate = useNavigate();
@@ -67,7 +68,16 @@ function DetailPage() {
       const { data } = await getDetailContent(params.postId);
       setDetailInfo(data);
     }
+    async function handleBookmark() {
+      const body = {
+        type: params.type,
+        page: 0,
+      };
+      const response = await getMyPageBookmark(body, token);
+      console.log(response);
+    }
     handleDetailPage();
+    handleBookmark();
   }, [params.postId]);
 
   return (

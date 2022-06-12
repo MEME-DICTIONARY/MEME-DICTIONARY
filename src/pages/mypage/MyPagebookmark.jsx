@@ -13,29 +13,27 @@ function MyPagebookmark() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
+  const handleWordMeme = async () => {
+    const param = {
+      type: 'word',
+      page: 0,
+    };
+    const { data } = await getMyPageBookmark(param, token);
+    setWordResults(data.content);
+  };
+  const handleImageMeme = async () => {
+    const param = {
+      type: 'image',
+      page: 0,
+    };
+    const { data } = await getMyPageBookmark(param, token);
+    setImgResults(data.content);
+  };
+
   useEffect(() => {
-    let param = {};
-    if (!isWordClicked) {
-      param = {
-        type: 'image',
-        page: 0,
-      };
-    } else {
-      param = {
-        type: 'word',
-        page: 0,
-      };
-    }
-    async function handleUploadMeme() {
-      const { data } = await getMyPageBookmark(param, token);
-      if (param.type === 'word') {
-        setWordResults(data.content);
-      } else {
-        setImgResults(data.content);
-      }
-    }
-    handleUploadMeme(param);
-  }, [isWordClicked, token]);
+    handleWordMeme();
+    handleImageMeme();
+  }, []);
 
   return (
     <>
@@ -77,7 +75,7 @@ function MyPagebookmark() {
             <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
               {!wordResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
               {wordResults.map((result) => (
-                <Link to={`/detail/word/${result.id}`} key={result.id}>
+                <Link to={`/detail/word/${result.post_id}`} key={result.post_id}>
                   <StWordItem>
                     <StWordTitle>{result.title}</StWordTitle>
                     <StWordContent>{result.description}</StWordContent>
