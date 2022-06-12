@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
@@ -143,7 +143,6 @@ export default function UserUploadPage() {
       }
       handlePostWordMeme();
     } else {
-      console.log(imageMeme.file);
       if (
         imageMeme.title === '' ||
         imageMeme.description === '' ||
@@ -159,10 +158,6 @@ export default function UserUploadPage() {
       handlePostImageMeme();
     }
   };
-
-  useEffect(() => {
-    console.log(imageMeme.file);
-  }, [imageMeme.file]);
 
   return (
     <StWrapper>

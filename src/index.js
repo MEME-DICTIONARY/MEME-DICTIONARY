@@ -6,8 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 const rootNode = document.getElementById('root');
 
-const Hangul = require('hangul-js');
-
 ReactDOM.createRoot(rootNode).render(
   <BrowserRouter>
     <App />
