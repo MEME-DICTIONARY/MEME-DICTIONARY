@@ -69,7 +69,6 @@ const StCommentWrapper = styled.div`
   display: flex;
   width: 900px;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: left;
   margin: 50px;
   color: #fff;

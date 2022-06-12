@@ -29,6 +29,8 @@ function MyPagebookmark() {
     async function handleUploadMeme() {
       const { data } = await getMyPageBookmark(param, token);
       console.log(data);
+      console.log(token);
+
       if (param.type === 'word') {
         setWordResults(data.content);
       } else {

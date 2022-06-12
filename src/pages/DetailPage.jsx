@@ -63,7 +63,8 @@ function DetailPage() {
     }
   };
   const compareBookMark = () => {
-    bookMark.titlecontent.map((result) => {
+    console.log(bookMark);
+    /*bookMark.content.map((result) => {
       if (result === detailInfo.title) {
         setShowModal(true);
         setModalContents('이미 북마크 된 게시물입니다');
@@ -73,24 +74,24 @@ function DetailPage() {
         setModalContents('북마크 되었습니다');
         return null;
       }
-    });
+    });*/
   };
 
   useEffect(() => {
     async function handleDetailPage() {
       const { data } = await getDetailContent(params.postId);
+      console.log(data);
       setDetailInfo(data);
     }
     handleDetailPage();
-  }, [detailInfo, params.postId]);
+  }, [params.postId]);
 
-  useEffect(() => {
-    async function handleBookMark() {
-      const { data } = await getMyPageBookmark(params.type, token);
-      setBookMark(data.content);
-    }
-    handleBookMark();
-  }, [bookMark, params.type, token]);
+  async function handleBookMark() {
+    const { data } = await getMyPageBookmark(params.type, token);
+    console.log(data);
+    console.log(token);
+  }
+
   return (
     <>
       <Header />
@@ -157,7 +158,7 @@ function DetailPage() {
                   onClick={() => {
                     setDetailInfo({ ...detailInfo, bookmark_cnt: detailInfo.bookmark_cnt + 1 });
                     onClickBookMarkButton();
-                    compareBookMark();
+                    handleBookMark();
                   }}
                 ></StBookMarkImg>
               </StBottomBtn>
@@ -179,12 +180,11 @@ function DetailPage() {
       {detailInfo && params.type === 'image' && (
         <>
           <StImgWrapper>
-            <StTitle>무야호</StTitle>
-            <StBodyImg src={require('assets/img/detailPage/무야호.png')} alt="무야호"></StBodyImg>
-            <StImgContent>
-              무한도전 197화 '알레스카 편'에 방영된 장면으로, 무한도전을 안다고 얘기하신 뒤 외치신
-              의미불명의 말이다. 그만큼 신날때 사용하면 유용한 짤이다.
-            </StImgContent>
+            <StImgInfoWrapper>
+              <StTitle>{detailInfo.title}</StTitle>
+              <StBodyImg src={detailInfo.image} alt={detailInfo.title}></StBodyImg>
+              <StImgContent>{detailInfo.description}</StImgContent>
+            </StImgInfoWrapper>
             <StHashtagWrapper>
               <StHashTag>{detailInfo.keyw}</StHashTag>
               {detailInfo.keyww && <StHashTag>{detailInfo.keyww}</StHashTag>}
@@ -194,6 +194,7 @@ function DetailPage() {
               <StBottomBtn
                 onClick={() => {
                   setDetailInfo({ ...detailInfo, likes: detailInfo.likes + 1 });
+                  onClickLikeButton();
                 }}
               >
                 <StButtonImg
@@ -211,6 +212,8 @@ function DetailPage() {
                   height="30"
                   onClick={() => {
                     setDetailInfo({ ...detailInfo, report: detailInfo.report + 1 });
+                    onClickReportButton();
+                    handleReport();
                   }}
                 />
               </StBottomBtn>
@@ -220,7 +223,9 @@ function DetailPage() {
                   src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
                   onClick={() => {
-                    compareBookMark();
+                    onClickBookMarkButton();
+
+                    handleBookMark();
                   }}
                 ></StBookMarkImg>
               </StBottomBtn>
@@ -228,7 +233,7 @@ function DetailPage() {
           </StImgWrapper>
 
           <Comment
-            commentInfo={detailInfo && detailInfo.comment}
+            commentInfo={detailInfo && detailInfo.comments}
             postComment={(input) => {
               if (!isLogin) {
                 setShowModal(true);
@@ -236,6 +241,7 @@ function DetailPage() {
               }
               postComment(input);
             }}
+            placeholder={isLogin ? '댓글을 작성해주세요!' : '로그인 후 댓글 이용이 가능합니다.'}
           />
         </>
       )}
@@ -294,7 +300,8 @@ const StHashtagWrapper = styled.div`
   display: flex;
   gap: 34px;
   justify-content: flex-start;
-  width: 65%;
+  width: 100%;
+  padding-left: 100px;
 `;
 
 const StHashTag = styled.div`
@@ -314,7 +321,8 @@ const StButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin: 0 6px 19px 0;
+  gap: 5px;
+  padding: 0 20px 19px 0;
 `;
 const StBottomBtn = styled.button`
   display: flex;
@@ -343,16 +351,23 @@ const StImgWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const StImgInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+`;
 
 const StBodyImg = styled.img`
   display: block;
   margin-bottom: 30px;
-  width: 600px;
+  width: auto;
   height: 350px;
+  object-fit: cover;
 `;
 
 const StImgContent = styled.p`
-  padding: 0 185px;
+  width: 100%;
   font-size: 25px;
   margin-bottom: 110px;
   color: white;

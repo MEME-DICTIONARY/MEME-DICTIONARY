@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../component/Header';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
-import { getMemeWithCategory } from '../api/posts';
+import { getMemeWithType, getMemeWithCategory } from '../api/posts';
 
 function CategoryResultPage() {
   let params = useParams();
@@ -15,12 +15,8 @@ function CategoryResultPage() {
     if (params.category === undefined) {
       async function handleGetMemeWithType() {
         try {
-          const param = {
-            type: params.type,
-            category: '',
-          };
-          const { data } = await getMemeWithCategory(param);
           if (params.type === '단어') {
+            const { data } = await getMemeWithType('word');
             setWordResults(
               data.content.map((res) => ({
                 id: res.id,
@@ -28,11 +24,13 @@ function CategoryResultPage() {
               }))
             );
           } else {
+            const { data } = await getMemeWithType('image');
+
             setImgResults(
               data.content.map((res) => ({
                 id: res.id,
                 title: res.title,
-                url: require('../assets/img/sample.jpeg'),
+                url: res.image,
               }))
             );
           }
@@ -47,10 +45,11 @@ function CategoryResultPage() {
       async function handleGetMemeWithCategory() {
         try {
           const param = {
-            type: params.type,
+            type: params.type === '단어' ? 'word' : 'image',
             category: params.category,
           };
           const { data } = await getMemeWithCategory(param);
+
           if (params.type === '단어') {
             setWordResults(
               data.content.map((res) => ({
@@ -63,7 +62,7 @@ function CategoryResultPage() {
               data.content.map((res) => ({
                 id: res.id,
                 title: res.title,
-                url: require('../assets/img/sample.jpeg'),
+                url: res.image,
               }))
             );
           }
@@ -73,7 +72,7 @@ function CategoryResultPage() {
       }
       handleGetMemeWithCategory();
     }
-  }, [params.category, params.type, wordResults, imgResults]);
+  }, [params.category, params.type]);
 
   return (
     <>
@@ -164,6 +163,7 @@ const StWordItem = styled.li`
   height: 80px;
   display: flex;
   align-items: center;
+  color: #fff;
 
   border-bottom: 1px solid #696868;
   cursor: pointer;
@@ -188,6 +188,8 @@ const StImgResultList = styled.ul`
 const StImgResultItem = styled.li`
   display: flex;
   flex-direction: column;
+  text-align: start;
+  text-indent: 15px;
   width: 375px;
   height: 432px;
   border-bottom: 1px solid #696868;
@@ -209,4 +211,5 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
+  color: #fff;
 `;

@@ -132,7 +132,7 @@ function SignupPage() {
           </DataIdBox>
         </DataInputBox>
       </AccountWrapper>
-      <BaseButton text="확인" onClick={handleSignupButton}></BaseButton>
+      <BaseButton type="button" text="확인" onClick={handleSignupButton}></BaseButton>
     </MainWrapper>
   );
 }

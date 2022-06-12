@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
-import RadioInputForm from '../component/useruploadpage/RadioInputForm';
 import styled from 'styled-components';
-import { postUploadMeme, filterForbiddenWord } from '../api/upload';
+import { postUploadWordMeme, postUploadImageMeme, filterForbiddenWord } from '../api/upload';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { tokenState } from 'stores';
+import * as Hangul from 'hangul-js';
 
 export default function UserUploadPage() {
   let navigator = useNavigate();
+  const inputRef = useRef();
   const token = useRecoilState(tokenState)[0];
 
   const [typeOfMeme, setTypeOfMeme] = useState(null);
   const [imageMeme, setImageMeme] = useState({
-    id: 0,
     category: '',
     file: '',
     title: '',
@@ -23,7 +23,6 @@ export default function UserUploadPage() {
     keywords: [],
   });
   const [wordMeme, setWordMeme] = useState({
-    id: 0,
     word: '',
     meaning: '',
     example: '',
@@ -32,9 +31,7 @@ export default function UserUploadPage() {
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
   const [isClicked, setIsClicked] = useState(false);
-  const onClickRadioInput = (e) => {
-    setImageMeme({ ...imageMeme, category: e.target.value });
-  };
+
   const typeOfMemeList = [
     {
       name: '밈_유형',
@@ -54,25 +51,26 @@ export default function UserUploadPage() {
   const categoryList = [
     {
       name: '카테고리',
-      value: '예능' || '',
-      onClick: onClickRadioInput,
+      value: 'TV' || '',
     },
     {
       name: '카테고리',
-      value: '드라마' || '',
-      onClick: onClickRadioInput,
+      value: '영화' || '',
     },
     {
       name: '카테고리',
-      value: '그 외' || '',
-      onClick: onClickRadioInput,
+      value: '커뮤니티' || '',
+    },
+    {
+      name: '카테고리',
+      value: '기타' || '',
     },
   ];
 
   const handlePostWordMeme = async () => {
     const body = {
-      type: typeOfMeme,
-      category: null,
+      type: 'word',
+      category: Hangul.disassemble(wordMeme.word)[0],
       title: wordMeme.word,
       description: wordMeme.meaning,
       example: wordMeme.example,
@@ -80,7 +78,33 @@ export default function UserUploadPage() {
       keyww: wordMeme.keywords[1] === undefined ? null : wordMeme.keywords[1],
       keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
     };
-    await postUploadMeme(body, token);
+    const response = await postUploadWordMeme(body, token);
+    response && navigator('/main');
+  };
+
+  const handlePostImageMeme = async () => {
+    setImageMeme({ ...imageMeme, file: inputRef.current.files });
+
+    const formDataInfo = new FormData();
+    let body = {
+      type: 'image',
+      category: imageMeme.category,
+      title: imageMeme.title,
+      description: imageMeme.description,
+      keyw: imageMeme.keywords[0],
+      keyww: imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[1],
+      keywww: imageMeme.keywords[2] === undefined ? null : imageMeme.keywords[2],
+    };
+    const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+
+    const imageFormData = new FormData();
+    imageFormData.append('image', imageMeme.file);
+
+    formDataInfo.append('requestDto', blob);
+    formDataInfo.append('image', imageMeme.file);
+
+    const response = await postUploadImageMeme(formDataInfo, token);
+    response && navigator('/main');
   };
 
   const onClickFilteringButton = async () => {
@@ -118,11 +142,20 @@ export default function UserUploadPage() {
         return;
       }
       handlePostWordMeme();
-      // navigator('/main');
     } else {
-      const formData = new FormData();
-      formData.append('file', imageMeme.file);
-      navigator('/main');
+      if (
+        imageMeme.title === '' ||
+        imageMeme.description === '' ||
+        imageMeme.category === '' ||
+        imageMeme.file === '' ||
+        imageMeme.keywords.length === 0
+      ) {
+        setShowModal(true);
+        setModalContents('빈 칸을 모두 채워주세요!');
+        return;
+      }
+
+      handlePostImageMeme();
     }
   };
 
@@ -130,45 +163,68 @@ export default function UserUploadPage() {
     <StWrapper>
       <StQuestionList>
         <StQuestionItem>
-          <StQuestionTitle>
-            <span>*</span>
-            등록할 밈은 어떤 것인가요?
-          </StQuestionTitle>
-          <StQuestionAnswer>
-            <RadioInputForm inputList={typeOfMemeList} />
-          </StQuestionAnswer>
+          <span>*</span>
+          등록할 밈은 어떤 것인가요?
+          <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+            {typeOfMemeList.map((item, idx) => (
+              <div key={idx}>
+                <input
+                  type="radio"
+                  id={item.name}
+                  name={item.name}
+                  value={item.value}
+                  onChange={(e) => item.onClick(e.target.value)}
+                />
+                <label htmlFor={item.name}>{item.value}</label>
+              </div>
+            ))}
+          </div>
         </StQuestionItem>
 
         {typeOfMeme === '짤' ? (
           <>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                카테고리 선택
-              </StQuestionTitle>
-              <StQuestionAnswer>
-                <RadioInputForm inputList={categoryList} />
-              </StQuestionAnswer>
+              <span>*</span>
+              카테고리 선택
+              <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                {categoryList.map((item, idx) => (
+                  <div key={idx}>
+                    <input
+                      type="radio"
+                      id={item.name}
+                      name={item.name}
+                      value={item.value}
+                      onChange={(e) => setImageMeme({ ...imageMeme, category: e.target.value })}
+                    />
+                    <label htmlFor={item.name}>{item.value}</label>
+                  </div>
+                ))}
+              </div>
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                사진
-              </StQuestionTitle>
-              <input
-                type="file"
-                className="file"
-                onChange={(e) => {
-                  setImageMeme({ ...imageMeme, file: e.target.files[0] });
+              <span>*</span>
+              사진
+              <StImageUploadButton
+                type="button"
+                onClick={() => {
+                  inputRef.current.click();
                 }}
-              />
-              <p>사진을 업로드해주세요.</p>
+              >
+                +
+              </StImageUploadButton>
+              <input type="file" className="file" style={{ display: 'none' }} ref={inputRef} />
+              <label
+                onClick={() => {
+                  setImageMeme({ ...imageMeme, file: inputRef.current.files });
+                }}
+              >
+                사진 업로드
+              </label>
+              <p style={{ color: '#fff' }}>{imageMeme.file && inputRef.current.files[0].name}</p>
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                제목
-              </StQuestionTitle>
+              <span>*</span>
+              제목
               <StInput
                 type="text"
                 value={imageMeme.title || ''}
@@ -177,10 +233,8 @@ export default function UserUploadPage() {
               />
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                설명
-              </StQuestionTitle>
+              <span>*</span>
+              설명
               <StInput
                 type="text"
                 value={imageMeme.description || ''}
@@ -189,10 +243,8 @@ export default function UserUploadPage() {
               />
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                키워드
-              </StQuestionTitle>
+              <span>*</span>
+              키워드
               <StInput
                 type="text"
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
@@ -242,10 +294,8 @@ export default function UserUploadPage() {
         ) : typeOfMeme === '단어' ? (
           <>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                단어
-              </StQuestionTitle>
+              <span>*</span>
+              단어
               <StFilterWordWrapper>
                 <StInput
                   type="text"
@@ -262,9 +312,7 @@ export default function UserUploadPage() {
               </StFilterWordWrapper>
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>뜻
-              </StQuestionTitle>
+              <span>*</span>뜻
               <StInput
                 type="text"
                 value={wordMeme.meaning || ''}
@@ -273,10 +321,8 @@ export default function UserUploadPage() {
               />
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                예시
-              </StQuestionTitle>
+              <span>*</span>
+              예시
               <StInput
                 value={wordMeme.example || ''}
                 type="text"
@@ -285,10 +331,8 @@ export default function UserUploadPage() {
               />
             </StQuestionItem>
             <StQuestionItem>
-              <StQuestionTitle>
-                <span>*</span>
-                키워드
-              </StQuestionTitle>
+              <span>*</span>
+              키워드
               <StInput
                 type="text"
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
@@ -344,7 +388,7 @@ export default function UserUploadPage() {
   );
 }
 
-const StWrapper = styled.form`
+const StWrapper = styled.div`
   margin-top: 50px;
   height: fit-content;
   display: flex;
@@ -372,8 +416,6 @@ const StQuestionList = styled.ul`
 const StQuestionItem = styled.li`
   width: 570px;
   margin: 20px 0;
-`;
-const StQuestionTitle = styled.strong`
   & > span {
     color: red;
     vertical-align: middle;
@@ -383,7 +425,7 @@ const StInput = styled.input`
   display: block;
   width: 500px;
   height: 35px;
-  padding-top: 15px;
+  padding: 15px 0;
   background: none;
   border: none;
   border-bottom: 1px solid #fff;
@@ -402,9 +444,6 @@ const StInput = styled.input`
     color: transparent;
   }
 `;
-const StQuestionAnswer = styled.div`
-  margin: 20px auto;
-`;
 const StKeyWordWrapper = styled.div`
   display: flex;
   gap: 5px;
@@ -422,4 +461,11 @@ const StFilterWordWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+const StImageUploadButton = styled.button`
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-left: 30px;
 `;

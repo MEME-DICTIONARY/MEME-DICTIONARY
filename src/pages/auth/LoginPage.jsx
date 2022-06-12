@@ -102,7 +102,7 @@ function LoginPage() {
       <StSignupLink>
         <Link to="/signup">회원가입 하러가기</Link>
       </StSignupLink>
-      <BaseButton text="로그인" onClick={handleLoginButton}></BaseButton>
+      <BaseButton type="button" text="로그인" onClick={handleLoginButton}></BaseButton>
     </StWrapper>
   );
 }

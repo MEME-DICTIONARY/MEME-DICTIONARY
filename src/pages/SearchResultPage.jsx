@@ -15,7 +15,8 @@ function SearchResultPage() {
     async function handleGetMemeWithKeyword() {
       const param = {
         keyword: params.keyword,
-        type: '짤', //처음엔 짤로 초기화
+        type: 'image', //처음엔 짤로 초기화
+        page: 0,
       };
       const { data } = await getMemeWithKeyWord(param);
 
@@ -23,7 +24,7 @@ function SearchResultPage() {
         data.content.map((res) => ({
           id: res.id,
           title: res.title,
-          url: require('../assets/img/sample.jpeg'),
+          url: res.image,
         }))
       );
     }
@@ -36,7 +37,8 @@ function SearchResultPage() {
       if (!wordResults.length) {
         const param = {
           keyword: params.keyword,
-          type: '단어', //처음엔 짤로 초기화
+          type: 'word', //처음엔 짤로 초기화
+          page: 0,
         };
         const { data } = await getMemeWithKeyWord(param);
 
@@ -49,7 +51,7 @@ function SearchResultPage() {
       }
     }
     initWordMeme();
-  }, [params.keyword, wordResults]);
+  }, [params.keyword, wordResults.length]);
 
   return (
     <>
@@ -182,6 +184,7 @@ const StWordItem = styled.li`
 
   &:hover {
     background-color: #696868;
+    color: #fff;
   }
 `;
 
@@ -215,4 +218,5 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
+  color: #fff;
 `;
