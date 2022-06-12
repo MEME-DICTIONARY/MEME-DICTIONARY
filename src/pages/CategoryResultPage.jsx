@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../component/Header';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
-import { getMemeWithCategory } from '../api/posts';
+import { getMemeWithType, getMemeWithCategory } from '../api/posts';
 
 function CategoryResultPage() {
   let params = useParams();
@@ -15,12 +15,8 @@ function CategoryResultPage() {
     if (params.category === undefined) {
       async function handleGetMemeWithType() {
         try {
-          const param = {
-            type: params.type,
-            category: '',
-          };
-          const { data } = await getMemeWithCategory(param);
-          if (params.type === '단어') {
+          const { data } = await getMemeWithType(params.type);
+          if (params.type === 'word') {
             setWordResults(
               data.content.map((res) => ({
                 id: res.id,
@@ -51,6 +47,8 @@ function CategoryResultPage() {
             category: params.category,
           };
           const { data } = await getMemeWithCategory(param);
+          console.log(data);
+
           if (params.type === '단어') {
             setWordResults(
               data.content.map((res) => ({
@@ -63,7 +61,7 @@ function CategoryResultPage() {
               data.content.map((res) => ({
                 id: res.id,
                 title: res.title,
-                url: require('../assets/img/sample.jpeg'),
+                url: res.image,
               }))
             );
           }
@@ -73,7 +71,7 @@ function CategoryResultPage() {
       }
       handleGetMemeWithCategory();
     }
-  }, [params.category, params.type, wordResults, imgResults]);
+  }, []);
 
   return (
     <>

@@ -1,26 +1,36 @@
 import { API } from './index';
 
-const PREFIX_URL = '/posts';
-
-export const postUploadMeme = async (body, token) => {
+export const postUploadWordMeme = async (body, token) => {
   try {
-    const { data } = await API.post(
-      `${PREFIX_URL}`,
-      body,
-      (API.defaults.headers.common['Authorization'] = `Bearer ${token}`)
-    );
+    const { data } = await API.post('/posts', body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return { data };
   } catch (err) {
     return null;
   }
 };
-export const filterForbiddenWord = async(word) => {
-  try{
-    const { data } = await API.get(
-      `/forbidden/exist?word=${word}`,
-    );
+export const postUploadImageMeme = async (body, token) => {
+  try {
+    const { data } = await API.post('/image', body, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return { data };
-  }catch(err){
+  } catch (err) {
     return null;
   }
-}
+};
+export const filterForbiddenWord = async (word) => {
+  try {
+    const { data } = await API.get(`/forbidden/exist?word=${word}`);
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};

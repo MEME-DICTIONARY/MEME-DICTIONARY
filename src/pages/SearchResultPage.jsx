@@ -15,10 +15,11 @@ function SearchResultPage() {
     async function handleGetMemeWithKeyword() {
       const param = {
         keyword: params.keyword,
-        type: '짤', //처음엔 짤로 초기화
+        type: 'image', //처음엔 짤로 초기화
         page: 0,
       };
       const { data } = await getMemeWithKeyWord(param);
+      console.log(data);
 
       console.log(data);
 
@@ -31,7 +32,7 @@ function SearchResultPage() {
       );
     }
     handleGetMemeWithKeyword();
-  }, [params.keyword]);
+  }, []);
 
   useEffect(() => {
     //용어 탭을 처음 누르는 경우
@@ -39,10 +40,11 @@ function SearchResultPage() {
       if (!wordResults.length) {
         const param = {
           keyword: params.keyword,
-          type: '단어', //처음엔 짤로 초기화
+          type: 'word', //처음엔 짤로 초기화
           page: 0,
         };
         const { data } = await getMemeWithKeyWord(param);
+        console.log(data);
 
         setWordResults(
           data.content.map((res) => ({
@@ -53,7 +55,7 @@ function SearchResultPage() {
       }
     }
     initWordMeme();
-  }, [params.keyword, wordResults]);
+  }, []);
 
   return (
     <>
@@ -219,4 +221,5 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
+  color: #fff;
 `;

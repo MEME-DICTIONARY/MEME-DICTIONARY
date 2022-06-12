@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
 import styled from 'styled-components';
-import { postUploadMeme, filterForbiddenWord } from '../api/upload';
+import { postUploadWordMeme, postUploadImageMeme, filterForbiddenWord } from '../api/upload';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { tokenState } from 'stores';
@@ -50,21 +50,25 @@ export default function UserUploadPage() {
   const categoryList = [
     {
       name: '카테고리',
-      value: '예능' || '',
+      value: 'TV' || '',
     },
     {
       name: '카테고리',
-      value: '드라마' || '',
+      value: '영화' || '',
     },
     {
       name: '카테고리',
-      value: '그 외' || '',
+      value: '커뮤니티' || '',
+    },
+    {
+      name: '카테고리',
+      value: '기타' || '',
     },
   ];
 
   const handlePostWordMeme = async () => {
     const body = {
-      type: typeOfMeme,
+      type: 'word',
       category: Hangul.disassemble(wordMeme.word)[0],
       title: wordMeme.word,
       description: wordMeme.meaning,
@@ -73,11 +77,31 @@ export default function UserUploadPage() {
       keyww: wordMeme.keywords[1] === undefined ? null : wordMeme.keywords[1],
       keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
     };
-    await postUploadMeme(body, token);
+    const response = await postUploadWordMeme(body, token);
+    response && navigator('/main');
   };
 
-  const handlePostImageMeme = async (formData) => {
-    await postUploadMeme(formData, token);
+  const handlePostImageMeme = async () => {
+    const formDataInfo = new FormData();
+    let body = {
+      type: 'image',
+      category: imageMeme.category,
+      title: imageMeme.title,
+      description: imageMeme.description,
+      keyw: imageMeme.keywords[0],
+      keyww: imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[1],
+      keywww: imageMeme.keywords[2] === undefined ? null : imageMeme.keywords[2],
+    };
+    const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+
+    const imageFormData = new FormData();
+    imageFormData.append('image', imageMeme.file);
+
+    formDataInfo.append('requestDto', blob);
+    formDataInfo.append('image', imageMeme.file);
+
+    const response = await postUploadImageMeme(formDataInfo, token);
+    response && navigator('/main');
   };
 
   const onClickFilteringButton = async () => {
@@ -115,43 +139,22 @@ export default function UserUploadPage() {
         return;
       }
       handlePostWordMeme();
-      // navigator('/main');
     } else {
       if (
         imageMeme.title === '' ||
         imageMeme.description === '' ||
         imageMeme.category === '' ||
+        imageMeme.file === '' ||
         imageMeme.keywords.length === 0
       ) {
         setShowModal(true);
         setModalContents('빈 칸을 모두 채워주세요!');
         return;
       }
-      const formData = new FormData();
-      for (let key in imageMeme) {
-        if (key === 'keywords') {
-          formData.append('keyw', imageMeme.keywords[0]);
-          formData.append(
-            'keyww',
-            imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[1]
-          );
-          formData.append(
-            'keywww',
-            imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[2]
-          );
-        } else formData.append(key, imageMeme[key]);
-      }
-      for (let key of formData) {
-        console.log(key);
-      }
-      handlePostImageMeme(formData);
-      // navigator('/main');
+
+      handlePostImageMeme();
     }
   };
-
-  useEffect(() => {
-    console.log(imageMeme);
-  }, [imageMeme]);
 
   return (
     <StWrapper>
