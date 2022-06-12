@@ -87,7 +87,7 @@ function MyPagebookmark() {
             <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
               {!imgResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
               {imgResults.map((result) => (
-                <Link to={`/detail/image/${result.post_id}`} key={result.id}>
+                <Link to={`/detail/image/${result.post_id}`} key={result.post_id}>
                   <StMyPageImgWrapper src={result.image} alt="짤" />
                 </Link>
               ))}
