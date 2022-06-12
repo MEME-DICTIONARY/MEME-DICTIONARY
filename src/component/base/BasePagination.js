@@ -1,18 +1,20 @@
-import {Pagination} from 'react-bootstrap'
-
+import { Pagination } from 'react-bootstrap';
+import { useState } from 'react';
 
 export default function BasePagination(props) {
-  const {totalPage, onClickPage} = props;
+  const { totalPage, onClickPage } = props;
+  const [currentPage, setCurrentPage] = useState(0);
   return (
     <Pagination>
-      <Pagination.First />
-      <Pagination.Prev />
-      {Array.from({length:totalPage},(v,i)=> i).map((cur)=> (
-        <Pagination.Item onClick={()=>onClickPage(cur)}>{cur}</Pagination.Item>
+      <Pagination.First onClick={() => onClickPage(0)} />
+      <Pagination.Prev onClick={() => onClickPage(currentPage - 1)} />
+      {Array.from({ length: totalPage }, (v, i) => i).map((cur) => (
+        <Pagination.Item onChange={() => setCurrentPage(cur)} onClick={() => onClickPage(cur)}>
+          {cur + 1}
+        </Pagination.Item>
       ))}
-      
-      <Pagination.Next />
-      <Pagination.Last />
+      <Pagination.Next onClick={() => onClickPage(currentPage + 1)} />
+      <Pagination.Last onClick={() => onClickPage(totalPage - 1)} />
     </Pagination>
-  )
+  );
 }
