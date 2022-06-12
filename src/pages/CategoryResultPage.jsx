@@ -15,8 +15,8 @@ function CategoryResultPage() {
     if (params.category === undefined) {
       async function handleGetMemeWithType() {
         try {
-          const { data } = await getMemeWithType(params.type);
-          if (params.type === 'word') {
+          if (params.type === '단어') {
+            const { data } = await getMemeWithType('word');
             setWordResults(
               data.content.map((res) => ({
                 id: res.id,
@@ -24,11 +24,13 @@ function CategoryResultPage() {
               }))
             );
           } else {
+            const { data } = await getMemeWithType('image');
+
             setImgResults(
               data.content.map((res) => ({
                 id: res.id,
                 title: res.title,
-                url: require('../assets/img/sample.jpeg'),
+                url: res.image,
               }))
             );
           }
@@ -43,7 +45,7 @@ function CategoryResultPage() {
       async function handleGetMemeWithCategory() {
         try {
           const param = {
-            type: params.type,
+            type: params.type === '단어' ? 'word' : 'image',
             category: params.category,
           };
           const { data } = await getMemeWithCategory(param);
@@ -162,6 +164,7 @@ const StWordItem = styled.li`
   height: 80px;
   display: flex;
   align-items: center;
+  color: #fff;
 
   border-bottom: 1px solid #696868;
   cursor: pointer;
@@ -186,6 +189,8 @@ const StImgResultList = styled.ul`
 const StImgResultItem = styled.li`
   display: flex;
   flex-direction: column;
+  text-align: start;
+  text-indent: 15px;
   width: 375px;
   height: 432px;
   border-bottom: 1px solid #696868;
@@ -207,4 +212,5 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
+  color: #fff;
 `;
