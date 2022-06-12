@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
@@ -11,6 +11,7 @@ import * as Hangul from 'hangul-js';
 
 export default function UserUploadPage() {
   let navigator = useNavigate();
+  const inputRef = useRef();
   const token = useRecoilState(tokenState)[0];
 
   const [typeOfMeme, setTypeOfMeme] = useState(null);
@@ -82,6 +83,8 @@ export default function UserUploadPage() {
   };
 
   const handlePostImageMeme = async () => {
+    setImageMeme({ ...imageMeme, file: inputRef.current.files });
+
     const formDataInfo = new FormData();
     let body = {
       type: 'image',
@@ -140,6 +143,7 @@ export default function UserUploadPage() {
       }
       handlePostWordMeme();
     } else {
+      console.log(imageMeme.file);
       if (
         imageMeme.title === '' ||
         imageMeme.description === '' ||
@@ -155,6 +159,10 @@ export default function UserUploadPage() {
       handlePostImageMeme();
     }
   };
+
+  useEffect(() => {
+    console.log(imageMeme.file);
+  }, [imageMeme.file]);
 
   return (
     <StWrapper>
@@ -201,14 +209,23 @@ export default function UserUploadPage() {
             <StQuestionItem>
               <span>*</span>
               사진
-              <input
-                type="file"
-                className="file"
-                onChange={(e) => {
-                  setImageMeme({ ...imageMeme, file: e.target.files[0] });
+              <StImageUploadButton
+                type="button"
+                onClick={() => {
+                  inputRef.current.click();
                 }}
-              />
-              <p>사진을 업로드해주세요.</p>
+              >
+                +
+              </StImageUploadButton>
+              <input type="file" className="file" style={{ display: 'none' }} ref={inputRef} />
+              <label
+                onClick={() => {
+                  setImageMeme({ ...imageMeme, file: inputRef.current.files });
+                }}
+              >
+                사진 업로드
+              </label>
+              <p style={{ color: '#fff' }}>{imageMeme.file && inputRef.current.files[0].name}</p>
             </StQuestionItem>
             <StQuestionItem>
               <span>*</span>

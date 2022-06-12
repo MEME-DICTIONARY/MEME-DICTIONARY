@@ -72,7 +72,7 @@ function CategoryResultPage() {
       }
       handleGetMemeWithCategory();
     }
-  }, []);
+  }, [params.category, params.type]);
 
   return (
     <>

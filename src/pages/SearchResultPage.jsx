@@ -29,7 +29,7 @@ function SearchResultPage() {
       );
     }
     handleGetMemeWithKeyword();
-  }, []);
+  }, [params.keyword]);
 
   useEffect(() => {
     //용어 탭을 처음 누르는 경우
@@ -51,7 +51,7 @@ function SearchResultPage() {
       }
     }
     initWordMeme();
-  }, []);
+  }, [params.keyword, wordResults.length]);
 
   return (
     <>

@@ -68,7 +68,7 @@ function DetailPage() {
       setDetailInfo(data);
     }
     handleDetailPage();
-  }, []);
+  }, [params.postId]);
 
   return (
     <>
