@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import BaseButton from '../component/base/BaseButton';
 import BaseTag from '../component/base/BaseTag';
 import BaseModal from '../component/base/BaseModal';
@@ -7,13 +7,20 @@ import { postUploadMeme, filterForbiddenWord } from '../api/upload';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { tokenState } from 'stores';
+import * as Hangul from 'hangul-js';
 
 export default function UserUploadPage() {
   let navigator = useNavigate();
   const token = useRecoilState(tokenState)[0];
 
   const [typeOfMeme, setTypeOfMeme] = useState(null);
-  const [keyWords, setKeyWords] = useState([]);
+  const [imageMeme, setImageMeme] = useState({
+    category: '',
+    file: '',
+    title: '',
+    description: '',
+    keywords: [],
+  });
   const [wordMeme, setWordMeme] = useState({
     word: '',
     meaning: '',
@@ -54,19 +61,22 @@ export default function UserUploadPage() {
       value: '그 외' || '',
     },
   ];
-  const inputRef = useRef();
 
-  const handlePostMeme = async (formData) => {
-    // const body = {
-    //   type: typeOfMeme,
-    //   category: null,
-    //   title: wordMeme.word,
-    //   description: wordMeme.meaning,
-    //   example: wordMeme.example,
-    //   keyw: wordMeme.keywords[0],
-    //   keyww: wordMeme.keywords[1] === undefined ? null : wordMeme.keywords[1],
-    //   keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
-    // };
+  const handlePostWordMeme = async () => {
+    const body = {
+      type: typeOfMeme,
+      category: Hangul.disassemble(wordMeme.word)[0],
+      title: wordMeme.word,
+      description: wordMeme.meaning,
+      example: wordMeme.example,
+      keyw: wordMeme.keywords[0],
+      keyww: wordMeme.keywords[1] === undefined ? null : wordMeme.keywords[1],
+      keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
+    };
+    await postUploadMeme(body, token);
+  };
+
+  const handlePostImageMeme = async (formData) => {
     await postUploadMeme(formData, token);
   };
 
@@ -88,42 +98,60 @@ export default function UserUploadPage() {
     }
   };
 
-  const onSubmitForm = (e) => {
-    e.preventDefault();
-    console.log(inputRef.current.files);
-
-    [...e.target].forEach((input) => {
-      if (input.value === '') {
+  const onClickUploadButton = () => {
+    if (typeOfMeme === '단어') {
+      if (
+        wordMeme.word === '' ||
+        wordMeme.meaning === '' ||
+        wordMeme.example === '' ||
+        wordMeme.keywords.length === 0
+      ) {
         setShowModal(true);
         setModalContents('빈 칸을 모두 채워주세요!');
         return;
-      }
-    });
-
-    if (typeOfMeme === '단어') {
-      if (!isClicked) {
+      } else if (!isClicked) {
         setShowModal(true);
         setModalContents('단어 필터링 버튼을 클릭해주세요.');
         return;
       }
-      const wordFormData = new FormData();
-      [...e.target].forEach((input) => {
-        wordFormData.append(input.id, input.value);
-      });
-      handlePostMeme();
-      navigator('/main');
+      handlePostWordMeme();
+      // navigator('/main');
     } else {
-      const imageFormData = new FormData();
-
-      [...e.target].forEach((input) => {
-        if (input.type === 'file') {
-          imageFormData.append(input.id, input.files);
-        }
-        imageFormData.append(input.id, input.value);
-      });
-      navigator('/main');
+      if (
+        imageMeme.title === '' ||
+        imageMeme.description === '' ||
+        imageMeme.category === '' ||
+        imageMeme.keywords.length === 0
+      ) {
+        setShowModal(true);
+        setModalContents('빈 칸을 모두 채워주세요!');
+        return;
+      }
+      const formData = new FormData();
+      for (let key in imageMeme) {
+        if (key === 'keywords') {
+          formData.append('keyw', imageMeme.keywords[0]);
+          formData.append(
+            'keyww',
+            imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[1]
+          );
+          formData.append(
+            'keywww',
+            imageMeme.keywords[1] === undefined ? null : imageMeme.keywords[2]
+          );
+        } else formData.append(key, imageMeme[key]);
+      }
+      for (let key of formData) {
+        console.log(key);
+      }
+      handlePostImageMeme(formData);
+      // navigator('/main');
     }
   };
+
+  useEffect(() => {
+    console.log(imageMeme);
+  }, [imageMeme]);
 
   return (
     <StWrapper>
@@ -139,7 +167,7 @@ export default function UserUploadPage() {
                   id={item.name}
                   name={item.name}
                   value={item.value}
-                  onClick={(e) => setTypeOfMeme(e.target.value)}
+                  onChange={(e) => item.onClick(e.target.value)}
                 />
                 <label htmlFor={item.name}>{item.value}</label>
               </div>
@@ -148,14 +176,20 @@ export default function UserUploadPage() {
         </StQuestionItem>
 
         {typeOfMeme === '짤' ? (
-          <form onSubmit={onSubmitForm}>
+          <>
             <StQuestionItem>
               <span>*</span>
               카테고리 선택
               <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
                 {categoryList.map((item, idx) => (
                   <div key={idx}>
-                    <input type="radio" id={item.name} value={item.value} />
+                    <input
+                      type="radio"
+                      id={item.name}
+                      name={item.name}
+                      value={item.value}
+                      onChange={(e) => setImageMeme({ ...imageMeme, category: e.target.value })}
+                    />
                     <label htmlFor={item.name}>{item.value}</label>
                   </div>
                 ))}
@@ -164,20 +198,34 @@ export default function UserUploadPage() {
             <StQuestionItem>
               <span>*</span>
               사진
-              <StImageUploadButton type="button" onClick={() => inputRef.current.click()}>
-                +
-              </StImageUploadButton>
-              <input type="file" className="file" ref={inputRef} style={{ display: 'none' }} />
+              <input
+                type="file"
+                className="file"
+                onChange={(e) => {
+                  setImageMeme({ ...imageMeme, file: e.target.files[0] });
+                }}
+              />
+              <p>사진을 업로드해주세요.</p>
             </StQuestionItem>
             <StQuestionItem>
               <span>*</span>
               제목
-              <StInput type="text" placeholder="밈의 제목을 입력해주세요." />
+              <StInput
+                type="text"
+                value={imageMeme.title || ''}
+                placeholder="밈의 제목을 입력해주세요."
+                onChange={(e) => setImageMeme({ ...imageMeme, title: e.target.value })}
+              />
             </StQuestionItem>
             <StQuestionItem>
               <span>*</span>
               설명
-              <StInput type="text" placeholder="등록하려는 밈을 설명해주세요." />
+              <StInput
+                type="text"
+                value={imageMeme.description || ''}
+                placeholder="등록하려는 밈을 설명해주세요."
+                onChange={(e) => setImageMeme({ ...imageMeme, description: e.target.value })}
+              />
             </StQuestionItem>
             <StQuestionItem>
               <span>*</span>
@@ -187,13 +235,15 @@ export default function UserUploadPage() {
                 placeholder="단어 간 띄어쓰기 없이 최대 3개 입력해주세요. (예시: 무한도전, 무야호, 신나시는거지)"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    if (keyWords.length === 3) {
+                    if (imageMeme.keywords.length === 3) {
                       setShowModal(true);
                       setModalContents('키워드는 최대 3개까지만 입력할 수 있습니다.');
                       return;
                     }
-
-                    setKeyWords([...keyWords, e.target.value.replace(/ /g, '')]);
+                    setImageMeme({
+                      ...imageMeme,
+                      keywords: [...imageMeme.keywords, e.target.value.replace(/ /g, '')],
+                    });
                     e.target.value = '';
                   }
                 }}
@@ -206,25 +256,28 @@ export default function UserUploadPage() {
                 }}
               />
               <StKeyWordWrapper>
-                {keyWords &&
-                  keyWords.map((keyword) => {
+                {imageMeme.keywords &&
+                  imageMeme.keywords.map((keyword) => {
                     return (
                       <BaseTag
                         key={keyword}
                         keyword={keyword}
                         deleteTag={(word) => {
-                          let updatedArray = keyWords;
+                          let updatedArray = imageMeme.keywords;
                           updatedArray.splice(updatedArray.indexOf(word), 1);
-                          setKeyWords([...keyWords, updatedArray]);
+                          setImageMeme({
+                            ...imageMeme,
+                            keywords: updatedArray,
+                          });
                         }}
                       ></BaseTag>
                     );
                   })}
               </StKeyWordWrapper>
             </StQuestionItem>
-          </form>
+          </>
         ) : typeOfMeme === '단어' ? (
-          <form onSubmit={onSubmitForm}>
+          <>
             <StQuestionItem>
               <span>*</span>
               단어
@@ -310,15 +363,17 @@ export default function UserUploadPage() {
                   })}
               </StKeyWordWrapper>
             </StQuestionItem>
-          </form>
+          </>
         ) : null}
-        {typeOfMeme !== null ? <BaseButton type="submit" text="등록"></BaseButton> : null}
+        {typeOfMeme !== null ? (
+          <BaseButton onClick={onClickUploadButton} text="등록"></BaseButton>
+        ) : null}
       </StQuestionList>
     </StWrapper>
   );
 }
 
-const StWrapper = styled.form`
+const StWrapper = styled.div`
   margin-top: 50px;
   height: fit-content;
   display: flex;
