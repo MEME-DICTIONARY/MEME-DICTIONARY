@@ -2,6 +2,16 @@ import { API } from './index';
 
 const PREFIX_URL = '/posts';
 
+export const getMemeWithType = async (type) => {
+  try {
+    const { data } = await API.get(
+      `${PREFIX_URL}/list?type=${type}`
+    );
+    return { data };
+  } catch (err) {
+    return null;
+  }
+};
 export const getMemeWithCategory = async (params) => {
   try {
     const { data } = await API.get(

@@ -273,7 +273,6 @@ const StSearchImg = styled.img`
 `;
 
 const StPersonBtn = styled.button`
-  /* position: absolute; */
   border: none;
   background-color: inherit;
 `;
