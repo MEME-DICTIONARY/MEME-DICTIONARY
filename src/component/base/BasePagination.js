@@ -9,7 +9,7 @@ export default function BasePagination(props) {
       <Pagination.First onClick={() => onClickPage(0)} />
       <Pagination.Prev onClick={() => onClickPage(currentPage - 1)} />
       {Array.from({ length: totalPage }, (v, i) => i).map((cur) => (
-        <Pagination.Item onChange={() => setCurrentPage(cur)} onClick={() => onClickPage(cur)}>
+        <Pagination.Item key={cur} onChange={() => setCurrentPage(cur)} onClick={() => onClickPage(cur)}>
           {cur + 1}
         </Pagination.Item>
       ))}

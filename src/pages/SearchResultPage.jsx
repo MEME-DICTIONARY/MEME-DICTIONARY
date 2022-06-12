@@ -3,6 +3,7 @@ import Header from '../component/Header';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import { getMemeWithKeyWord } from '../api/posts';
+import BasePagination from 'component/base/BasePagination';
 
 function SearchResultPage() {
   let params = useParams();
@@ -10,48 +11,54 @@ function SearchResultPage() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
   const [isWordClicked, setIsWordClicked] = useState(false);
+  const [wordTotalPages, setWordTotalPages] = useState(0);
+  const [imageTotalPages, setImageTotalPages] = useState(0);
 
-  useEffect(() => {
-    async function handleGetMemeWithKeyword() {
+  const handleImageMeme = async (page) => {
+    const param = {
+      keyword: params.keyword,
+      type: 'image',
+      page: page,
+    };
+    const { data } = await getMemeWithKeyWord(param);
+    setImageTotalPages(data.totalPages);
+    console.log(data);
+
+    setImgResults(
+      data.content.map((res) => ({
+        id: res.id,
+        title: res.title,
+        url: res.image,
+      }))
+    );
+  };
+  const handleWordMeme = async (page) => {
+    if (!wordResults.length) {
       const param = {
         keyword: params.keyword,
-        type: 'image', //처음엔 짤로 초기화
-        page: 0,
+        type: 'word', //처음엔 짤로 초기화
+        page: page,
       };
       const { data } = await getMemeWithKeyWord(param);
+      setWordTotalPages(data.totalPages);
 
-      setImgResults(
+      setWordResults(
         data.content.map((res) => ({
           id: res.id,
           title: res.title,
-          url: res.image,
         }))
       );
     }
-    handleGetMemeWithKeyword();
-  }, [params.keyword]);
-
+  };
   useEffect(() => {
-    //용어 탭을 처음 누르는 경우
-    async function initWordMeme() {
-      if (!wordResults.length) {
-        const param = {
-          keyword: params.keyword,
-          type: 'word', //처음엔 짤로 초기화
-          page: 0,
-        };
-        const { data } = await getMemeWithKeyWord(param);
+    handleImageMeme(0);
+    handleWordMeme(0);
+  }, []);
 
-        setWordResults(
-          data.content.map((res) => ({
-            id: res.id,
-            title: res.title,
-          }))
-        );
-      }
-    }
-    initWordMeme();
-  }, [params.keyword, wordResults.length]);
+  const onClickPagination = (cur) => {
+    handleImageMeme(cur);
+    handleWordMeme(cur);
+  };
 
   return (
     <>
@@ -91,35 +98,53 @@ function SearchResultPage() {
                   <StWordItem key={result.id}>{result.title}</StWordItem>
                 </Link>
               ))}
-            </StWordResultList>
-          ) : (
-            <StImgResultList>
-              {imgResults.length === 0 && (
-                <div
-                  style={{
-                    display: 'flex',
-                    width: '100%',
-                    height: 'calc(100vh/2)',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  검색 결과가 없습니다.
+              {wordResults.length !== 0 && (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '15px' }}>
+                  <BasePagination
+                    totalPage={wordTotalPages}
+                    onClickPage={(cur) => onClickPagination(cur)}
+                  />
                 </div>
               )}
-              {imgResults.map((result) => {
-                return (
-                  <Link to={`/detail/image/${result.id}`}>
-                    <StImgResultItem key={result.id}>
-                      <img src={result.url} alt="짤" />
-                      <StImgTitleWrapper key={result.id}>
-                        <StImgTitle key={result.id}>{result.title}</StImgTitle>
-                      </StImgTitleWrapper>
-                    </StImgResultItem>
-                  </Link>
-                );
-              })}
-            </StImgResultList>
+            </StWordResultList>
+          ) : (
+            <>
+              <StImgResultList>
+                {imgResults.length === 0 && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      height: 'calc(100vh/2)',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    검색 결과가 없습니다.
+                  </div>
+                )}
+                {imgResults.map((result) => {
+                  return (
+                    <Link to={`/detail/image/${result.id}`}>
+                      <StImgResultItem key={result.id}>
+                        <img src={result.url} alt="짤" />
+                        <StImgTitleWrapper key={result.id}>
+                          <StImgTitle key={result.id}>{result.title}</StImgTitle>
+                        </StImgTitleWrapper>
+                      </StImgResultItem>
+                    </Link>
+                  );
+                })}
+              </StImgResultList>
+              {imgResults.length !== 0 && (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '15px' }}>
+                  <BasePagination
+                    totalPage={imageTotalPages}
+                    onClickPage={(cur) => onClickPagination(cur)}
+                  />
+                </div>
+              )}
+            </>
           )}
         </StResultWrapper>
       </StWrapper>
