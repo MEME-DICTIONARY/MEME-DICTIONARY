@@ -218,5 +218,4 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
 `;

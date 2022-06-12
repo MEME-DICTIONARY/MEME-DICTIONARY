@@ -3,6 +3,7 @@ import Header from '../component/Header';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import { getMemeWithType, getMemeWithCategory } from '../api/posts';
+import BasePagination from 'component/base/BasePagination';
 
 function CategoryResultPage() {
   let params = useParams();
@@ -74,6 +75,8 @@ function CategoryResultPage() {
     }
   }, [params.category, params.type]);
 
+  const onClickPagination = (cur) => {};
+
   return (
     <>
       <Header />
@@ -98,6 +101,14 @@ function CategoryResultPage() {
                   <StWordItem>{result.title}</StWordItem>
                 </Link>
               ))}
+              {wordResults.length !== 0 && (
+                <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '15px' }}>
+                  <BasePagination
+                    totalPage={wordResults.totalPage}
+                    onClickPage={(cur) => onClickPagination(cur)}
+                  />
+                </div>
+              )}
             </StWordResultList>
           ) : (
             <StImgResultList>
@@ -123,6 +134,14 @@ function CategoryResultPage() {
                   </StImgResultItem>
                 </Link>
               ))}
+              {imgResults.length !== 0 && (
+                <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '15px' }}>
+                  <BasePagination
+                    totalPage={imgResults.totalPage}
+                    onClickPage={(cur) => onClickPagination(cur)}
+                  />
+                </div>
+              )}
             </StImgResultList>
           )}
         </StResultWrapper>
@@ -211,5 +230,4 @@ const StImgTitle = styled.strong`
   text-indent: 15px;
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
 `;
