@@ -92,7 +92,7 @@ function MyPageupload() {
               {!imgResults.length && <p>등록한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
                 <Link to={`/detail/image/${result.id}`} key={result.id}>
-                  <StMyPageImgWrapper src={result.image} alt="짤"></StMyPageImgWrapper>
+                  <StMyPageImgWrapper src={result.image} alt="짤" />
                 </Link>
               ))}
             </StMyPageWordWrapper>
