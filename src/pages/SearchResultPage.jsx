@@ -19,9 +19,6 @@ function SearchResultPage() {
         page: 0,
       };
       const { data } = await getMemeWithKeyWord(param);
-      console.log(data);
-
-      console.log(data);
 
       setImgResults(
         data.content.map((res) => ({
@@ -44,7 +41,6 @@ function SearchResultPage() {
           page: 0,
         };
         const { data } = await getMemeWithKeyWord(param);
-        console.log(data);
 
         setWordResults(
           data.content.map((res) => ({
@@ -188,6 +184,7 @@ const StWordItem = styled.li`
 
   &:hover {
     background-color: #696868;
+    color: #fff;
   }
 `;
 
