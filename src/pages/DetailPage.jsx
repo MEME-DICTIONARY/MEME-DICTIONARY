@@ -69,7 +69,6 @@ function DetailPage() {
   useEffect(() => {
     async function handleDetailPage() {
       const { data } = await getDetailContent(params.postId);
-      console.log(data);
       setDetailInfo(data);
     }
 
@@ -84,13 +83,11 @@ function DetailPage() {
     const response = await getMyPageBookmark(body, token);
 
     response.data.content.map((result) => {
-      console.log(result.title);
       bookmark.push(result.title);
     });
     compareBookMark();
   }
   const compareBookMark = () => {
-    console.log(bookmark);
     if (bookmark.includes(detailInfo.title)) {
       setShowModal(true);
       setModalContents('이미 북마크 된 게시물 입니다');

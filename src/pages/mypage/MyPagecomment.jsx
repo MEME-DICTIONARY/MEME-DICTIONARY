@@ -48,7 +48,7 @@ function MyPagecomment() {
         <StCommentWrapper>
           {commentResults.length === 0 && <p>등록한 댓글이 없습니다.</p>}
           {commentResults.map((result) => (
-            <StCommentItem>
+            <StCommentItem key={result.id}>
               <StCommentTitle>{result.title} 페이지에 달린 댓글</StCommentTitle>
               <StCommentContent>{result.content}</StCommentContent>
               <StCommentTime>{result.created_date.replace('T', ' ')}</StCommentTime>
@@ -63,8 +63,6 @@ function MyPagecomment() {
 const StMyPageWrapper = styled.div`
   display: grid;
   grid-template-columns: 150px 1fr;
-  z-index: 1;
-  width: 100%;
 `;
 const StMyActivityWrapper = styled.div`
   display: flex;

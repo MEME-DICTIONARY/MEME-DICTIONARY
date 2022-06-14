@@ -22,7 +22,6 @@ function SearchResultPage() {
     };
     const { data } = await getMemeWithKeyWord(param);
     setImageTotalPages(data.totalPages);
-    console.log(data);
 
     setImgResults(
       data.content.map((res) => ({

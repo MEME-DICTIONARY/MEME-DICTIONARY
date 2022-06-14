@@ -211,17 +211,19 @@ const StPwInput = styled.input`
   position: relative;
   margin-bottom: 40px;
   left: 70px;
-  border-radius: 10px;
+  border: none;
+  border-radius: 20px;
   width: 610px;
-  height: 35px;
+  padding: 10px 0;
   top: 70px;
 `;
 
 const StChangeBtn = styled.button`
   color: white;
   width: 70px;
+  padding: 10px 0;
   background-color: gray;
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
   left: 80px;
   top: 70px;

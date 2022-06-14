@@ -35,10 +35,6 @@ function MyPageupload() {
     handleImageMeme();
   }, []);
 
-  useEffect(() => {
-    console.log(imgResults);
-  }, [imgResults]);
-
   return (
     <>
       <Header />
@@ -136,7 +132,7 @@ const StLinkNav = styled.div`
 
 const StTypeNav = styled.nav`
   display: flex;
-  margin: 85px 0 57px 51px;
+  margin: 85px 0 57px 0;
   color: #696868;
 `;
 const StNavList = styled.li`
@@ -166,7 +162,6 @@ const StMyPageWordWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
-  margin-left: 50px;
   & > p {
     color: #fff;
     font-weight: bold;

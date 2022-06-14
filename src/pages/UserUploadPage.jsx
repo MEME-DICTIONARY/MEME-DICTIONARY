@@ -215,7 +215,8 @@ export default function UserUploadPage() {
               <input type="file" className="file" style={{ display: 'none' }} ref={inputRef} />
               <label
                 onClick={() => {
-                  setImageMeme({ ...imageMeme, file: inputRef.current.files });
+                  inputRef.current.files[0] &&
+                    setImageMeme({ ...imageMeme, file: inputRef.current.files });
                 }}
               >
                 사진 업로드

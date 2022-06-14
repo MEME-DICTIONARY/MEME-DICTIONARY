@@ -69,7 +69,6 @@ function CategoryResultPage() {
         page: page,
       };
       const { data } = await getMemeWithCategory(param);
-      console.log(data);
 
       if (params.type === '단어') {
         setWordResults(

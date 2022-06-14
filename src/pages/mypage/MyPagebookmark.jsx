@@ -158,7 +158,7 @@ const StWordContent = styled.p`
 `;
 const StTypeNav = styled.nav`
   display: flex;
-  margin: 85px 0 57px 51px;
+  margin: 85px 0 57px 0;
   color: #696868;
 `;
 const StNavList = styled.li`
@@ -184,7 +184,6 @@ const StMemeInfoWrapper = styled.div`
   margin: 0 50px 30px 100px;
 `;
 const StBookmarkedMemeWrapper = styled.div`
-  margin-left: 50px;
   ${({ isEmpty }) =>
     isEmpty &&
     css`

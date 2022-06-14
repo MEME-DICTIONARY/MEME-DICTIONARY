@@ -139,6 +139,7 @@ const StLoginTitle = styled.strong`
   font-size: 20px;
   line-height: 28px;
   padding-bottom: 5px;
+  color: #fff;
 
   & > span {
     color: #ff0000;
