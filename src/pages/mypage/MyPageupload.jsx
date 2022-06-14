@@ -13,29 +13,31 @@ function MyPageupload() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
+  const handleWordMeme = async () => {
+    const param = {
+      type: 'word',
+      page: 0,
+    };
+    const { data } = await getMyPageUpload(param, token);
+    setWordResults(data.content);
+  };
+  const handleImageMeme = async () => {
+    const param = {
+      type: 'image',
+      page: 0,
+    };
+    const { data } = await getMyPageUpload(param, token);
+    setImgResults(data.content);
+  };
+
   useEffect(() => {
-    let param = {};
-    if (!isWordClicked) {
-      param = {
-        type: 'image',
-        page: 0,
-      };
-    } else {
-      param = {
-        type: 'word',
-        page: 0,
-      };
-    }
-    async function handleUploadMeme() {
-      const { data } = await getMyPageUpload(param, token);
-      if (param.type === 'word') {
-        setWordResults(data.content);
-      } else {
-        setImgResults(data.content);
-      }
-    }
-    handleUploadMeme(param);
-  }, [isWordClicked, token]);
+    handleWordMeme();
+    handleImageMeme();
+  }, []);
+
+  useEffect(() => {
+    console.log(imgResults);
+  }, [imgResults]);
 
   return (
     <>
@@ -89,11 +91,9 @@ function MyPageupload() {
             <StMyPageWordWrapper>
               {!imgResults.length && <p>등록한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
-                <StMyPageImgWrapper
-                  key={result.id}
-                  src={require('assets/img/detailPage/무야호.png')}
-                  alt="짤"
-                ></StMyPageImgWrapper>
+                <Link to={`/detail/image/${result.id}`} key={result.id}>
+                  <StMyPageImgWrapper src={result.image} alt="짤" />
+                </Link>
               ))}
             </StMyPageWordWrapper>
           )}
@@ -163,10 +163,10 @@ const StMemeInfoWrapper = styled.div`
 `;
 const StMyPageWordWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 70px 0 0 50px;
-  text-align: center;
+  flex-wrap: wrap;
+  margin-left: 50px;
   & > p {
     color: #fff;
     font-weight: bold;
@@ -178,7 +178,7 @@ const StWordItem = styled.li`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: start;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
 `;
@@ -197,6 +197,7 @@ const StWordContent = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: start;
 `;
 
 const StMyPageImgWrapper = styled.img`

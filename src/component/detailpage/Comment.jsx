@@ -11,21 +11,28 @@ export default function Comment(props) {
         <h2>댓글</h2>
         <input
           type="text"
+          value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
         ></input>
-        <button type="button" onClick={() => postComment(input)}>
+        <button
+          type="button"
+          onClick={() => {
+            postComment(input);
+            setInput('');
+          }}
+        >
           등록
         </button>
       </StCommentHeader>
       <StCommentWrapper>
         {commentInfo?.map((comment, index) => (
-          <>
+          <div key={index}>
             <StCommentID>익명 {index + 1}</StCommentID>
             <StCommentContent>{comment.content} </StCommentContent>
             <StCommentDate>{comment.created_date.replace('T', ' ')}</StCommentDate>
             <hr></hr>
-          </>
+          </div>
         ))}
       </StCommentWrapper>
     </StWrapper>

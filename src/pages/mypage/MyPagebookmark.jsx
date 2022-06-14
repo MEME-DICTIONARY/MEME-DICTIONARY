@@ -13,32 +13,27 @@ function MyPagebookmark() {
   const [wordResults, setWordResults] = useState([]);
   const [imgResults, setImgResults] = useState([]);
 
-  useEffect(() => {
-    let param = {};
-    if (!isWordClicked) {
-      param = {
-        type: 'image',
-        page: 0,
-      };
-    } else {
-      param = {
-        type: 'word',
-        page: 0,
-      };
-    }
-    async function handleUploadMeme() {
-      const { data } = await getMyPageBookmark(param, token);
-      console.log(data);
-      console.log(token);
+  const handleWordMeme = async () => {
+    const param = {
+      type: 'word',
+      page: 0,
+    };
+    const { data } = await getMyPageBookmark(param, token);
+    setWordResults(data.content);
+  };
+  const handleImageMeme = async () => {
+    const param = {
+      type: 'image',
+      page: 0,
+    };
+    const { data } = await getMyPageBookmark(param, token);
+    setImgResults(data.content);
+  };
 
-      if (param.type === 'word') {
-        setWordResults(data.content);
-      } else {
-        setImgResults(data.content);
-      }
-    }
-    handleUploadMeme(param);
-  }, [isWordClicked, token]);
+  useEffect(() => {
+    handleWordMeme();
+    handleImageMeme();
+  }, []);
 
   return (
     <>
@@ -80,7 +75,7 @@ function MyPagebookmark() {
             <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
               {!wordResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
               {wordResults.map((result) => (
-                <Link to={`/detail/word/${result.id}`} key={result.id}>
+                <Link to={`/detail/word/${result.post_id}`} key={result.post_id}>
                   <StWordItem>
                     <StWordTitle>{result.title}</StWordTitle>
                     <StWordContent>{result.description}</StWordContent>
@@ -92,7 +87,9 @@ function MyPagebookmark() {
             <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
               {!imgResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
               {imgResults.map((result) => (
-                <img key={result.id} src={require('assets/img/detailPage/무야호.png')} alt="짤" />
+                <Link to={`/detail/image/${result.post_id}`} key={result.post_id}>
+                  <StMyPageImgWrapper src={result.image} alt="짤" />
+                </Link>
               ))}
             </StBookmarkedMemeWrapper>
           )}
@@ -138,7 +135,7 @@ const StWordItem = styled.li`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: start;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
 `;
@@ -151,11 +148,13 @@ const StWordTitle = styled.h2`
   margin-top: 30px;
 `;
 const StWordContent = styled.p`
+  width: 900px;
   color: white;
   margin-bottom: 10px;
-  text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
 `;
 const StTypeNav = styled.nav`
   display: flex;
@@ -199,5 +198,10 @@ const StBookmarkedMemeWrapper = styled.div`
     font-weight: bold;
     color: #fff;
   }
+`;
+const StMyPageImgWrapper = styled.img`
+  margin-left: 50px;
+  width: 300px;
+  height: 225px;
 `;
 export default MyPagebookmark;

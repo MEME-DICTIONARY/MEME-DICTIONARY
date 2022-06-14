@@ -2,10 +2,10 @@ import { API } from './index';
 
 const PREFIX_URL = '/posts';
 
-export const getMemeWithType = async (type) => {
+export const getMemeWithType = async (params) => {
   try {
     const { data } = await API.get(
-      `${PREFIX_URL}/list?type=${type}`
+      `${PREFIX_URL}/list?type=${params.type}&page=${params.page}`
     );
     return { data };
   } catch (err) {
@@ -15,7 +15,7 @@ export const getMemeWithType = async (type) => {
 export const getMemeWithCategory = async (params) => {
   try {
     const { data } = await API.get(
-      `${PREFIX_URL}/list?type=${params.type}&category=${params.category}`
+      `${PREFIX_URL}/list?type=${params.type}&category=${params.category}&page=${params.page}`
     );
     return { data };
   } catch (err) {
@@ -25,7 +25,7 @@ export const getMemeWithCategory = async (params) => {
 export const getMemeWithKeyWord = async (params) => {
   try {
     const { data } = await API.get(
-      `${PREFIX_URL}/search?keyw=${params.keyword}&type=${params.type}`
+      `${PREFIX_URL}/search?keyw=${params.keyword}&type=${params.type}&page=${params.page}`
     );
     return { data };
   } catch (err) {

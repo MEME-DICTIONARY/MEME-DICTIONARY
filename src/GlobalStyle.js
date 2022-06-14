@@ -42,6 +42,9 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration:none;
     color: inherit;
+    &:hover{
+      color:inherit;
+    }
   }
   input[disabled] {
     background-color: white;

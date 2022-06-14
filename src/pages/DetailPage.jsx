@@ -22,10 +22,12 @@ import BaseModal from '../component/base/BaseModal';
 function DetailPage() {
   let navigate = useNavigate();
   let params = useParams();
+
+  const bookmark = [];
   const token = useRecoilState(tokenState)[0];
   const isLogin = useRecoilState(isLoginState)[0];
   const [detailInfo, setDetailInfo] = useState();
-  const [bookMark, setBookMark] = useState();
+
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState('');
 
@@ -48,6 +50,7 @@ function DetailPage() {
   const handleForbiddenWord = async (word) => {
     await postForbiddenWord(word);
   };
+
   const postComment = async (input) => {
     if (input) {
       await postDetailComment(token, params.postId, input);
@@ -62,20 +65,6 @@ function DetailPage() {
       navigate('/main');
     }
   };
-  const compareBookMark = () => {
-    console.log(bookMark);
-    /*bookMark.content.map((result) => {
-      if (result === detailInfo.title) {
-        setShowModal(true);
-        setModalContents('이미 북마크 된 게시물입니다');
-        return null;
-      } else {
-        setShowModal(true);
-        setModalContents('북마크 되었습니다');
-        return null;
-      }
-    });*/
-  };
 
   useEffect(() => {
     async function handleDetailPage() {
@@ -83,18 +72,38 @@ function DetailPage() {
       console.log(data);
       setDetailInfo(data);
     }
+
     handleDetailPage();
   }, [params.postId]);
 
-  async function handleBookMark() {
-    const { data } = await getMyPageBookmark(params.type, token);
-    console.log(data);
-    console.log(token);
-  }
+  async function handleBookmark() {
+    const body = {
+      type: params.type,
+      page: 0,
+    };
+    const response = await getMyPageBookmark(body, token);
 
+    response.data.content.map((result) => {
+      console.log(result.title);
+      bookmark.push(result.title);
+    });
+    compareBookMark();
+  }
+  const compareBookMark = () => {
+    console.log(bookmark);
+    if (bookmark.includes(detailInfo.title)) {
+      setShowModal(true);
+      setModalContents('이미 북마크 된 게시물 입니다');
+    } else {
+      setShowModal(true);
+      setModalContents('북마크 되었습니다');
+      onClickBookMarkButton();
+    }
+  };
   return (
     <>
       <Header />
+
       <BaseModal
         hidden={!showModal}
         content={modalContents}
@@ -156,9 +165,7 @@ function DetailPage() {
                   src={require('assets/img/detailPage/bookmark.png')}
                   alt="북마크"
                   onClick={() => {
-                    setDetailInfo({ ...detailInfo, bookmark_cnt: detailInfo.bookmark_cnt + 1 });
-                    onClickBookMarkButton();
-                    handleBookMark();
+                    handleBookmark();
                   }}
                 ></StBookMarkImg>
               </StBottomBtn>
@@ -218,17 +225,17 @@ function DetailPage() {
                 />
               </StBottomBtn>
 
-              <StBottomBtn>
-                <StBookMarkImg
-                  src={require('assets/img/detailPage/bookmark.png')}
-                  alt="북마크"
-                  onClick={() => {
-                    onClickBookMarkButton();
-
-                    handleBookMark();
-                  }}
-                ></StBookMarkImg>
-              </StBottomBtn>
+              {isLogin ? (
+                <StBottomBtn>
+                  <StBookMarkImg
+                    src={require('assets/img/detailPage/bookmark.png')}
+                    alt="북마크"
+                    onClick={() => {
+                      handleBookmark();
+                    }}
+                  ></StBookMarkImg>
+                </StBottomBtn>
+              ) : null}
             </StButtonWrapper>
           </StImgWrapper>
 

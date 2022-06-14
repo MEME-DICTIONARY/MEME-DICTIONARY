@@ -380,9 +380,7 @@ export default function UserUploadPage() {
             </StQuestionItem>
           </>
         ) : null}
-        {typeOfMeme !== null ? (
-          <BaseButton onClick={onClickUploadButton} text="등록"></BaseButton>
-        ) : null}
+        {typeOfMeme !== null && <BaseButton onClick={onClickUploadButton} text="등록"></BaseButton>}
       </StQuestionList>
     </StWrapper>
   );
