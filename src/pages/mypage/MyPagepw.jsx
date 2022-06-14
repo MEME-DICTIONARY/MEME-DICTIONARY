@@ -20,38 +20,37 @@ function MyPagepw() {
   const currentPW = useRecoilState(passwordState)[0];
   const setNewPassword = useSetRecoilState(passwordState);
 
-  const [isVerified, setIsVerified] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
+  const [withDrawal, setWithDrawal] = useState(false);
 
   function quitModalOpen() {
     setShowModal(true);
+    setWithDrawal(true);
+    setChangePassword(false);
     setModalContents('정말 탈퇴하시겠습니까?');
   }
 
   const checkPassword = () => {
+    setChangePassword(true);
+    setWithDrawal(false);
     if (oldPW === '' || newPW === '' || verifyNewPW === '') {
       setShowModal(true);
-      setIsVerified(false);
       setModalContents('빈 칸을 모두 입력해주세요.');
     } else {
       if (oldPW !== currentPW) {
         setShowModal(true);
-        setIsVerified(false);
         setModalContents('현재 비밀번호와 일치하지 않습니다.');
       } else if (newPW === oldPW) {
         setShowModal(true);
-        setIsVerified(false);
         setModalContents('기존 비밀번호와 같습니다.');
       } else if (newPW.length < 5) {
         setShowModal(true);
-        setIsVerified(false);
         setModalContents('비밀번호는 5글자 이상이어야 합니다.');
       } else if (newPW.length >= 5 && newPW === verifyNewPW) {
         setShowModal(true);
-        setIsVerified(true);
         setModalContents('정말 변경하시겠습니까?');
       } else if (newPW.length >= 5 && newPW !== verifyNewPW) {
         setShowModal(true);
-        setIsVerified(false);
         setModalContents('비밀번호가 일치하지 않습니다');
       }
     }
@@ -72,7 +71,7 @@ function MyPagepw() {
     <>
       <Header />
 
-      {isVerified ? (
+      {withDrawal && (
         <BaseModal
           hidden={!showModal}
           content={modalContents}
@@ -82,7 +81,8 @@ function MyPagepw() {
           check={newPW === verifyNewPW}
           onClickYes={handleChangePassword}
         />
-      ) : (
+      )}
+      {changePassword && (
         <BaseModal
           hidden={!showModal}
           content={modalContents}

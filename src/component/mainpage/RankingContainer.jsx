@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import LeftSideContainer from './LeftSideContainer';
-import icon_update from 'assets/img/icon_update.svg';
+import { default as icUpdate } from 'assets/img/icon_update.svg';
 import { useNavigate } from 'react-router-dom';
 import ImageCarousel from './ImageCarousel';
 
@@ -24,7 +24,7 @@ function RankingContainer({ wordRankingList, onClick }) {
 
         <StRightSideOfSecondCont>
           <StUpdateButton>
-            <img src={icon_update} alt="업데이트" onClick={onClick} />
+            <img src={icUpdate} alt="업데이트" onClick={onClick} />
             <p>업데이트</p>
           </StUpdateButton>
           <StWordRankingLists>
