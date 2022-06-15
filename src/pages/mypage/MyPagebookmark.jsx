@@ -83,14 +83,14 @@ function MyPagebookmark() {
               ))}
             </StMyPageWordWrapper>
           ) : (
-            <StMyPageWordWrapper>
+            <StBookmarkImageWrapper>
               {!imgResults.length && <p>북마크한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
                 <Link to={`/detail/image/${result.id}`} key={result.id}>
                   <StMyPageImgWrapper src={result.image} alt="짤" />
                 </Link>
               ))}
-            </StMyPageWordWrapper>
+            </StBookmarkImageWrapper>
           )}
         </StMemeInfoWrapper>
       </StMyPageWrapper>
@@ -183,6 +183,10 @@ const StMemeInfoWrapper = styled.div`
   margin: 0 50px 30px 100px;
 `;
 const StMyPageWordWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const StBookmarkImageWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;

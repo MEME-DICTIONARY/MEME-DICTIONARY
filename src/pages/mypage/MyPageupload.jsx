@@ -84,14 +84,14 @@ function MyPageupload() {
               ))}
             </StMyPageWordWrapper>
           ) : (
-            <StMyPageWordWrapper>
+            <StMyPageImageWrapper>
               {!imgResults.length && <p>등록한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
                 <Link to={`/detail/image/${result.id}`} key={result.id}>
-                  <StMyPageImgWrapper src={result.image} alt="짤" />
+                  <StMyPageImg src={result.image} alt="짤" />
                 </Link>
               ))}
-            </StMyPageWordWrapper>
+            </StMyPageImageWrapper>
           )}
         </StMemeInfoWrapper>
       </StMyPageWrapper>
@@ -158,6 +158,10 @@ const StMemeInfoWrapper = styled.div`
   margin: 0 50px 30px 100px;
 `;
 const StMyPageWordWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const StMyPageImageWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -194,7 +198,7 @@ const StWordContent = styled.p`
   text-align: start;
 `;
 
-const StMyPageImgWrapper = styled.img`
+const StMyPageImg = styled.img`
   margin-left: 50px;
   width: 300px;
   height: 225px;
