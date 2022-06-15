@@ -11,7 +11,7 @@ function FirstContainer({ hashTagList }) {
   const onEnterPress = (e) => {
     if (e.key === 'Enter') {
       if (input !== '') {
-        navigator(`/search/result/${input}`);
+        navigator(`/search/result/${input}`, { replace: true });
       }
     }
   };
@@ -34,7 +34,7 @@ function FirstContainer({ hashTagList }) {
             src={icSearch}
             alt="검색"
             onClick={() => {
-              input && navigator(`/search/result/${input}`);
+              input && navigator(`/search/result/${input}`, { replace: true });
             }}
           />
         </StSearchIconWrapper>

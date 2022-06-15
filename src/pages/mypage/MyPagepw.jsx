@@ -60,7 +60,7 @@ function MyPagepw() {
     const res = await postChangePassword({ oldPassword: oldPW, newPassword: newPW });
     if (res) {
       setNewPassword(newPW);
-      navigate('/mypage/upload');
+      navigate('/mypage/upload', { replace: true });
     }
   };
 

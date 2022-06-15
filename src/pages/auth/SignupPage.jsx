@@ -67,7 +67,7 @@ function SignupPage() {
           setModalContents('확인 비밀번호가 일치하지 않습니다.');
         } else {
           handleSignIn(); //회원가입 data post
-          navigate('/login');
+          navigate('/login', { replace: true });
         }
       }
     }

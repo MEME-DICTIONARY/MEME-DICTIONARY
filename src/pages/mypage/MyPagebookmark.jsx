@@ -70,28 +70,27 @@ function MyPagebookmark() {
               짤
             </StNavList>
           </StTypeNav>
-
           {isWordClicked ? (
-            <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
-              {!wordResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
+            <StMyPageWordWrapper>
+              {!wordResults.length && <p>북마크한 단어 MEME이 없습니다!</p>}
               {wordResults.map((result) => (
-                <Link to={`/detail/word/${result.post_id}`} key={result.post_id}>
+                <Link to={`/detail/word/${result.id}`} key={result.id}>
                   <StWordItem>
                     <StWordTitle>{result.title}</StWordTitle>
                     <StWordContent>{result.description}</StWordContent>
                   </StWordItem>
                 </Link>
               ))}
-            </StBookmarkedMemeWrapper>
+            </StMyPageWordWrapper>
           ) : (
-            <StBookmarkedMemeWrapper isEmpty={!wordResults.length}>
-              {!imgResults.length && <strong>북마크한 MEME이 없습니다!</strong>}
+            <StMyPageWordWrapper>
+              {!imgResults.length && <p>북마크한 짤 MEME이 없습니다!</p>}
               {imgResults.map((result) => (
-                <Link to={`/detail/image/${result.post_id}`} key={result.post_id}>
+                <Link to={`/detail/image/${result.id}`} key={result.id}>
                   <StMyPageImgWrapper src={result.image} alt="짤" />
                 </Link>
               ))}
-            </StBookmarkedMemeWrapper>
+            </StMyPageWordWrapper>
           )}
         </StMemeInfoWrapper>
       </StMyPageWrapper>
@@ -183,24 +182,19 @@ const StMemeInfoWrapper = styled.div`
   flex-direction: column;
   margin: 0 50px 30px 100px;
 `;
-const StBookmarkedMemeWrapper = styled.div`
-  ${({ isEmpty }) =>
-    isEmpty &&
-    css`
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-    `}
-  & > strong {
-    font-size: 24px;
-    font-weight: bold;
+const StMyPageWordWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  & > p {
     color: #fff;
+    font-weight: bold;
+    font-size: 24px;
   }
 `;
 const StMyPageImgWrapper = styled.img`
-  margin-left: 50px;
   width: 300px;
   height: 225px;
+  object-fit: cover;
 `;
 export default MyPagebookmark;

@@ -14,7 +14,7 @@ function RankingContainer({ wordRankingList, onClick }) {
   const thirdDescription = '인기 급상승 밈 TOP 5 밈과사전이 직접 추천해드립니다.';
 
   const onClickRankingItem = (postId) => {
-    navigate(`/detail/word/${postId}`);
+    navigate(`/detail/word/${postId}`, { replace: true });
   };
 
   return (

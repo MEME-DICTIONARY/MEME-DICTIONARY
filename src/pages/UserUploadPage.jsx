@@ -79,7 +79,7 @@ export default function UserUploadPage() {
       keywww: wordMeme.keywords[2] === undefined ? null : wordMeme.keywords[2],
     };
     const response = await postUploadWordMeme(body, token);
-    response && navigator('/main');
+    response && navigator('/main', { replace: true });
   };
 
   const handlePostImageMeme = async () => {
@@ -104,7 +104,7 @@ export default function UserUploadPage() {
     formDataInfo.append('image', imageMeme.file);
 
     const response = await postUploadImageMeme(formDataInfo, token);
-    response && navigator('/main');
+    response && navigator('/main', { replace: true });
   };
 
   const onClickFilteringButton = async () => {

@@ -158,10 +158,9 @@ const StMemeInfoWrapper = styled.div`
   margin: 0 50px 30px 100px;
 `;
 const StMyPageWordWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   & > p {
     color: #fff;
     font-weight: bold;
@@ -199,6 +198,7 @@ const StMyPageImgWrapper = styled.img`
   margin-left: 50px;
   width: 300px;
   height: 225px;
+  object-fit: cover;
 `;
 
 export default MyPageupload;

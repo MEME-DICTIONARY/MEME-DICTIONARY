@@ -62,7 +62,7 @@ function DetailPage() {
     if (detailInfo.report >= 2) {
       handleDelete();
       handleForbiddenWord(detailInfo.title);
-      navigate('/main');
+      navigate('/main', { replace: true });
     }
   };
 

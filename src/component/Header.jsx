@@ -43,7 +43,7 @@ export default function Header() {
 
   const onEnterPress = (e) => {
     if (e.key === 'Enter') {
-      if (input !== '') navigator(`/search/result/${input}`);
+      if (input !== '') navigator(`/search/result/${input}`, { replace: true });
     }
   };
   const onChangeSearchInput = (e) => {
