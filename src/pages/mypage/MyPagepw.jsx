@@ -89,6 +89,8 @@ function MyPagepw() {
           hideModal={() => {
             setShowModal(false);
           }}
+          check={newPW === verifyNewPW}
+          onClickYes={handleChangePassword}
         />
       )}
 

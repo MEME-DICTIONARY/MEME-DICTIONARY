@@ -83,8 +83,7 @@ export default function UserUploadPage() {
   };
 
   const handlePostImageMeme = async () => {
-    setImageMeme({ ...imageMeme, file: inputRef.current.files });
-
+    // setImageMeme({ ...imageMeme, file: inputRef.current.files[0] });
     const formDataInfo = new FormData();
     let body = {
       type: 'image',
@@ -97,11 +96,8 @@ export default function UserUploadPage() {
     };
     const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
 
-    const imageFormData = new FormData();
-    imageFormData.append('image', imageMeme.file);
-
     formDataInfo.append('requestDto', blob);
-    formDataInfo.append('image', imageMeme.file);
+    formDataInfo.append('image', inputRef.current.files[0]);
 
     const response = await postUploadImageMeme(formDataInfo, token);
     response && navigator('/main', { replace: true });
