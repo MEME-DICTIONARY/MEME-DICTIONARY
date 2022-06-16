@@ -1,6 +1,52 @@
 # MEME-DICTIONARY
 📖22-1 시스템종합설계 프로젝트📖
 
+### 📌 주요 기능
+
+**`메인페이지`**
+<br>
+밈 검색, 단어 밈 랭킹 조회, 이미지 밈 추천 캐러셀, 카테고리 및 로그인/마이페이지/밈 등록 모달
+  
+![image](https://user-images.githubusercontent.com/66051416/173975454-32de2940-eaf0-4dd2-8fd0-5d428577011a.png)![image](https://user-images.githubusercontent.com/66051416/173975947-ab5b342e-8f35-4899-8178-ed2d93393c2d.png)
+
+
+
+**`검색결과페이지`**
+<br>
+- 밈과 관련된 단어를 입력하여 찾고자 하는 밈 검색
+- 제목,3개의 키워드에 입력된 단어가 하나라도 일치할 시 검색 결과로 반환
+
+![image](https://user-images.githubusercontent.com/66051416/173975854-86125103-8259-436c-be1a-6d4c3a557cd1.png)
+
+**`상세페이지`**
+<br>
+- 밈의 이름과 뜻, 밈을 사용하는 방법에 대한 간단한 예시 등을 포함한 상세 정보를 보여줌 
+- 좋아요, 신고하기, 북마크, 댓글 등록 기능
+- 신고 누적횟수 3번 시 금지 단어로 자동 등록
+
+
+![image](https://user-images.githubusercontent.com/66051416/173976408-6283417c-73c0-4a2b-a471-eb7c36760bea.png)
+
+**`밈 등록페이지`**
+<br>
+- 사용자가 직접 밈을 등록할 수 있는 페이지
+- 필터링 기능을 통해 DB에 금지단어로 저장된 밈 등록 불가
+
+![image](https://user-images.githubusercontent.com/66051416/173976632-e929451c-35ef-4433-a615-32092889b5ec.png)
+
+**`마이페이지`**
+<br>
+- 유저가 직접 업로드한 밈과 북마크한 밈을 저장/보관 가능
+- 짤/용어를 나누어 이미지, 단어 게시글  각각 확인 가능
+- 작성한 댓글, 댓글을 작성한 게시글의 제목, 댓글의 내용, 댓글 작성 시간 확인 가능
+
+![image](https://user-images.githubusercontent.com/66051416/173976791-87c1e35c-f13d-46b8-bed2-0e071946672b.png)
+
+### 🛠️ 기술 스택
+![image](https://user-images.githubusercontent.com/66051416/173978447-924ccb0f-8351-4bd3-a151-d7fd8065c90e.png)
+
+
+
 
 ### 📦 폴더 구조 
 ```
